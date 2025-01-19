@@ -1,0 +1,124 @@
+# [Info] 基本信息
+site_name: Suda-Tele # 左上角标题
+site_url: https://xuxu0927.github.io/Suda-Tele/
+site_author: Xuxu0927
+site_description: 苏大电子信息课程资料指南
+
+# [UI] 界面设置
+## [top]
+theme:
+  name: material
+  custom_dir: docs/mkdocs/overrides
+  palette: 
+    - scheme: default # 默认日间模式
+      primary: indigo # 上方的
+      accent: orange # 链接等可交互元件的高亮色
+      toggle:
+        icon: material/weather-night # 图标
+        name: 切换至夜间模式 # 鼠标悬浮提示
+    - scheme: slate # 夜间模式
+      primary: indigo
+      accent: orange
+      toggle:
+        icon: material/weather-sunny
+        name: 切换至日间模式
+  features:
+    - content.code.copy # 代码复制
+    - navigation.tabs # 使用Tab来进行分类
+    - navigation.top # 返回顶部的按钮 在上滑时出现
+    - navigation.footer # 上一个下一个按钮
+    - navigation.indexes # Tab会有一个index.md 而不是在打开Tab时打开第一篇文章
+    - navigation.expand # 打开Tab时左侧目录全部展开
+    - search.suggest # 搜索输入一些字母时推荐补全整个单词
+    - search.highlight # 搜索出的文章关键词加入高亮
+    - search.share # 将搜索结果分享
+  language: zh # 一些提示性的文字会变成中文
+  icon:
+    repo: fontawesome/brands/github-alt
+edit_uri: edit/main/docs # 编辑按钮跳转的链接
+## [top-right corner]
+repo_url: https://github.com/Xuxu0927/Suda-Tele # 右上角点击跳转的链接
+repo_name: Suda-Tele # 右上角的名字
+## [bottom-left corner]
+copyright: Copyright &copy; 2024 gis-xh # 左下角的版权声明
+## [bottom-right corner]
+extra:
+  social: # icons
+    - icon: fontawesome/brands/github
+      link: https://github.com/Xuxu0927
+      name: GitHub | Xuxu0927 # 鼠标悬浮提示
+  
+
+# [Navigtion] 导航栏
+nav:
+  - 主页: 
+    - index.md
+    - 电路分析: 电路分析.md
+    - 模拟电路: 模拟电路.md
+    - 数字电路: 数字电路.md
+    - 通信电子线路: 通信电子线路.md
+    - 信号与电路基础实验: 信号与电路基础实验.md
+    - 电子线路CAD: 电子线路CAD.md
+    - 微处理器与微计算机系统: 微处理器与微计算机系统.md
+    - 信号与系统: 信号与系统.md
+    - VHDL: VHDL.md
+    - 数字信号处理: 数字信号处理.md
+    - 电子线路实验: 电子线路实验.md
+    - 电磁场与电磁波: 电磁场与电磁波.md
+    - 计算机通信与网络: 计算机通信与网络.md
+    - 工程管理与环境: 工程管理与环境.md
+    - 微机应用课程设计: 微机应用课程设计.md
+    - MATLAB: MATLAB.md
+    - 传感器: 传感器.md
+    - 通信原理: 通信原理.md
+    - 微波技术与天线: 微波技术与天线.md
+    - 嵌入式系统设计: 嵌入式系统设计.md
+    - 程序设计与软件工程实践: 程序设计与软件工程实践.md
+
+
+# [Extensions] 扩展
+plugins:
+  - search:
+    # insider已经支持中文的分词搜索了 https://squidfunk.github.io/mkdocs-material/blog/2022/chinese-search-support/
+      lang:
+        - en
+        - ja
+      separator: '[\s\-,:!=\[\]()"/]+|(?!\b)(?=[A-Z][a-z])|\.(?!\d)|&[lg]t;'
+  - tags # 给单篇文章添加标签 https://squidfunk.github.io/mkdocs-material/setup/setting-up-tags/?h=tags
+  - git-revision-date-localized: # 日期显示
+      # ["date","datetime","iso_date","iso_datetime","timeago","custom"]
+      type: timeago
+      enable_creation_date: true # 创建时间
+      timezone: Asia/Shanghai
+  - git-authors # 显示作者
+  - glightbox # 图像缩放
+  - meta-manager # 元数据管理
+
+markdown_extensions:
+  - pymdownx.arithmatex: # latex支持
+      generic: true
+  - attr_list # 给图片后面添加{width="300"}设置大小
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true # 固定标题位置为当前位置
+  - pymdownx.highlight: # 代码块高亮
+      linenums: false # 显示行号
+      linenums_style: table
+      # auto_title: true # 显示编程语言名称
+  - pymdownx.superfences # 代码块高亮插件
+  - pymdownx.inlinehilite # 段落中内置的小代码高亮
+  - admonition # https://squidfunk.github.io/mkdocs-material/reference/admonitions/#inline-blocks
+  - pymdownx.details # admonition需要
+  - pymdownx.caret # markdown上标显示
+  - pymdownx.tilde # markdown下标显示
+  - pymdownx.mark # markdown突出显示
+
+extra_javascript:
+  # latex支持
+  - mkdocs/js/mathjax.js
+  - https://polyfill.io/v3/polyfill.min.js?features=es6
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+extra_css:
+  - mkdocs/css/unordered-list-symbols.css # 多个无序列表符号
+  - mkdocs/css/img-center.css # 图像居中
