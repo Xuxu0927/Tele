@@ -1,8 +1,8 @@
 # [Info] 基本信息
-site_name: Suda-Tele # 左上角标题
-site_url: https://xuxu0927.github.io/Suda-Tele/
+site_name: Tele # 左上角标题
+site_url: https://xuxu0927.github.io/Tele/
 site_author: Xuxu0927
-site_description: 苏大电子信息课程资料指南
+site_description: 通信
 
 # [UI] 界面设置
 ## [top]
@@ -37,7 +37,7 @@ theme:
     repo: fontawesome/brands/github-alt
 edit_uri: edit/main/docs # 编辑按钮跳转的链接
 ## [top-right corner]
-repo_url: https://github.com/Xuxu0927/Suda-Tele # 右上角点击跳转的链接
+repo_url: https://github.com/Xuxu0927/Tele # 右上角点击跳转的链接
 repo_name: Suda-Tele # 右上角的名字
 ## [bottom-left corner]
 copyright: Copyright &copy; 2024 gis-xh # 左下角的版权声明
@@ -51,12 +51,13 @@ extra:
 
 # [Navigtion] 导航栏
 nav:
-  - 主页: 
+  - 课程: 
     - index.md
     - 模拟电路: 
       - 郑益慧: 模拟电路/郑益慧.md
     - 数字电路: 数字电路.md
-    - 信号与系统: 信号与系统.md
+    - 信号与系统: 
+      - MIT 6.007 Signals and Systems: 信号与系统/MIT 6.007 Signals and Systems.md
     - VHDL: VHDL.md
     - 电磁场与电磁波: 电磁场与电磁波.md
     - 计算机通信与网络: 计算机通信与网络.md
