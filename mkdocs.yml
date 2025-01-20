@@ -11,7 +11,7 @@ theme:
   custom_dir: docs/mkdocs/overrides
   palette: 
     - scheme: default # 默认日间模式
-      primary: indigo # 上方的
+      primary: lime # 上方的
       accent: orange # 链接等可交互元件的高亮色
       toggle:
         icon: material/weather-night # 图标
