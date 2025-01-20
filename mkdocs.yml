@@ -58,7 +58,7 @@ nav:
     - 数字电路: 数字电路.md
     - 信号与系统: 
       - MIT 6.007 Signals and Systems: 信号与系统/MIT 6.007 Signals and Systems.md
-    - VHDL: VHDL.md
+      - MIT 6.007 Signals and Systems: UCB EE120 Signal and Systems.md
     - 电磁场与电磁波: 电磁场与电磁波.md
     - 计算机通信与网络: 计算机通信与网络.md
     - MATLAB: MATLAB.md
@@ -68,7 +68,7 @@ nav:
     - 模拟电路: 
       - 郑益慧: 模拟电路/郑益慧.md
     - 数字电路: 数字电路.md
-    - 信号与系统: 信号与系统.md
+    - 信号与系统: 数字电路.md
     - VHDL: VHDL.md
     - 电磁场与电磁波: 电磁场与电磁波.md
     - 计算机通信与网络: 计算机通信与网络.md
