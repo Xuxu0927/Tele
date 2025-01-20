@@ -64,6 +64,11 @@ nav:
     - MATLAB: MATLAB.md
     - 通信原理: 通信原理.md
     - 嵌入式系统设计: 单片机、嵌入式.md
+    - 数学分析:
+      - 1: 数学分析/1.md
+    - 高等代数: 
+      - Gilbert Strang: 高等代数/Gilbert Strang.md
+      - 丘维声: 高等代数/丘维声.md
   - 笔记:
     - 模拟电路: 
       - 郑益慧: 模拟电路/郑益慧.md
