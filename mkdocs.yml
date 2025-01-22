@@ -73,10 +73,10 @@ nav:
       - none: none.md
   - Math:
     - 数学分析: none.md
-    - none: none.md
-  - 高等代数: 
-    - Gilbert Strang: Math/高等代数/Gilbert Strang.md
-    - 丘维声: Math/高等代数/丘维声.md
+     - none: none.md
+    - 高等代数: 
+     - Gilbert Strang: Math/高等代数/Gilbert Strang.md
+     - 丘维声: Math/高等代数/丘维声.md
   - 笔记: none.md
 
 
