@@ -73,11 +73,11 @@ nav:
       - 单片机and嵌入式: 单片机and嵌入式/单片机and嵌入式.md
   - Math:
     - 数学分析:
-      - 数学分析: 数学分析/数学分析.md
+      - 数学分析: Math/数学分析/数学分析.md
     - 高等代数:
       - Gilbert Strang: Math/高等代数/Gilbert Strang.md
       - 丘维声: Math/高等代数/丘维声.md
-  - 笔记: Math/高等代数/丘维声.md
+  - 笔记: 笔记/new.md
 
 
 # [Extensions] 扩展
