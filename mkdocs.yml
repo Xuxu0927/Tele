@@ -53,34 +53,30 @@ extra:
 nav:
   - 课程: 
     - index.md
-    - 常用: 常用/常用.md
+    - 常用网站: 常用/常用.md
+    - 工具软件:
+      - MATLAB: none.md
     - 模拟电路: 
       - 郑益慧: 模拟电路/郑益慧.md
-    - 数字电路: 数字电路.md
+    - 数字电路: 
     - 信号与系统: 
       - MIT 6.007 Signals and Systems: 信号与系统/MIT 6.007 Signals and Systems.md
       - UCB EE120 Signal and Systems: 信号与系统/UCB EE120 Signal and Systems.md
-    - 电磁场与电磁波: 电磁场与电磁波.md
-    - 计算机通信与网络: 计算机通信与网络.md
-    - MATLAB: MATLAB.md
-    - 通信原理: 通信原理.md
-    - 嵌入式系统设计: 单片机、嵌入式.md
-    - 数学分析:
-      - 1: 数学分析/1.md
-    - 高等代数: 
-      - Gilbert Strang: 高等代数/Gilbert Strang.md
-      - 丘维声: 高等代数/丘维声.md
-  - 笔记:
-    - 模拟电路: 
-      - 郑益慧: 模拟电路/郑益慧.md
-    - 数字电路: 数字电路.md
-    - 信号与系统: 数字电路.md
-    - VHDL: VHDL.md
-    - 电磁场与电磁波: 电磁场与电磁波.md
-    - 计算机通信与网络: 计算机通信与网络.md
-    - MATLAB: MATLAB.md
-    - 通信原理: 通信原理.md
-    - 嵌入式系统设计: 单片机、嵌入式.md
+    - 电磁场与电磁波: 
+      -none: none.md
+    - 计算机通信与网络: 
+      -none: none.md
+    - 通信原理: 
+      -none: none.md
+    - 单片机and嵌入式: 
+      -none: none.md
+    - Math:
+      - 数学分析: none.md
+        - none: none.md
+      - 高等代数: 
+      - Gilbert Strang: Mat/高等代数/Gilbert Strang.md
+      - 丘维声: Math/高等代数/丘维声.md
+  - 笔记: none.md
 
 
 # [Extensions] 扩展
