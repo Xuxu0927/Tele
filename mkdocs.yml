@@ -64,20 +64,20 @@ nav:
       - MIT 6.007 Signals and Systems: 信号与系统/MIT 6.007 Signals and Systems.md
       - UCB EE120 Signal and Systems: 信号与系统/UCB EE120 Signal and Systems.md
     - 电磁场与电磁波: 
-      - none: none.md
+      - 西电高晶亮: 电磁场与电磁波/西电高晶亮.md
     - 计算机通信与网络: 
-      - none: none.md
+      - 计算机通信网络: 计算机通信网络\计算机通信网络.md
     - 通信原理: 
-      - none: none.md
+      - 深入浅出通信原理: 通信原理/深入浅出通信原理.md
     - 单片机and嵌入式: 
-      - none: none.md
+      - 单片机and嵌入式: 单片机and嵌入式/单片机and嵌入式.md
   - Math:
-    - 数学分析: none.md
-     - none: none.md
-    - 高等代数: 
-     - Gilbert Strang: Math/高等代数/Gilbert Strang.md
-     - 丘维声: Math/高等代数/丘维声.md
-  - 笔记: none.md
+    - 数学分析:
+      - 1: 数学分析/数学分析.md
+    - 高等代数:
+      - Gilbert Strang: Math/高等代数/Gilbert Strang.md
+      - 丘维声: Math/高等代数/丘维声.md
+  - 笔记: Math/高等代数/丘维声.md
 
 
 # [Extensions] 扩展
