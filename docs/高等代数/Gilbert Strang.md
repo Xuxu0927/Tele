@@ -17,7 +17,7 @@ Gilbert Strang教授
 
 ## 课程资源
 
-- 课程视频：<https://www.bilibili.com/video/BV16Z4y1U7oU/>
+- 课程视频：<https://www.bilibili.com/video/BV16Z4y1U7oU/>{target="_blank"}
 - 课程教材：无
 - 课程作业：无
 
