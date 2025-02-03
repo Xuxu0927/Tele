@@ -12,7 +12,7 @@
 
 ## 课程资源
 
-- 课程网站：<https://inst.eecs.berkeley.edu/~ee120/fa19/>{target="_blank"}
+- 课程网站：<https://inst.eecs.berkeley.edu/~ee120/fa19/>
 - 课程教材：参见课程 notes
 - 课程作业：5 个书面作业 + 6 个编程作业
 
