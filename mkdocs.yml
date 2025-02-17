@@ -91,6 +91,7 @@ markdown_extensions:
   - pymdownx.caret: # markdown上标显示
   - pymdownx.tilde: # markdown下标显示
   - pymdownx.mark: # markdown突出显示
+  - footnotes: #markdown脚注支持
 
 
 extra_javascript:
