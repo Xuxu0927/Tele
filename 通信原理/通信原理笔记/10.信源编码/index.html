@@ -1760,11 +1760,39 @@
 
 <h1 id="_1">信源编码<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
 <h2 id="_2">模拟信号的抽样<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>采样定理：</p>
+<p>低通：
+$$
+f_{s}&gt;2f_{max}
+$$
+带通：
+$$
+f_s&gt;2B\left(1+\frac{k}{n}\right)
+$$</p>
 <h2 id="_3">模拟脉冲调制<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<p><span class="arithmatex">\(PAM\)</span>：脉冲振幅调制</p>
+<p><span class="arithmatex">\(PWM\)</span>：脉冲宽度调制</p>
+<p><span class="arithmatex">\(PPM\)</span>：脉冲位置调制</p>
+<p><a class="glightbox" href="../assets/image-20250604161723757.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="image-20250604161723757" src="../assets/image-20250604161723757.png" /></a></p>
 <h2 id="_4">抽样信号的量化<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<p>分为均匀量化和非均匀量化</p>
 <h2 id="_5">脉冲编码调制<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<p>脉冲编码调制<span class="arithmatex">\(PCM：Pulse Code Modulation\)</span></p>
+<p>实际上就是我们通俗说的<span class="arithmatex">\(A/D\)</span>转化</p>
+<p><a class="glightbox" href="../assets/image-20250604162104395.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="image-20250604162104395" src="../assets/image-20250604162104395.png" /></a></p>
+<p>三大步“抽样、量化、编码”</p>
+<p>常用二进制码</p>
+<ul>
+<li>自然二进码</li>
+<li>折叠二进码</li>
+<li>格雷码</li>
+</ul>
 <h2 id="_6">差分脉冲编码调制<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<p>差分脉冲编码调制<span class="arithmatex">\(DPCM\)</span>是预测编码的一种方式，预测编码中对预测误差进行量化编码，由于预测误差范围远小于样值范围，因此可以减小编码位数。基于此引入差分脉冲编码调制，即<span class="arithmatex">\(DPCM\)</span>，再引入自适应技术，则为<span class="arithmatex">\(ADPCM\)</span>。</p>
+<p>自适应差分脉冲编码调制<span class="arithmatex">\(ADPCM\)</span>在<span class="arithmatex">\(DPCM\)</span>的基础上加入了自适应技术，包含自适应量化和自适应预测技术。</p>
 <h2 id="_7">增量调制<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<p>增量调制<span class="arithmatex">\(ΔM：DPCM\)</span>的一种特例</p>
+<p>它与<span class="arithmatex">\(PCM\)</span>的区别是：<span class="arithmatex">\(PCM\)</span>用<span class="arithmatex">\(N\)</span>位码表示一个抽样值，反映样值本身的大小；而<span class="arithmatex">\(ΔM\)</span>用1位码表示一个抽样值，反映相邻样值的相对大小变化，与样值本身大小无关。因此，增量调制反映的是抽样时刻波形的变化趋势，即当前值与预测值差值的极性。</p>
 <h2 id="_8">时分复用<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
 <h2 id="_9">矢量量化<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
 <h2 id="_10">语音压缩编码<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h2>
@@ -1782,7 +1810,7 @@ https://github.com/squidfunk/mkdocs-material/blob/master/src/partials/source-fil
         <!-- mkdocs-git-revision-date-localized-plugin -->
         
         最后更新:
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="2025年5月26日 21:49:30 CST"><span class="timeago" datetime="2025-05-26T21:49:30+08:00" locale="zh"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="2025年5月26日 21:49:30 CST">2025-05-26</span>
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="2025年6月12日 14:50:46 CST"><span class="timeago" datetime="2025-06-12T14:50:46+08:00" locale="zh"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="2025年6月12日 14:50:46 CST">2025-06-12</span>
         
         <br />
         创建日期:

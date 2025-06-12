@@ -2168,7 +2168,7 @@ $$
 $$
 s_n(t)=\begin{cases}g_1(t-nT_\mathrm{B})&amp;\text{以概率 }P\text{ 出现}\\g_2(t-nT_\mathrm{B})&amp;\text{以概率}(1-P)\text{ 出现}&amp;\end{cases}
 $$
-<span class="arithmatex">\(g_1(t)\)</span>和<span class="arithmatex">\(g_2(t)\)</span>可以分别代表0和1,或者分别代表<span class="arithmatex">\(g(t)\)</span>和<span class="arithmatex">\(-g(t)\)</span></p>
+<span class="arithmatex">\(g_1(t)\)</span>和<span class="arithmatex">\(g_2(t)\)</span>可以分别代表<span class="arithmatex">\(0\)</span>和<span class="arithmatex">\(1\)</span>,或者分别代表<span class="arithmatex">\(g(t)\)</span>和<span class="arithmatex">\(-g(t)\)</span>,或者其他需要区分的情况</p>
 <p>为了方便研究频谱特性,我们把<span class="arithmatex">\(s\left(t\right)\)</span>分解成稳态波<span class="arithmatex">\(v(t)\)</span>和交变波<span class="arithmatex">\(u(t)\)</span>,即
 $$
 s(t)=v(t)+v(t)
@@ -2200,7 +2200,7 @@ f_{_B}=\frac{1}{T_{B}}
 <div class="arithmatex">\[
 C_m=\frac{1}{T_\mathrm{B}}\int_{-\frac{T_\mathrm{B}}{2}}^{\frac{T_\mathrm{B}}{2}}v(t)\mathrm{e}^{-\mathrm{j}2\pi mf_\mathrm{B}t}\mathrm{d}t
 \]</div>
-<p>在一个周期范围内,例如选取<span class="arithmatex">\((-T_{_B}/2,T_{_B}/2)\)</span>,相当于在<span class="arithmatex">\(n=0\)</span>时
+<p>在一个周期范围内,例如选取<span class="arithmatex">\((-T_{_B}/2,T_{_B}/2)\)</span>,此时相当于令<span class="arithmatex">\(n=0\)</span>
 $$
 v\left(t\right)=Pg_{1}\left(t\right)+\left(1-P\right)g_{2}\left(t\right)
 $$
@@ -2232,11 +2232,11 @@ $$
 P_v(f)=\sum_{m=-\infty}}2\pi mf_{\mathrm{B}}t}\mathrm{d<sup 2="2">{\infty}\left|f_{\mathrm{B}}[PG_{1}(mf_{\mathrm{B}})+(1-P)G_{2}(mf_{\mathrm{B}})\right]|</sup>)
 $$}\delta(f-mf_{\mathrm{B}</p>
 <h3 id="utp_uleftfright">交变波<span class="arithmatex">\(u(t)\)</span>的功率谱密度<span class="arithmatex">\(P_u\left(f\right)\)</span><a class="headerlink" href="#utp_uleftfright" title="Permanent link">&para;</a></h3>
-<p>设截取时间T</p>
+<p>设截取时间<span class="arithmatex">\(T\)</span></p>
 <div class="arithmatex">\[
 T=(2N+1)T_{_B}
 $$
-其中N为一个足够大的整数,那么
+其中$N$为一个足够大的整数,那么
 $$
 P_u(f)=\lim_{N\to\infty}\frac{E[|U_\mathrm{T}(f)|^2]}{(2N+1)T_\mathrm{B}}
 $$
@@ -2254,7 +2254,7 @@ U_{\mathrm{T}}(f)&amp;=\int_{-\infty}^{\infty} u_{\mathrm{T}}(t) \mathrm{e}^{-\m
 $$</p>
 <p>所以
 $$
-\mid U_{\mathrm{T}}(f)\mid<sup N="N">{2}=\sum_{m=-Nn=-N}</sup>}\sum_{m<sup _mathrm_j="\mathrm{j">{N}a_{m}a_{n}\mathrm{e}</sup>\left(f\right)\right]^{}2\pi f(n-m)T_{\mathrm{B}}}\left[G_{1}\left(f\right)-G_{2}\left(f\right)\right]\left[G_{1}\left(f\right)-G_{2<em>}
+\mid U_{\mathrm{T}}(f)\mid^{2}=\sum_{m=-N n=-N}<sup N="N">{N}\sum_{m}</sup>\left(f\right)\right]^{}a_{m}a_{n}\mathrm{e}^{\mathrm{j}2\pi f(n-m)T_{\mathrm{B}}}\left[G_{1}\left(f\right)-G_{2}\left(f\right)\right]\left[G_{1}\left(f\right)-G_{2<em>}
 $$
 其统计平均为
 $$
@@ -2276,23 +2276,27 @@ P_{s}(f)&amp;=P_{u}(f)+P_{v}(f)=f_{B}P(1-P)|G_{1}(f)-G_{2}(f)|<sup _infty="\inft
 \end{aligned}
 $$
 分析此式得到}\left|f_{\mathrm{B}}\left[PG_{1}\left(mf_{\mathrm{B}}\right)+\left(1-P\right)G_{2}\left(mf_{\mathrm{B}}\right)\right]\right|^{2}\delta(f-mf_{\mathrm{B}</p>
-<p>二进制随机脉冲序列的功率谱可能包含连续谱和离散谱,连续谱总是存在,离散谱是否存在取决于两个信号波形g(t)及其出现概率P</p>
+<p>二进制随机脉冲序列的功率谱可能包含连续谱和离散谱,连续谱总是存在,离散谱是否存在取决于两个信号波形<span class="arithmatex">\(g(t)\)</span>及其出现概率<span class="arithmatex">\(P\)</span></p>
 <p>写成单边功率谱密度得
 $$
 \begin{aligned}P_{s}(f)&amp;=2f_{B}P(1-P)\mid G_{1}(f)-G_{2}(f)\mid<sup 2="2">{2}+f_{B}</sup>(0)\mid}\mid PG_{1}(0)+(1-P)G_{2<sup 2="2">{2}\delta(f)+\&amp;2f_{B}</sup>
 $$
-特点:除了直流其他都乘2}\sum_{m=1}^{\infty}\mid PG_{1}\left(mf_{B}\right)+\left(1-P\right)G_{2}\left(mf_{B}\right)\mid^{2}\delta(f-mf_{B})\quad f\geqslant0\end{aligned</p>
+特点:除了直流其他都乘}\sum_{m=1}^{\infty}\mid PG_{1}\left(mf_{B}\right)+\left(1-P\right)G_{2}\left(mf_{B}\right)\mid^{2}\delta(f-mf_{B})\quad f\geqslant0\end{aligned<span class="arithmatex">\(2\)</span></p>
 <h3 id="_5">常见二级制基带信号性质归纳:<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
-<p>单极性二进制信号:<span class="arithmatex">\(g_1(t)=g(t),g_2(t)=0\)</span>
+<ul>
+<li>单极性二进制信号:<span class="arithmatex">\(g_1(t)=g(t),g_2(t)=0\)</span></li>
+</ul>
+<div class="arithmatex">\[
+P_{s}(f)=f_{B}^{2}\sum_{m=-\infty}^{+\infty}\left|PG(mf_{B})\right|^{2}\delta(f-mf_{B})+f_{B}P(1-P)\left|G(f)\right|^{2}
 $$
-P_{s}(f)=f_{B}<sup _infty="+\infty">{2}\sum_{m=-\infty}</sup>)\right|}\left|PG(mf_{B<sup 2="2">{2}\delta(f-mf_{B})+f_{B}P(1-P)\left|G(f)\right|</sup>
+对于单极性二进制等概信号,$P=1/2$
 $$
-对于单极性二进制等概信号,P=1/2
-$$
-P_{s}(f)=\frac{1}{4}f_{B}<sup _infty="+\infty">{2}\sum_{m=-\infty}</sup>)\right|}\left|G(mf_{B<sup 2="2">{2}\delta(f-mf_{B})+\frac{1}{4}f_{B}\left|G(f)\right|</sup>
-$$</p>
+P_{s}(f)=\frac{1}{4}f_{B}^{2}\sum_{m=-\infty}^{+\infty}\left|G(mf_{B})\right|^{2}\delta(f-mf_{B})+\frac{1}{4}f_{B}\left|G(f)\right|^{2}
+\]</div>
 <p>在等概情况下,当脉冲为矩形脉冲时</p>
-<p>单极性非归零</p>
+<ol>
+<li>单极性非归零</li>
+</ol>
 <p><a class="glightbox" href="../assets/image-20250519202816280.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="image-20250519202816280" src="../assets/image-20250519202816280.png" /></a>
 $$
 G(mf_B)=T_BSa(m\pi)=\begin{cases}T_B&amp;m=0\0&amp;m\neq0&amp;\end{cases}
@@ -2301,7 +2305,9 @@ $$</p>
 P_{s}(f)=\frac{1}{4}\delta(f)+\frac{T_{B}}{4}Sa^{2}(\pi fT_{B})
 \]</div>
 <p>特点:有直流 无定时</p>
-<p>单极性归零,<span class="arithmatex">\(\tau=\frac{1}{2}T_B\)</span></p>
+<ol>
+<li>单极性归零,<span class="arithmatex">\(\tau=\frac{1}{2}T_B\)</span></li>
+</ol>
 <p><a class="glightbox" href="../assets/image-20250519202837005.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="image-20250519202837005" src="../assets/image-20250519202837005.png" /></a>
 $$
 G(mf_B)=\frac{T_B}{2}Sa\left(\frac{m\pi}{2}\right)
@@ -2310,16 +2316,20 @@ $$</p>
 P_{s}(f)=\frac{1}{16}\sum_{m=-\infty}^{+\infty}Sa^{2}\left(\frac{m\pi}{2}\right)\delta(f-mf_{B})+\frac{T_{B}}{16}Sa^{2}\left(\frac{\pi fT_{B}}{2}\right)
 \]</div>
 <p>特点:有直流 有定时</p>
-<p>双极性二进制信号:<span class="arithmatex">\(g_1(t)=g(t),g_2(t)=-g(t)\)</span>
+<ul>
+<li>双极性二进制信号:<span class="arithmatex">\(g_1(t)=g(t),g_2(t)=-g(t)\)</span></li>
+</ul>
+<div class="arithmatex">\[
+P_{s}(f)=f_{B}^{2}\sum_{m=-\infty}^{+\infty}\left|(2P-1)G(mf_{B})\right|^{2}\delta(f-mf_{B})+4f_{B}P(1-P)\left|G(f)\right|^{2}
 $$
-P_{s}(f)=f_{B}<sup _infty="+\infty">{2}\sum_{m=-\infty}</sup>)\right|}\left|(2P-1)G(mf_{B<sup 2="2">{2}\delta(f-mf_{B})+4f_{B}P(1-P)\left|G(f)\right|</sup>
-$$
-对于双极性二进制等概信号,P=1/2
+对于双极性二进制等概信号,$P=1/2$
 $$
 P_s(f)=f_B\left|G(f)\right|^2
-$$</p>
+\]</div>
 <p>在等概情况下,当脉冲为矩形脉冲时</p>
-<p>双极性非归零</p>
+<ol>
+<li>双极性非归零</li>
+</ol>
 <p><a class="glightbox" href="../assets/image-20250519202723700.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="image-20250519202723700" src="../assets/image-20250519202723700.png" /></a>
 $$
 G(f)=T_BSa(\pi fT_B)
@@ -2328,7 +2338,9 @@ $$</p>
 P_s(f)=T_BSa^2(\pi fT_B)
 \]</div>
 <p>特点:无离散谱</p>
-<p>双极性归零,<span class="arithmatex">\(\tau=\frac{1}{2}T_B\)</span></p>
+<ol>
+<li>双极性归零,<span class="arithmatex">\(\tau=\frac{1}{2}T_B\)</span></li>
+</ol>
 <p><a class="glightbox" href="../assets/image-20250519202710938.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="image-20250519202710938" src="../assets/image-20250519202710938.png" /></a>
 $$
 G(f)=\frac{T_B}{2}Sa\left(\frac{\pi fT_B}{2}\right)
@@ -2385,7 +2397,7 @@ $$
 h(t)=\frac{1}{2\pi}\int_{-\infty}<sup j_omega="j\omega" t="t">{+\infty}H(\omega)e</sup>\omega
 $$}\mathrm{d</p>
 <h2 id="_11">无码间串扰的基带传输特性<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h2>
-<p>ISI:Inter-symbol interference 码间串扰</p>
+<p><span class="arithmatex">\(ISI:Inter-symbol interference\)</span> 码间串扰</p>
 <h3 id="_12">基本思想<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h3>
 <div class="arithmatex">\[
 \sum_{n\neq k}a_nh\left[(k-n)T_\mathrm{B}+t_0\right]=0
@@ -2403,19 +2415,16 @@ $$
 $$
 意义:若一个实际的基带传输特性可以等效于一个理想低通滤波器，则以<span class="arithmatex">\(R_{_B}=\frac{1}{T_{_B}}\)</span>的速率传输时，无码间干扰。</p>
 <p>几何意义:分段,平移,叠加,常数</p>
-<p>留空:时域条件的构思</p>
-<p>留空:频域条件的推导</p>
 <h3 id="_13">设计<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h3>
 <ol>
 <li>理想低通特性</li>
 </ol>
 <p><a class="glightbox" href="../assets/image-20250518112132912.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="image-20250518112132912" src="../assets/image-20250518112132912.png" /></a></p>
-<p>即
-$$
+<div class="arithmatex">\[
 H(\omega)=
-\begin{cases}T_\mathrm{B}&amp;\mid\omega\mid\leqslant\frac{\pi}{T_\mathrm{B}}\\0&amp;\mid\omega\mid&gt;\frac{\pi}{T_\mathrm{B}}&amp;
+\begin{cases}T_\mathrm{B}&amp;\mid\omega\mid\leqslant\frac{\pi}{T_\mathrm{B}}\\\\0&amp;\mid\omega\mid&gt;\frac{\pi}{T_\mathrm{B}}&amp;
 \end{cases}
-$$</p>
+\]</div>
 <div class="arithmatex">\[
 h(t)=\frac{\sin\frac{\pi}{T_\mathrm{B}}t}{\frac{\pi}{T_\mathrm{B}}t}=\mathrm{Sa}(\frac{\pi t}{T_\mathrm{B}})
 \]</div>
@@ -2448,7 +2457,7 @@ h(t)=\frac{\sin\pi t/T_B}{\pi t/T_B}\cdot\frac{\cos\pi t/T_B}{1-4t^2/T_B^2}
 \]</div>
 <p>特点:频率特性易实现;时域尾部收敛快;带宽增大</p>
 <h2 id="_14">基带传输系统的抗噪声性能<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h2>
-<p>输入噪声是均值为$0的平稳高斯噪声
+<p>输入噪声是均值为<span class="arithmatex">\(0\)</span>的平稳高斯噪声
 $$
 P_n(f)=\frac{n_0}{2}\mid G_{\mathrm{R}}(f)\mid^2
 $$
@@ -2553,7 +2562,7 @@ $$</p>
 <h2 id="_17">眼图<a class="headerlink" href="#_17" title="Permanent link">&para;</a></h2>
 <p>眼图可以反映码间干扰和噪声强弱，从而估计系统性能的优劣，还可以指示接收滤波器的调整，以减小码间干扰，改善系统性能。</p>
 <ul>
-<li>眼睛张开大小:反映了码间干扰的强弱。“眼睛”张得越大，越端正，ISI越小。</li>
+<li>眼睛张开大小:反映了码间干扰的强弱。“眼睛”张得越大，越端正，<span class="arithmatex">\(ISI\)</span>越小。</li>
 <li>眼睛迹线清晰与否:反映了噪声大小，“眼睛”越清晰，噪声越小。</li>
 </ul>
 <h2 id="_18">部分响应和时域均衡<a class="headerlink" href="#_18" title="Permanent link">&para;</a></h2>
@@ -2601,8 +2610,8 @@ $$
 $$
 e<sup>2=\frac{1}{y_0</sup>2}\sum_{k\neq0}y_k^2
 $$
-峰值失真或均方失真越小，均衡效果越好，当峰值失真或均方失真为0时，无码间干扰。</p>
-<p>均衡器的设计目标就是按照某种算法或者准则，求出均衡器的抽头系数，使本码元之外的所有样值<span class="arithmatex">\(y_k(k\neq0)\)</span>为0或者趋近于0，从而消除或减小码间干扰。</p>
+峰值失真或均方失真越小，均衡效果越好，当峰值失真或均方失真为<span class="arithmatex">\(0\)</span>时，无码间干扰。</p>
+<p>均衡器的设计目标就是按照某种算法或者准则，求出均衡器的抽头系数，使本码元之外的所有样值<span class="arithmatex">\(y_k(k\neq0)\)</span>为<span class="arithmatex">\(0\)</span>或者趋近于<span class="arithmatex">\(0\)</span>，从而消除或减小码间干扰。</p>
 <ul>
 <li>最小峰值---迫零调整法</li>
 </ul>
@@ -2633,7 +2642,7 @@ https://github.com/squidfunk/mkdocs-material/blob/master/src/partials/source-fil
         <!-- mkdocs-git-revision-date-localized-plugin -->
         
         最后更新:
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="2025年5月26日 21:49:30 CST"><span class="timeago" datetime="2025-05-26T21:49:30+08:00" locale="zh"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="2025年5月26日 21:49:30 CST">2025-05-26</span>
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="2025年6月12日 14:50:46 CST"><span class="timeago" datetime="2025-06-12T14:50:46+08:00" locale="zh"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="2025年6月12日 14:50:46 CST">2025-06-12</span>
         
         <br />
         创建日期:

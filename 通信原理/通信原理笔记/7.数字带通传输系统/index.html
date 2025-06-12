@@ -1559,6 +1559,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      数字调制系统总结
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1984,6 +1993,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      数字调制系统总结
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -2009,14 +2027,14 @@
 <p>调制信号是二进制数字基带信号时的调制称为<strong>二进制数字调制</strong>,把包括调制和解调过程的数字传输系统叫做<strong>数字带通传输系统</strong></p>
 <h3 id="2ask">二进制振幅键控2ASK<a class="headerlink" href="#2ask" title="Permanent link">&para;</a></h3>
 <p>利用载波的幅度变化来传递数字信息,而频率和初始相位保持不变</p>
-<p>通-断键控OOK
+<p>通-断键控<span class="arithmatex">\(OOK\)</span>（<span class="arithmatex">\(On-Off Keying\)</span>）
 $$
 e_{00K}(t)=
 \begin{cases}A\mathrm{cos}\omega_\mathrm{c}t&amp;\text{以概率 }P\text{ 发送“1” 时}\\0&amp;\text{以概率 1 }-P\text{ 发送“0” 时}&amp;
 \end{cases}
 $$
 <a class="glightbox" href="../assets/image-20250518134006879.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="image-20250518134006879" src="../assets/image-20250518134006879.png" /></a></p>
-<p>2ASK信号的一般表达式为
+<p><span class="arithmatex">\(2ASK\)</span>信号的一般表达式为
 $$
 e_{2\mathrm{ASK}}(t)=s(t)\mathrm{cos}\omega_{\mathrm{c}}t
 $$
@@ -2024,7 +2042,7 @@ $$
 $$
 s(t)=\sum_{n}a_{n}g(t-nT_{_B})
 $$
-比如通断键控<span class="arithmatex">\(OOK\)</span>信号（On-Off Keying）取
+比如通断键控<span class="arithmatex">\(OOK\)</span>信号就取
 $$
 a_n=
 \begin{cases}1&amp;\text{概率为 }P\\0&amp;\text{概率为 }1-P&amp;
@@ -2050,7 +2068,7 @@ e_{2\mathrm{FSK}}(t)=
 \end{cases}
 $$
 <a class="glightbox" href="../assets/image-20250518134718953.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="image-20250518134718953" src="../assets/image-20250518134718953.png" /></a></p>
-<p>一个2FSK信号可以看成两个不同载频的2ASK信号的叠加,即
+<p>一个<span class="arithmatex">\(2FSK\)</span>信号可以看成两个不同载频的2ASK信号的叠加,即
 $$
 e_{2\mathrm{FSK}}(t)=s_{1}(t)\cos(\omega_{1}t+\varphi_{n})+s_{2}(t)\cos(\omega_{2}t+\theta_{n})
 $$
@@ -2067,7 +2085,7 @@ $$</p>
 <p><a class="glightbox" href="../assets/image-20250518135148481.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="image-20250518135148481" src="../assets/image-20250518135148481.png" /></a></p>
 <h3 id="2psk">二进制相移键控2PSK<a class="headerlink" href="#2psk" title="Permanent link">&para;</a></h3>
 <p>基本原理:利用载波的相位变化来传递数字信息,而振幅和频率保持不变</p>
-<p>用初始相位0和<span class="arithmatex">\(\pi\)</span>来表示1和0</p>
+<p>用初始相位<span class="arithmatex">\(0\)</span>和<span class="arithmatex">\(\pi\)</span>来表示1和0</p>
 <p>表述为
 $$
 e_{2\mathrm{PSK}}(t)=\mathrm{Acos}(\omega_{\mathrm{c}}t+\varphi_{n})
@@ -2155,17 +2173,19 @@ P_{2\mathrm{PSK}}(f)=\frac{1}{4}\left[P_{s}(f+f_{c})+P_{s}(f-f_{c})\right]
 $$
 B_{\mathrm{2(D)PSK}}=2f_{B}=\frac{2}{T_{B}}=2R_{B}
 $$
-2PSK/2DPSK信号的功率谱不含载波分量</p>
+<span class="arithmatex">\(2PSK/2DPSK\)</span>信号的功率谱不含载波分量</p>
 <h2 id="_4">二进制数字调制系统的抗噪声性能<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
 <p>性能指标:系统误码率<span class="arithmatex">\(P_{e}\)</span></p>
 <p>分析前提条件</p>
 <ul>
-<li>恒参信道,传输系数为K</li>
-<li>带通滤波器等效带宽为B</li>
+<li>恒参信道,传输系数为<span class="arithmatex">\(K\)</span></li>
+<li>带通滤波器等效带宽为<span class="arithmatex">\(B\)</span></li>
 <li>噪声为加性高斯白噪声,单边功率谱密度<span class="arithmatex">\(\frac{n_0}{2}\)</span>,噪声功率 <span class="arithmatex">\(\sigma_n^2=n_0B\)</span></li>
 </ul>
 <h3 id="2ask_2">2ASK<a class="headerlink" href="#2ask_2" title="Permanent link">&para;</a></h3>
-<p><strong>相干解调:</strong></p>
+<ul>
+<li><strong>相干解调:</strong></li>
+</ul>
 <p><a class="glightbox" href="../assets/image-20250518164410852.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="image-20250518164410852" src="../assets/image-20250518164410852.png" /></a></p>
 <p>输入信号
 $$
@@ -2189,7 +2209,7 @@ y(t)=\begin{cases}\left[a+n_c(t)\right]\cos\omega_ct-n_s(t)\sin\omega_ct&amp;\te
 $$
 乘相干载波后
 $$
-y(t)\cdot2\cos\omega_ct=\begin{cases}\left<a href="\cos2\omega_ct+1">a+n_c(t)\right</a>-n_s(t)\sin2\omega_ct&amp;\text{发送“1”时}\n_c(t)(\cos2\omega_ct+1)-n_s(t)\sin2\omega_ct&amp;\text{发送“0”时}&amp;\end{cases}
+y(t)\cdot2\cos\omega_ct=\begin{cases}\left<a href="\cos2\omega_ct+1">a+n_c(t)\right</a>-n_s(t)\sin2\omega_ct&amp;\text{发送“1”时}\\n_c(t)(\cos2\omega_ct+1)-n_s(t)\sin2\omega_ct&amp;\text{发送“0”时}&amp;\end{cases}
 $$
 低通滤波后
 $$
@@ -2201,7 +2221,7 @@ f_{1}(x)=\frac{1}{\sqrt{2\pi}\sigma_{n}}\exp\left[-\frac{(x-a)<sup 2="2">{2}}{2\
 $$
 系统总误码率
 $$
-\begin{aligned}P_{e}&amp;=P(1)P(0|1)+P(0)P(1|0)\&amp;=P(1)\cdot\int_{-\infty}}<sup _infty="+\infty">{b}f_{1}(x)\mathrm{d}x+P(0)\cdot\int_{b}</sup>
+\begin{aligned}P_{e}&amp;=P(1)P(0|1)+P(0)P(1|0)\\&amp;=P(1)\cdot\int_{-\infty}}<sup _infty="+\infty">{b}f_{1}(x)\mathrm{d}x+P(0)\cdot\int_{b}</sup>
 $$
 最小时
 $$
@@ -2227,7 +2247,9 @@ $$
 $$
 P_{e}\approx\frac{1}{\sqrt{\pi r}}e^{-\frac{r}{4}}
 $$</p>
-<p><strong>包络检波:</strong></p>
+<ul>
+<li><strong>包络检波:</strong></li>
+</ul>
 <p><a class="glightbox" href="../assets/image-20250518170145566.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="image-20250518170145566" src="../assets/image-20250518170145566.png" /></a></p>
 <p>输入信号
 $$
@@ -2274,7 +2296,9 @@ $$
 P_e\to\frac{1}{2}e^{-\frac{r}{4}}
 $$}f_{0}(V)\mathrm{d}V\end{aligned</p>
 <h3 id="2fsk_2">2FSK<a class="headerlink" href="#2fsk_2" title="Permanent link">&para;</a></h3>
-<p><strong>相干解调:</strong></p>
+<ul>
+<li><strong>相干解调:</strong></li>
+</ul>
 <p><a class="glightbox" href="../assets/image-20250518171756887.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="image-20250518171756887" src="../assets/image-20250518171756887.png" /></a></p>
 <p>输入信号
 $$
@@ -2292,7 +2316,7 @@ $$
 $$
 \begin{cases}n_1(t)=n_{1c}(t)\cos\omega_1t-n_{1s}(t)\sin\omega_1t\n_2(t)=n_{2c}(t)\cos\omega_2t-n_{2s}(t)\sin\omega_2t&amp;\end{cases}
 $$
-发送1时,代入得
+发送<span class="arithmatex">\(1\)</span>时,代入得
 $$
 \begin{cases}y_{1}(t)=a\cos\omega_{1}t+n_{1}(t)=\left[a+n_{1c}(t)\right]\cos\omega_{1}t-n_{1s}(t)\sin\omega_{1}t\\y_{2}(t)=n_{2}(t)=n_{2c}(t)\cos\omega_{2}t-n_{2s}(t)\sin\omega_{2}t&amp;\end{cases}
 $$
@@ -2300,7 +2324,7 @@ $$
 $$
 \begin{cases}y_1(t)\cdot2\cos\omega_1t=<a href="\cos2\omega_1t+1">a+n_{1c}(t)</a>-n_{1s}(t)\sin2\omega_1t\\y_2(t)\cdot2\cos\omega_2t=n_{2c}(t)(\cos2\omega_2t+1)-n_{2s}(t)\sin2\omega_2t&amp;\end{cases}
 $$
-发送0时同理</p>
+发送<span class="arithmatex">\(0\)</span>时同理</p>
 <p>低通滤波后
 $$
 \begin{cases}x_1(t)=a+n_{1_c}(t)\sim N(a,\sigma_n^2)\x_2(t)=n_{2_c}(t)\sim N(0,\sigma_n^2)&amp;\end{cases}
@@ -2311,15 +2335,17 @@ f_{x1}(x)=\frac{1}{\sqrt{2\pi}\sigma_{n}}\exp\left[-\frac{(x-a)<sup 2="2">{2}}{2
 $$
 系统误码率
 $$
-P_{e}=\frac{1}{2}erfc(\frac{a}{\sqrt{2}\sigma_{z}})\overset{\sigma_{z}}<sup 2="2">{2}=2\sigma_{n}</sup>{\operatorname}<em _longrightarrow="\longrightarrow">{\operatorname</em>\right)\overset{r=\frac{a}}}P_{e}=\frac{1}{2}erfc\left(\frac{a}{2\sigma_{n}<sup 2="2">{2}}{2\sigma_{n}</sup>{\operatorname}}<em _longrightarrow="\longrightarrow">{\operatorname</em>
+P_{e}=\frac{1}{2}erfc(\frac{a}{\sqrt{2}\sigma_{z}})\overset{\sigma_{z}}<sup 2="2">{2}=2\sigma_{n}</sup>{\operatorname}<em _longrightarrow="\longrightarrow">{\operatorname</em>\right)\overset{r=\frac{a}}}P_{e}=\frac{1}{2}erfc\left(\frac{a}{2\sigma_{n}<sup 2="2">{2}}{2\sigma_{n}</sup>{\operatorname}}<em _longrightarrow="\longrightarrow">{\operatorname</em>\right)
 $$
-大信噪比时(r&gt;&gt;1)
+大信噪比时(}}}P_{e}=\frac{1}{2}erfc\left(\sqrt{\frac{r}{2}<span class="arithmatex">\(r&gt;&gt;1\)</span>)
 $$
 P_e\approx\frac{1}{\sqrt{2\pi r}}e^{-\frac{r}{2}}
-$$}}}\boxed{P_{e}=\frac{1}{2}erfc\left(\sqrt{\frac{r}{2}}\right)</p>
-<p><strong>包络检波</strong></p>
+$$</p>
+<ul>
+<li><strong>包络检波</strong></li>
+</ul>
 <p><a class="glightbox" href="../assets/image-20250518173940164.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="image-20250518173940164" src="../assets/image-20250518173940164.png" /></a></p>
-<p>发送1时,代入得
+<p>发送<span class="arithmatex">\(1\)</span>时,代入得
 $$
 \begin{cases}y_{1}(t)=a\cos\omega_{1}t+n_{1}(t)=\left[a+n_{1c}(t)\right]\cos\omega_{1}t-n_{1s}(t)\sin\omega_{1}t\\y_{2}(t)=n_{2}(t)=n_{2c}(t)\cos\omega_{2}t-n_{2s}(t)\sin\omega_{2}t&amp;\end{cases}
 $$
@@ -2335,7 +2361,9 @@ $$
 P_e=\frac{1}{2}e^{-\frac{r}{2}}
 $$</p>
 <h3 id="2psk_1">2PSK<a class="headerlink" href="#2psk_1" title="Permanent link">&para;</a></h3>
-<p><strong>相干解调:</strong></p>
+<ul>
+<li><strong>相干解调:</strong></li>
+</ul>
 <p><a class="glightbox" href="../assets/image-20250520192748200.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="image-20250520192748200" src="../assets/image-20250520192748200.png" /></a></p>
 <p>输入信号
 $$
@@ -2355,7 +2383,7 @@ n(t)=n_c(t)\cos\omega_ct-n_s(t)\sin\omega_ct
 $$
 代入得
 $$
-y(t)=\begin{cases}\left[a+n_{c}(t)\right]\cos\omega_{c}t-n_{s}(t)\sin\omega_{c}t\quad\text{发送“1”时}\\left[-a+n_{c}(t)\right]\cos\omega_{c}t-n_{s}(t)\sin\omega_{c}t\quad\text{发送“0”时}&amp;\end{cases}
+y(t)=\begin{cases}\left[a+n_{c}(t)\right]\cos\omega_{c}t-n_{s}(t)\sin\omega_{c}t\quad\text{发送“1”时}\\\left[-a+n_{c}(t)\right]\cos\omega_{c}t-n_{s}(t)\sin\omega_{c}t\quad\text{发送“0”时}&amp;\end{cases}
 $$
 乘相干载波后
 $$
@@ -2389,7 +2417,7 @@ $$
 $$
 P_e=\frac{1}{2}erfc(\sqrt{r})
 $$
-大信噪比时(r&gt;&gt;1)
+大信噪比时(<span class="arithmatex">\(r&gt;&gt;1\)</span>)
 $$
 P_{e}\approx\frac{1}{2\sqrt{\pi r}}e^{-r}
 $$</p>
@@ -2429,8 +2457,7 @@ B_{2\mathrm{FSK}}=\frac{2}{T_B}+\begin{vmatrix}f_2-f_1\end{vmatrix}=2R_B+\begin{
 </li>
 <li>
 <p>设备复杂度</p>
-<p>非相干解调的设备复杂度低于相干解调。这是因为相干解调需要
-提取相干载波，故设备相对复杂，成本更高。</p>
+<p>非相干解调的设备复杂度低于相干解调。这是因为相干解调需要提取相干载波，故设备相对复杂，成本更高。</p>
 </li>
 </ul>
 <h2 id="_6">多进制调数字调制原理<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
@@ -2440,15 +2467,72 @@ R_B=\frac{R_b}{\log_2M}
 \]</div>
 <p>比特率<span class="arithmatex">\(R_{_{b}}\)</span>给定时，增大调制进制数<span class="arithmatex">\(M\)</span> ,可降低符号率<span class="arithmatex">\(R_{_{B}}\)</span>,从而降低信号带宽，节约传输资源。</p>
 <p>数据率<span class="arithmatex">\(R_{_{B}}\)</span>给定时，增大调制进制数<span class="arithmatex">\(M\)</span>,可以提高比特率<span class="arithmatex">\(R_{_{b}}\)</span>,从而提高频带利用率<span class="arithmatex">\(\eta_b\)</span> 。</p>
-<p>代价:判决范围减小引起的系统误码率增加,以及系统复杂度的增加。</p>
+<p>代价:判决范围减小引起的系统<strong>误码率增加</strong>,以及系统复杂度的增加。</p>
 <h3 id="mask">多进制振幅键控MASK<a class="headerlink" href="#mask" title="Permanent link">&para;</a></h3>
+<p>振幅有<span class="arithmatex">\(M\)</span>种取值</p>
+<p><strong>表达式：</strong>
+$$
+e_{\mathrm{MASK}}(t)=s(t)\cos\omega_ct
+$$</p>
+<p>$$
+s(t)=\sum_na_ng(t-nT_B),a_n=\begin{cases}0,&amp;\text{概率}P_1\1,&amp;\text{概率}P_2\\cdots\cdots\M-1,&amp;\text{概率}P_M&amp;&amp;\end{cases},\sum_{i=1}^MP_i=1
+$$
+<strong>产生：</strong></p>
+<p><a class="glightbox" href="../assets/image-20250611155333403.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="image-20250611155333403" src="../assets/image-20250611155333403.png" /></a></p>
+<p><strong>解调：</strong><span class="arithmatex">\(MASK\)</span>的 解 调 方 法 与 <span class="arithmatex">\(2ASK\)</span>相似,有相干非相干两种 解调方法但在结尾需添加“M-2电平转换”环节。</p>
+<p><strong>功率谱：</strong>
+$$
+B_{\mathrm{MASK}}=\frac{2R_b}{\log_2M}
+$$</p>
 <h3 id="mfsk">多进制频移键控MFSK<a class="headerlink" href="#mfsk" title="Permanent link">&para;</a></h3>
+<p>频率有<span class="arithmatex">\(M\)</span>种取值</p>
+<p><strong>表达式：</strong>
+$$
+e_{\mathrm{MFSK}}(t)=\sum_nAg(t-nT_B)\cos(\omega_ct+2\pi i\Delta ft)
+$$</p>
+<p><strong>产生与解调：</strong></p>
+<p><a class="glightbox" href="../assets/image-20250604163631650.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="image-20250604163631650" src="../assets/image-20250604163631650.png" /></a></p>
+<p><strong>功率谱：</strong>
+$$
+B_{\mathrm{MFSK}}=\frac{2}{T_B}+\left|f_M-f_1\right|=2R_B+\left|f_M-f_1\right|
+$$</p>
 <h3 id="mpsk">多进制相移键控MPSK<a class="headerlink" href="#mpsk" title="Permanent link">&para;</a></h3>
-<p>一般讨论正交相移键控4PSK/QPSK</p>
+<p>一般讨论正交相移键控<span class="arithmatex">\(4PSK/QPSK\)</span></p>
+<p>相位有<span class="arithmatex">\(M\)</span>种取值</p>
+<p><strong>表达式：</strong></p>
+<p><a class="glightbox" href="../assets/image-20250604164432271.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="image-20250604164432271" src="../assets/image-20250604164432271.png" /></a></p>
+<p><a class="glightbox" href="../assets/image-20250604164441918.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="image-20250604164441918" src="../assets/image-20250604164441918.png" /></a></p>
+<p><strong>产生：</strong>正交调相法：<span class="arithmatex">\(QPSK\)</span>信号可以视为两路正交的<span class="arithmatex">\(2PSK\)</span>信号合成。</p>
+<p><a class="glightbox" href="../assets/image-20250611154955222.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="image-20250611154955222" src="../assets/image-20250611154955222.png" /></a></p>
+<p><a class="glightbox" href="../assets/image-20250611155011536.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="image-20250611155011536" src="../assets/image-20250611155011536.png" /></a></p>
+<p><strong>解调：</strong></p>
+<p><a class="glightbox" href="../assets/image-20250611154835681.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="image-20250611154835681" src="../assets/image-20250611154835681.png" /></a></p>
+<p><a class="glightbox" href="../assets/image-20250611154846648.png" data-type="image" data-width="auto" data-height="auto" data-desc-position="bottom"><img alt="image-20250611154846648" src="../assets/image-20250611154846648.png" /></a></p>
+<p><strong>功率谱：</strong>
+$$
+B_{\mathrm{MASK}}=\frac{2R_b}{\log_2M}
+$$
+<strong>缺点：</strong></p>
+<ul>
+<li>载波存在<span class="arithmatex">\(90°\)</span>的相位模糊度。</li>
+<li>最大相位跳变大，旁瓣对邻道干扰大。</li>
+</ul>
 <h3 id="mdpsk">多进制差分相移键控MDPSK<a class="headerlink" href="#mdpsk" title="Permanent link">&para;</a></h3>
-<p>一般讨论四进制差分相移键控4DPSK/QDPSK</p>
+<p>一般讨论四进制差分相移键控<span class="arithmatex">\(4DPSK/QDPSK\)</span></p>
+<p>振幅有<span class="arithmatex">\(M\)</span>种取值</p>
+<p><strong>表达式：</strong></p>
+<p><strong>产生：</strong></p>
+<p><strong>解调：</strong></p>
 <h2 id="_8">多进制数字调制系统的抗噪声性能<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
-<p>留空:MASK和MFSK的抗噪声性能分析</p>
+<p>留空:<span class="arithmatex">\(MASK\)</span>和<span class="arithmatex">\(MFSK\)</span>的抗噪声性能分析</p>
+<p>相干解调时，<span class="arithmatex">\(MPSK\)</span>和<span class="arithmatex">\(MDPSK\)</span>的误码率
+$$
+P_{e-\mathrm{MPSK}}=erfc\left(\sqrt{r}\sin\frac{\pi}{M}\right)
+$$</p>
+<div class="arithmatex">\[
+P_{e-\mathrm{MDPSK}}=erfc\left(\sqrt{2r}\sin\frac{\pi}{2M}\right)
+\]</div>
+<h2 id="_9">数字调制系统总结<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
 
 
 <!-- taken from 
@@ -2461,7 +2545,7 @@ https://github.com/squidfunk/mkdocs-material/blob/master/src/partials/source-fil
         <!-- mkdocs-git-revision-date-localized-plugin -->
         
         最后更新:
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="2025年5月26日 21:49:30 CST"><span class="timeago" datetime="2025-05-26T21:49:30+08:00" locale="zh"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="2025年5月26日 21:49:30 CST">2025-05-26</span>
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="2025年6月12日 14:50:46 CST"><span class="timeago" datetime="2025-06-12T14:50:46+08:00" locale="zh"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="2025年6月12日 14:50:46 CST">2025-06-12</span>
         
         <br />
         创建日期:

@@ -1760,7 +1760,7 @@
 <li>同轴电缆</li>
 <li>光纤</li>
 </ol>
-<p>无线信道是可以传输电磁波的空间</p>
+<p><strong>无线信道</strong>是可以传输电磁波的空间</p>
 <ol>
 <li>短波电离层反射</li>
 <li>超短波或微波视距中继</li>
@@ -1789,7 +1789,6 @@ $$
 <p>统计特性:高斯白噪声</p>
 <h2 id="_8">信道容量<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
 <h3 id="_9">离散信道容量<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
-<p>表示方式</p>
 <ol>
 <li>用每个符号能够传输的平均信息量最大值表示信道容量<span class="arithmatex">\(C\)</span></li>
 <li>用单位时间内能够传输的平均信息量最大值表示信道容量<span class="arithmatex">\(C_t\)</span></li>
@@ -1808,7 +1807,7 @@ $$
 那么收到一个符号时获得的平均信息量
 $$
 \begin{aligned}
-\frac{平均信息量}{符号}&amp;=-\sum_{i=1}<sup>{n}P(x_{i})\log_{2}P(x_{i})-\left[-\sum_{j=1}</sup>mP(y_j)\sum_{i=1}^nP(x_i/y_j)\log_2P(x_i/y_j)\right]\
+\frac{平均信息量}{符号}&amp;=-\sum_{i=1}<sup>{n}P(x_{i})\log_{2}P(x_{i})-\left[-\sum_{j=1}</sup>mP(y_j)\sum_{i=1}^nP(x_i/y_j)\log_2P(x_i/y_j)\right]\\
 &amp;=H\left(x\right)-H\left(x/y\right)
 \end{aligned}
 $$
@@ -1825,14 +1824,11 @@ $$
 C_{\mathrm{t}}=\max_{P(x)}\left{r\left[H(x)-H(x/y)\right]\right}
 $$</p>
 <h3 id="_10">连续信道容量<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
-<blockquote>
-<p>[!IMPORTANT]</p>
 <p><strong>香农公式</strong>：对于带宽有限、平均功率有限的高斯白噪声连续信道,其信道容量为
 $$
 C_t=B\mathrm{log}_2\left(1+\frac{S}{N}\right)\quad\mathrm{(b/s)}
 $$
 其中<span class="arithmatex">\(S\)</span>为信号平均功率(<span class="arithmatex">\(W\)</span>)  <span class="arithmatex">\(N\)</span>为噪声功率(<span class="arithmatex">\(W\)</span>)  <span class="arithmatex">\(B\)</span>为带宽(<span class="arithmatex">\(Hz\)</span>)</p>
-</blockquote>
 <p>设噪声单边功率谱密度为<span class="arithmatex">\(n_{0}\)</span> 则<span class="arithmatex">\(N=n_{0}B\)</span>  令<span class="arithmatex">\(x=\frac{S}{n_{0}B}\)</span>
 $$
 \lim_{B\to\infty}C_t=\lim_{x\to0}\frac{S}{n_0}\mathrm{log}_2\left(1+x\right)^{1/x}=\frac{S}{n_0}\mathrm{log}_2\mathrm{e}\approx1.44\frac{S}{n_0}\quad\mathrm{(b/s)}
@@ -1849,7 +1845,7 @@ https://github.com/squidfunk/mkdocs-material/blob/master/src/partials/source-fil
         <!-- mkdocs-git-revision-date-localized-plugin -->
         
         最后更新:
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="2025年5月26日 21:49:30 CST"><span class="timeago" datetime="2025-05-26T21:49:30+08:00" locale="zh"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="2025年5月26日 21:49:30 CST">2025-05-26</span>
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago" title="2025年6月12日 14:50:46 CST"><span class="timeago" datetime="2025-06-12T14:50:46+08:00" locale="zh"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date" title="2025年6月12日 14:50:46 CST">2025-06-12</span>
         
         <br />
         创建日期:
