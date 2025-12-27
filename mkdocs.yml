@@ -176,3 +176,48 @@ nav:
       # 暂时注释掉，因为下面没有文件会导致报错。
       # 等你有文件时，取消注释并按以下格式添加：
       # - 教程名称: 嵌入式教程/教程文件.md
+
+
+    
+  - Math:
+      - Math/index.md
+      - 工具软件: Math/工具软件/Mathtools.md
+      - 数学分析:
+          - 数学分析: Math/数学分析/数学分析.md
+      - 高等代数:
+          - Gilbert Strang: Math/高等代数/Gilbert Strang.md
+          - 丘维声: Math/高等代数/丘维声.md
+  
+      - 高中宝典:
+          - 简介: Math/高中宝典/index.md
+          - 高中数学思想: Math/高中宝典/高中数学思想/高中数学思想.md
+          - 函数: Math/高中宝典/函数/函数.md
+          - 数列: Math/高中宝典/数列/数列.md
+          - 立体几何: Math/高中宝典/立体几何/立体几何.md
+          - 向量: Math/高中宝典/向量/向量.md
+          - 不等式: Math/高中宝典/不等式/不等式.md
+          - 解析几何: Math/高中宝典/解析几何/解析几何.md
+          - 导数: Math/高中宝典/导数/导数.md
+          - 其它定理公式: Math/高中宝典/其它定理公式/其它定理公式.md
+          - 尾言: Math/高中宝典/尾言/尾言.md
+
+
+  - Book:   
+      - Book/index.md
+      - 量子物理:
+          - 0.Preface 序: Book/上帝掷骰子吗/0.Preface 序.md
+          - 1.Golden Age 黄金时代: Book/上帝掷骰子吗/1.Golden Age 黄金时代.md
+          - 2.Dark Clouds 乌云: Book/上帝掷骰子吗/2.Dark Clouds 乌云.md
+          - 3.Falling Fireball 火流星: Book/上帝掷骰子吗/3.Falling Fireball 火流星.md
+          - 4.Into the Mist 白云深处: Book/上帝掷骰子吗/4.Into the Mist 白云深处.md
+          - 5.The Dawn  曙光: Book/上帝掷骰子吗/5.The Dawn  曙光.md
+          - 6.Two Sides of One Coin  殊途同归: Book/上帝掷骰子吗/6.Two Sides of One Coin  殊途同归.md
+          - 7.Uncertainty Principle  不确定性: Book/上帝掷骰子吗/7.Uncertainty Principle  不确定性.md
+          - 8.The Duel  决战: Book/上帝掷骰子吗/8.The Duel  决战.md
+          - 9.At the Crossroads  歧途: Book/上帝掷骰子吗/9.At the Crossroads  歧途.md
+          - 10.Back to Eden  回归经典: Book/上帝掷骰子吗/10.Back to Eden  回归经典.md
+          - 11.Judgement of the Inequality  不等式的判决: Book/上帝掷骰子吗/11.Judgement of the Inequality  不等式的判决.md
+          - 12.New Adventures  新探险: Book/上帝掷骰子吗/12.New Adventures  新探险.md
+          - 13.Finale  尾声: Book/上帝掷骰子吗/13.Finale  尾声.md
+      - 健身:
+          - 入门: Book/健身/健身.md
