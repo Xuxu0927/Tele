@@ -171,7 +171,7 @@ nav:
           - 13.同步原理: 学习笔记/通信原理/通信原理笔记/13.同步原理.md
           - 14.尾言: 学习笔记/通信原理/通信原理笔记/14.尾言.md
       - 模拟集成电路: 
-          - index.md
+          - 课程推荐: index.md
 
   - Math:
       - Math/index.md
@@ -218,20 +218,19 @@ nav:
   - CS:
       - CS/index.md
       - c语言: 
-          - c语言/index.md
+          - 课程推荐: c语言/index.md
       - python: 
-          - python/index.md  
+          - 课程推荐: python/index.md  
       - 数据结构: 
-          - 数据结构/index.md  
+          - 课程推荐: 数据结构/index.md  
       - 操作系统: 
-          - 操作系统/index.md  
+          - 课程推荐: 操作系统/index.md  
       - 计算机网络: 
-          - 计算机网络/index.md
+          - 课程推荐: 计算机网络/index.md
       - 计算机组成: 
-          - 计算机组成/index.md
-
+          - 课程推荐: 计算机组成/index.md
       - git: 
-          - git/index.md        
+          - 课程推荐: git/index.md        
         
   - 娱乐:
       - 娱乐/index.md     
