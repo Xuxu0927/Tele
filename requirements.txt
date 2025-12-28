@@ -5,4 +5,3 @@ mkdocs-git-revision-date-localized-plugin
 mkdocs-git-authors-plugin
 mkdocs-glightbox
 mkdocs-meta-manager
-mkdocs-awesome-pages-plugin
