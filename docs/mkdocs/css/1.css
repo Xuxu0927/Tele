@@ -1,0 +1,41 @@
+/* 去掉默认的下划线 */
+.md-typeset a {
+    text-decoration: none;
+    background-image: linear-gradient(var(--md-primary-fg-color), var(--md-primary-fg-color));
+    background-position: 0% 100%;
+    background-repeat: no-repeat;
+    background-size: 0% 2px; /* 默认宽度为0 */
+    transition: background-size .3s; /* 动画时间 */
+}
+
+/* 鼠标悬停时，下划线展开到 100% */
+.md-typeset a:hover {
+    background-size: 100% 2px;
+}
+
+/* 排除按钮和导航栏链接，防止误伤 */
+.md-typeset .md-button, .md-nav__link {
+    background-image: none !important;
+}
+
+
+
+
+
+
+/* 一级标题：底部渐变线条 */
+.md-typeset h1 {
+    color: var(--md-primary-fg-color); /* 使用主题色 */
+    border-bottom: 2px solid rgba(0,0,0,0.05); /* 浅色底线 */
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1); /* 轻微浮雕感 */
+}
+
+/* 二级标题：左侧竖线指示符 */
+.md-typeset h2 {
+    border-left: 5px solid var(--md-primary-fg-color); /* 左侧加粗线 */
+    padding-left: 15px; /* 文字右移 */
+    background: linear-gradient(to right, rgba(0,0,0,0.03), transparent); /* 淡淡的背景拖尾 */
+    border-radius: 0 5px 5px 0;
+}

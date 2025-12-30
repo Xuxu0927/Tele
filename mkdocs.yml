@@ -11,7 +11,8 @@ theme:
   name: material
   custom_dir: docs/mkdocs/overrides
   font: 
-    text: Roboto
+    text: Noto Sans SC
+    code: JetBrains Mono
   palette: 
     - scheme: default # 默认日间模式
       primary: indigo # 上方的
@@ -101,6 +102,8 @@ extra_javascript:
 extra_css:
   - mkdocs/css/unordered-list-symbols.css # 多个无序列表符号
   - mkdocs/css/img-center.css # 图像居中
+  - mkdocs/css/1.css
+
 
 
   # [Navigtion] 导航栏
@@ -171,7 +174,8 @@ nav:
           - 13.同步原理: 学习笔记/通信原理/通信原理笔记/13.同步原理.md
           - 14.尾言: 学习笔记/通信原理/通信原理笔记/14.尾言.md
       - 模拟集成电路: 
-          - 课程推荐: index.md
+          - 课程推荐: 学习笔记/模拟集成电路/课程推荐.md
+          - 第一章: 学习笔记/模拟集成电路/MOS器件基础.md
 
   - Math:
       - Math/index.md
