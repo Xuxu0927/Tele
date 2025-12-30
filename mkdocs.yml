@@ -222,19 +222,19 @@ nav:
   - CS:
       - CS/index.md
       - c语言: 
-          - 课程推荐: CS/c语言/课程推荐.md
+          - 简介: CS/c语言/index.md
       - python: 
-          - 课程推荐: CS/python/课程推荐.md  
+          - 简介: CS/python/index.md
       - 数据结构: 
-          - 课程推荐: CS/数据结构/课程推荐.md  
+          - 简介: CS/数据结构/index.md
       - 操作系统: 
-          - 课程推荐: CS/操作系统/课程推荐.md  
+          - 简介: CS/操作系统/index.md
       - 计算机网络: 
-          - 课程推荐: CS/计算机网络/课程推荐.md
+          - 简介: CS/计算机网络/index.md
       - 计算机组成: 
-          - 课程推荐: CS/计算机组成/课程推荐.md
+          - 简介: CS/计算机组成/index.md
       - git: 
-          - 课程推荐: CS/git/课程推荐.md        
+          - 简介: CS/git/index.md      
         
   - 娱乐:
       - 娱乐/网站.md     
