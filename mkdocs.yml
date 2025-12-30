@@ -223,6 +223,7 @@ nav:
       - CS/index.md
       - c语言: 
           - 简介: CS/c语言/index.md
+          - ad: CS/c语言/课程推荐.md
       - python: 
           - 简介: CS/python/index.md
       - 数据结构: 
