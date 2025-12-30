@@ -119,9 +119,9 @@ extra_css:
 
 
 nav:
-    - index: index.md
+    - index.md
     - 书籍:
-        - index: 书籍/index.md
+        - 书籍/index.md
         - 上帝掷骰子吗:
             - 0.序: 书籍/上帝掷骰子吗/0.序.md
             - 1.黄金时代: 书籍/上帝掷骰子吗/1.黄金时代.md
@@ -144,12 +144,12 @@ nav:
     - 娱乐:
         - 网站: 娱乐/网站.md
     - 数学:
-        - index: 数学/index.md
+        - 数学/index.md
         - 工具软件:
             - Mathtools: 数学/工具软件/Mathtools.md
         - 数学分析: 数学/数学分析/数学分析.md
         - 高中宝典:
-            - index: 数学/高中宝典/index.md
+            - 数学/高中宝典/index.md
             - 不等式: 数学/高中宝典/不等式/不等式.md
             - 其它定理公式: 数学/高中宝典/其它定理公式/其它定理公式.md
             - 函数: 数学/高中宝典/函数/函数.md
@@ -164,7 +164,7 @@ nav:
             - Gilbert Strang: 数学/高等代数/Gilbert Strang.md
             - 丘维声: 数学/高等代数/丘维声.md
     - 电子通信学习笔记:
-        - index: 电子通信学习笔记/index.md
+        - 电子通信学习笔记/index.md
         - 信号与系统:
             - MIT 6.007 Signals and Systems: 电子通信学习笔记/信号与系统/MIT 6.007 Signals and Systems.md
             - UCB EE120 Signal and Systems: 电子通信学习笔记/信号与系统/UCB EE120 Signal and Systems.md
@@ -206,7 +206,7 @@ nav:
                 - 13.同步原理: 电子通信学习笔记/通信原理/通信原理笔记/13.同步原理.md
                 - 14.尾言: 电子通信学习笔记/通信原理/通信原理笔记/14.尾言.md
     - 苏大电子信息资料库:
-        - index: 苏大电子信息资料库/index.md
+        - 苏大电子信息资料库/index.md
         - MATLAB: 苏大电子信息资料库/MATLAB/MATLAB.md
         - VHDL: 苏大电子信息资料库/VHDL/VHDL.md
         - 传感器: 苏大电子信息资料库/传感器/传感器.md
@@ -230,7 +230,7 @@ nav:
         - 通信原理: 苏大电子信息资料库/通信原理/通信原理.md
         - 通信电子线路: 苏大电子信息资料库/通信电子线路/通信电子线路.md
     - 计算机:
-        - index: 计算机/index.md
+        - 计算机/index.md
         - c语言:
             - 课程: 计算机/c语言/课程.md
         - git:
