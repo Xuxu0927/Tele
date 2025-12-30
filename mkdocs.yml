@@ -71,6 +71,15 @@ plugins:
   - git-authors: # 显示作者
   - glightbox: # 图像缩放
   - meta-manager: # 元数据管理
+  - encryptcontent:
+      title: "需要密码"           # 弹窗标题
+      placeholder: "请输入密码 （当然 因为公开源码 这个密码很容易就能找到 只是单纯玩一下）"    # 输入框提示
+      decryption_failure_message: "密码错误，请重试！" # 错误提示
+      
+      # 定义不同路径的规则
+      path_encryption_map:
+        # 格式： '路径前缀': '密码'
+        '苏大电子信息资料库/': '321321' 
   
 
 markdown_extensions:
