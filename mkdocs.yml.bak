@@ -71,6 +71,15 @@ plugins:
   - git-authors: # 显示作者
   - glightbox: # 图像缩放
   - meta-manager: # 元数据管理
+  - encryptcontent:
+      title: "需要密码"           # 弹窗标题
+      placeholder: "请输入密码 （当然 因为公开源码 这个密码很容易就能找到 只是单纯玩一下）"    # 输入框提示
+      decryption_failure_message: "密码错误，请重试！" # 错误提示
+      
+      # 定义不同路径的规则
+      path_encryption_map:
+        # 格式： '路径前缀': '密码'
+        '苏大电子信息资料库/': '321321' 
   
 
 markdown_extensions:
@@ -223,23 +232,16 @@ nav:
     - 计算机:
         - index: 计算机/index.md
         - c语言:
-            - index: 计算机/c语言/index.md
-            - 课程推荐: 计算机/c语言/课程推荐.md
+            - 课程: 计算机/c语言/课程.md
         - git:
-            - index: 计算机/git/index.md
-            - 课程推荐: 计算机/git/课程推荐.md
+            - 廖雪峰: 计算机/git/廖雪峰.md
         - python:
-            - index: 计算机/python/index.md
             - 课程推荐: 计算机/python/课程推荐.md
         - 操作系统:
-            - index: 计算机/操作系统/index.md
-            - 课程推荐: 计算机/操作系统/课程推荐.md
+            - 南大 蒋炎岩: 计算机/操作系统/南大 蒋炎岩.md
         - 数据结构:
-            - index: 计算机/数据结构/index.md
-            - 课程推荐: 计算机/数据结构/课程推荐.md
+            - 印度小哥: 计算机/数据结构/印度小哥.md
         - 计算机组成:
-            - index: 计算机/计算机组成/index.md
-            - 课程推荐: 计算机/计算机组成/课程推荐.md
+            - 课程: 计算机/计算机组成/课程.md
         - 计算机网络:
-            - index: 计算机/计算机网络/index.md
             - 课程推荐: 计算机/计算机网络/课程推荐.md
