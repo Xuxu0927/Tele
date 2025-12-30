@@ -1,6 +1,0 @@
-南大 蒋炎岩
-
-[https://www.bilibili.com/video/BV1Cm4y1d7Ur/?share_source=copy_web&vd_source=4aba4d467dfbbd6299622080f9ded3a3](https://www.bilibili.com/video/BV1Cm4y1d7Ur/?share_source=copy_web&vd_source=4aba4d467dfbbd6299622080f9ded3a3)
-
-[课程主页](http://jyywiki.cn/OS/2022)
-
