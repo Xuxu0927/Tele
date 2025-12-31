@@ -4,33 +4,244 @@ import shutil
 import sys
 import tkinter as tk
 from tkinter import ttk, messagebox
+from typing import Dict, List, Optional, Set, Any, Tuple
 import customtkinter as ctk
 
-# ================= 核心配置 =================
-BASE_DIR = os.path.dirname(os.path.abspath(sys.argv[0]))
-DOCS_DIR = os.path.join(BASE_DIR, 'docs')
-CONFIG_FILE = os.path.join(BASE_DIR, 'mkdocs.yml')
+# ================= 配置常量 (Config) =================
+class Config:
+    BASE_DIR = os.path.dirname(os.path.abspath(sys.argv[0]))
+    DOCS_DIR = os.path.join(BASE_DIR, 'docs')
+    CONFIG_FILE = os.path.join(BASE_DIR, 'mkdocs.yml')
+    
+    # 忽略列表
+    IGNORE_NAMES = {
+        'assets', 'img', 'images', 'media', 'static', '.git', '.github', 
+        'site', 'venv', '__pycache__', 'node_modules', 'mkdocs', 'dist', 'build'
+    }
+    IGNORE_SUFFIXES = ('.assets', '.images', '_files')
 
-IGNORE_LIST = {
-    'assets', 'img', 'images', 'media', 'static', '.git', '.github', 
-    'site', 'venv', '__pycache__', 'node_modules', 'mkdocs', 'dist', 'build'
-}
-IGNORE_SUFFIX = ('.assets', '.images', '_files')
+    # UI 样式
+    THEME_COLOR = "#1f6aa5"
+    NEW_ITEM_COLOR = "#2d4a2d"
+    FONT_CFG = ("Microsoft YaHei UI", 13)
+    ROW_HEIGHT = 40
+    WIN_SIZE = "600x700"
 
-# 样式
-THEME_COLOR = "#1f6aa5"     
-NEW_ITEM_COLOR = "#2d4a2d"  
-FONT_CFG = ("Microsoft YaHei UI", 13)
-ROW_HEIGHT = 40
+# ================= 核心逻辑层 (Model) =================
+class MkDocsCore:
+    """处理文件扫描、YAML解析和排序合并逻辑，不涉及任何 UI"""
+    
+    def __init__(self):
+        self.meta_map = {}     # 存储路径对应的元数据 (type, name)
+        self.known_paths = set() # 记录 YAML 中已存在的路径
+    
+    def get_merged_tree_data(self) -> List[Dict]:
+        """主入口：获取合并后的树形数据结构"""
+        if not os.path.exists(Config.DOCS_DIR):
+            raise FileNotFoundError(f"找不到目录: {Config.DOCS_DIR}")
 
+        self.meta_map.clear()
+        self.known_paths.clear()
+
+        # 1. 获取两份数据源
+        raw_disk = self._scan_disk(Config.DOCS_DIR)
+        history_tree = self._parse_yaml_structure()
+        
+        # 2. 合并数据 (返回排序后的节点列表)
+        return self._merge_logic(history_tree, raw_disk)
+
+    def _merge_logic(self, history_list: List[Dict], disk_data: Dict) -> List[Dict]:
+        """递归合并算法"""
+        result = []
+        
+        # A. 优先处理历史记录
+        for h_item in history_list:
+            display_name = h_item['name']
+            found_key = self._find_matching_key(display_name, h_item.get('path'), disk_data)
+            
+            if found_key:
+                data = disk_data.pop(found_key) # 消费掉
+                node = self._create_node(data['rel'], display_name, data, is_new=False)
+                
+                if data['type'] == 'dir':
+                    node['children'] = self._merge_logic(h_item.get('children', []), data.get('children', {}))
+                
+                result.append(node)
+
+        # B. 处理新增项 (按自然顺序)
+        sorted_keys = sorted(disk_data.keys(), key=self._natural_sort)
+        for k in sorted_keys:
+            data = disk_data[k]
+            # 新增项显示名默认为文件名/文件夹名
+            display_name = k 
+            node = self._create_node(data['rel'], display_name, data, is_new=True)
+            
+            if data['type'] == 'dir':
+                # 新文件夹内部递归扫描
+                node['children'] = self._merge_logic([], data.get('children', {}))
+                
+            result.append(node)
+            
+        return result
+
+    def _create_node(self, rel_path, name, data, is_new):
+        """构建标准节点对象，并记录元数据"""
+        self.meta_map[rel_path] = {'type': data['type'], 'name': name}
+        if not is_new:
+            self.known_paths.add(rel_path)
+            
+        return {
+            'id': rel_path,
+            'name': name,
+            'type': data['type'],
+            'is_new': is_new,
+            'children': []
+        }
+
+    def _find_matching_key(self, name: str, path: Optional[str], disk_data: Dict) -> Optional[str]:
+        """尝试匹配 YAML 条目和硬盘文件"""
+        # 1. 直接 Key 匹配
+        if name in disk_data: return name
+        
+        # 2. 忽略大小写
+        for k in disk_data:
+            if k.lower() == name.lower(): return k
+            
+        # 3. 通过路径反查
+        if path:
+            target = path.replace('\\', '/')
+            for k, v in disk_data.items():
+                if v['rel'] == target: return k
+        return None
+
+    def _scan_disk(self, path: str) -> Dict:
+        """递归扫描硬盘"""
+        res = {}
+        try:
+            items = sorted(os.listdir(path), key=self._natural_sort)
+            for item in items:
+                full = os.path.join(path, item)
+                if item.startswith('.') or item in Config.IGNORE_NAMES: continue
+                if os.path.isdir(full) and item.endswith(Config.IGNORE_SUFFIXES): continue
+                
+                rel = os.path.relpath(full, Config.DOCS_DIR).replace("\\", "/")
+                
+                if os.path.isdir(full):
+                    children = self._scan_disk(full)
+                    if children: 
+                        res[item] = {'type': 'dir', 'children': children, 'rel': rel}
+                elif item.endswith('.md'):
+                    res[item] = {'type': 'file', 'rel': rel}
+        except Exception: pass
+        return res
+
+    def _parse_yaml_structure(self) -> List[Dict]:
+        """解析 mkdocs.yml 的 nav 部分"""
+        if not os.path.exists(Config.CONFIG_FILE): return []
+        
+        result_tree = []
+        stack = [{'indent': -1, 'children': result_tree}]
+        in_nav = False
+        
+        try:
+            with open(Config.CONFIG_FILE, 'r', encoding='utf-8-sig') as f:
+                for line in f:
+                    s = line.strip()
+                    if not s or s.startswith('#'): continue
+                    
+                    if s.startswith('nav:'): 
+                        in_nav = True; continue
+                    
+                    # nav 结束判断
+                    if in_nav and not line.startswith(' ') and line[0].isalpha():
+                        in_nav = False; break
+                        
+                    if in_nav:
+                        indent = len(line) - len(line.lstrip(' '))
+                        m = re.match(r'^\s*-\s*(.*?)(:|$)(.*)', line)
+                        if m:
+                            name = m.group(1).strip().strip("'").strip('"')
+                            val = m.group(3).strip()
+                            path = val.split('#')[0].strip().strip("'").strip('"') if val else None
+                            
+                            item = {'name': name, 'path': path, 'children': []}
+                            
+                            while len(stack) > 1 and stack[-1]['indent'] >= indent:
+                                stack.pop()
+                            stack[-1]['children'].append(item)
+                            
+                            if not path: # 是目录
+                                stack.append({'indent': indent, 'children': item['children']})
+        except Exception as e: print(f"YAML Parse Error: {e}")
+        return result_tree
+
+    def save_to_yaml(self, ui_tree_helper) -> bool:
+        """保存逻辑：利用 UI 树的顺序生成 YAML"""
+        if not os.path.exists(Config.CONFIG_FILE): return False
+        
+        # 生成 content
+        roots = ui_tree_helper.get_roots()
+        content = ""
+        for r in roots:
+            content += self._generate_yaml_block(r, 1, ui_tree_helper)
+            
+        # 写入文件
+        shutil.copy(Config.CONFIG_FILE, f"{Config.CONFIG_FILE}.bak")
+        with open(Config.CONFIG_FILE, 'r', encoding='utf-8') as f: lines = f.readlines()
+        
+        new_lines = []
+        skip, inserted = False, False
+        
+        for line in lines:
+            s = line.strip()
+            if s.startswith('nav:'):
+                skip = True; inserted = True
+                new_lines.extend(["nav:\n", content])
+                continue
+            if skip and (s and not line.startswith(' ') and not line.startswith('#')):
+                skip = False
+            if not skip: new_lines.append(line)
+            
+        if not inserted: new_lines.extend(["\nnav:\n", content])
+        
+        with open(Config.CONFIG_FILE, 'w', encoding='utf-8') as f:
+            f.writelines(new_lines)
+        return True
+
+    def _generate_yaml_block(self, item_id, level, tree_helper) -> str:
+        indent = "    " * level
+        meta = self.meta_map.get(item_id)
+        if not meta: return ""
+        
+        name = meta['name']
+        
+        if meta['type'] == 'file':
+            # 处理文件名显示优化
+            display = os.path.splitext(name)[0] if name.endswith('.md') else name
+            if name == 'index.md' or display == '首页': return f"{indent}- 首页: {item_id}\n"
+            return f"{indent}- {display}: {item_id}\n"
+        
+        if meta['type'] == 'dir':
+            children = tree_helper.get_children(item_id)
+            block = f"{indent}- {name}:\n"
+            for kid in children:
+                block += self._generate_yaml_block(kid, level + 1, tree_helper)
+            return block
+
+    @staticmethod
+    def _natural_sort(s):
+        return [int(t) if t.isdigit() else t.lower() for t in re.split(r'(\d+)', s)]
+
+# ================= UI 组件层 (View) =================
 class DraggableTreeview(ttk.Treeview):
+    """支持拖拽的 Treeview 组件"""
     def __init__(self, master, **kw):
         super().__init__(master, **kw)
         self.bind("<Button-1>", self.on_press)
         self.bind("<B1-Motion>", self.on_motion)
         self.bind("<ButtonRelease-1>", self.on_release)
         self.dragging_item = None
-        self.tag_configure('new', background=NEW_ITEM_COLOR, foreground="white")
+        self.tag_configure('new', background=Config.NEW_ITEM_COLOR, foreground="white")
         self.tag_configure('normal', foreground="white")
 
     def on_press(self, event):
@@ -50,44 +261,43 @@ class DraggableTreeview(ttk.Treeview):
                 if self.parent(self.dragging_item) == self.parent(target):
                     self.move(self.dragging_item, self.parent(self.dragging_item), self.index(target))
             self.dragging_item = None
+    
+    # 辅助方法供 Core 调用
+    def get_roots(self): return self.get_children()
+    def get_children_of(self, item): return self.get_children(item)
 
 class App(ctk.CTk):
     def __init__(self):
         super().__init__()
-        self.title("MkDocs 目录管理 (顺序记忆版)")
-        self.geometry("900x700")
-        ctk.set_appearance_mode("Dark")
-        
-        self.meta_map = {} 
-        self.known_paths = set()
-        self.first_new_id = None
-        # 新增：存储从 yaml 加载的路径顺序
-        self.yaml_path_order = []
-        
-        if not os.path.exists(DOCS_DIR):
-            messagebox.showerror("错误", f"找不到 docs 目录: {DOCS_DIR}")
-            sys.exit()
-
+        self.core = MkDocsCore() # 实例化逻辑核心
+        self.setup_window()
         self.setup_ui()
         self.load_data()
-        self.after(300, self.auto_focus_new)
 
-    def setup_ui(self):
+    def setup_window(self):
+        self.title("MkDocs 目录管理 (Refactored)")
+        self.geometry(Config.WIN_SIZE)
+        ctk.set_appearance_mode("Dark")
         self.grid_columnconfigure(0, weight=1)
         self.grid_rowconfigure(1, weight=1)
-        
-        top = ctk.CTkFrame(self, fg_color="transparent")
-        top.grid(row=0, column=0, padx=20, pady=10, sticky="ew")
-        ctk.CTkLabel(top, text="目录排序 (严格读取 yaml 顺序)", font=("Microsoft YaHei UI", 16, "bold")).pack(side="left")
-        ctk.CTkButton(top, text="保存更新", width=100, fg_color="#10b981", hover_color="#059669", command=self.save).pack(side="right")
 
+    def setup_ui(self):
+        # 顶部工具栏
+        top_frame = ctk.CTkFrame(self, fg_color="transparent")
+        top_frame.grid(row=0, column=0, padx=20, pady=10, sticky="ew")
+        
+        ctk.CTkLabel(top_frame, text="MkDocs 目录排序器", font=("Microsoft YaHei UI", 16, "bold")).pack(side="left")
+        ctk.CTkButton(top_frame, text="保存更新", width=100, fg_color="#10b981", 
+                      hover_color="#059669", command=self.save_action).pack(side="right")
+
+        # 树形列表样式
         style = ttk.Style()
         style.theme_use("default")
-        style.configure("Treeview", background="#2b2b2b", foreground="white", fieldbackground="#2b2b2b", 
-                        rowheight=ROW_HEIGHT, font=FONT_CFG)
-        style.map("Treeview", background=[('selected', THEME_COLOR)])
-        style.layout("Treeview", [('Treeview.treearea', {'sticky': 'nswe'})])
-
+        style.configure("Treeview", background="#2b2b2b", foreground="white", 
+                        fieldbackground="#2b2b2b", rowheight=Config.ROW_HEIGHT, font=Config.FONT_CFG)
+        style.map("Treeview", background=[('selected', Config.THEME_COLOR)])
+        
+        # 树形控件
         self.tree = DraggableTreeview(self, columns=("path"), show="tree", selectmode="browse")
         self.tree.grid(row=1, column=0, padx=20, pady=0, sticky="nsew")
         
@@ -96,319 +306,73 @@ class App(ctk.CTk):
         self.tree.configure(yscrollcommand=sb.set)
 
     def load_data(self):
-        # 1. 扫描硬盘数据
-        raw_tree = self.scan_recursive(DOCS_DIR)
-        
-        # 2. 从 yaml 加载路径顺序（必须先于 parse_yaml_paths 调用）
-        self.yaml_path_order = self.load_path_order_from_yaml()
-        
-        # 3. 解析 mkdocs.yml 中所有的路径 (用于判断新旧)
-        self.parse_yaml_paths()
-        
-        # 4. 构建 UI 树，严格按照 yaml 中的顺序
-        self.build_ui_from_order(raw_tree)
-
-    def load_path_order_from_yaml(self):
-        """
-        从 mkdocs.yml 的 nav 部分读取所有路径，按照它们在文件中出现的顺序
-        返回一个路径列表
-        """
-        path_order = []
-        if not os.path.exists(CONFIG_FILE):
-            return path_order
-            
         try:
-            with open(CONFIG_FILE, 'r', encoding='utf-8-sig') as f:
-                lines = f.readlines()
+            # 1. 从 Core 获取清洗好的数据
+            data_tree = self.core.get_merged_tree_data()
             
-            in_nav = False
-            for line in lines:
-                stripped = line.strip()
+            # 2. 渲染 UI
+            self.first_new_id = None
+            for node in data_tree:
+                self._recursive_insert("", node)
                 
-                # 检测 nav 开始
-                if stripped == 'nav:':
-                    in_nav = True
-                    continue
-                
-                # 如果不在 nav 部分，继续查找
-                if not in_nav:
-                    continue
-                    
-                # 检测 nav 结束（遇到顶级非空行且不是以空格开头）
-                if in_nav and stripped and not line.startswith(' ') and not line.startswith('#') and stripped != 'nav:':
-                    break
-                
-                # 跳过注释行和空行
-                if not stripped or stripped.startswith('#'):
-                    continue
-                
-                # 解析路径
-                # 匹配格式：- 显示名: 路径
-                # 或者：- 显示名: （目录，没有路径）
-                # 使用正则匹配更灵活
-                
-                # 尝试匹配有路径的情况
-                path_match = re.search(r':\s*(.*?)(#|$)', line)
-                if path_match:
-                    path = path_match.group(1).strip()
-                    # 清理路径：去除引号，处理可能的锚点
-                    path = path.strip("'\"").split('#')[0].strip()
-                    if path and path not in path_order:
-                        path_order.append(path)
-                
-                # 对于目录（没有路径的情况），我们需要提取显示名
-                # 匹配格式：- 显示名:
-                elif ':' in line and not line.strip().startswith('#') and not line.strip().endswith('#'):
-                    # 提取显示名作为可能的目录名
-                    parts = line.split(':', 1)
-                    if len(parts) == 2 and not parts[1].strip():
-                        display_name = parts[0].replace('-', '').strip().strip("'\"")
-                        if display_name and display_name not in path_order:
-                            # 将显示名作为目录路径添加
-                            path_order.append(display_name)
-                            
-        except Exception as e:
-            print(f"读取 yaml 路径顺序时出错: {e}")
-        
-        return path_order
-
-    def build_ui_from_order(self, raw_tree):
-        """
-        按照 yaml 中的路径顺序构建 UI 树
-        """
-        # 首先，找出所有在 yaml 顺序中的项目
-        processed = set()
-        
-        # 按顺序处理 yaml 中的路径
-        for path in self.yaml_path_order:
-            # 尝试直接匹配路径
-            matched = False
+            # 3. 自动定位到新文件
+            self.after(300, self.auto_focus_new)
             
-            # 遍历 raw_tree 查找匹配
-            for name, data in list(raw_tree.items()):
-                if name in processed:
-                    continue
-                    
-                # 检查是否匹配
-                if self.is_path_match(path, name, data):
-                    self.build_ui_tree("", name, data)
-                    processed.add(name)
-                    matched = True
-                    break
-            
-            # 如果直接匹配失败，尝试模糊匹配
-            if not matched:
-                for name, data in list(raw_tree.items()):
-                    if name in processed:
-                        continue
-                        
-                    # 尝试通过路径的部分匹配
-                    if path in name or name in path:
-                        self.build_ui_tree("", name, data)
-                        processed.add(name)
-                        matched = True
-                        break
-        
-        # 处理剩余的项目（新增项目）
-        sorted_keys = sorted([k for k in raw_tree.keys() if k not in processed], key=self.natural_sort)
-        for name in sorted_keys:
-            self.build_ui_tree("", name, raw_tree[name])
+        except FileNotFoundError as e:
+            messagebox.showerror("路径错误", str(e))
+            sys.exit()
 
-    def is_path_match(self, yaml_path, name, data):
-        """
-        检查 yaml 中的路径是否匹配硬盘数据
-        """
-        # 如果 yaml 路径包含扩展名，尝试匹配文件
-        if '.' in yaml_path:
-            # 可能是文件路径
-            if data.get('type') == 'file':
-                # 检查文件名是否匹配
-                if name == yaml_path or data.get('rel', '') == yaml_path:
-                    return True
-                
-                # 检查不带扩展名的匹配
-                if os.path.splitext(name)[0] == os.path.splitext(yaml_path)[0]:
-                    return True
-        else:
-            # 可能是目录
-            if data.get('type') == 'dir':
-                # 检查目录名是否匹配
-                if name == yaml_path:
-                    return True
-                
-                # 检查路径是否匹配
-                if data.get('rel', '') == yaml_path:
-                    return True
+    def _recursive_insert(self, parent_id, node):
+        """将节点数据插入 Treeview"""
+        node_id = node['id']
+        text = node['name']
         
-        return False
-
-    def scan_recursive(self, path):
-        res = {}
-        try:
-            items = sorted(os.listdir(path), key=self.natural_sort)
-            for item in items:
-                full = os.path.join(path, item)
-                if item.startswith('.') or item in IGNORE_LIST: continue
-                if os.path.isdir(full) and item.endswith(IGNORE_SUFFIX): continue
-                
-                rel = os.path.relpath(full, DOCS_DIR).replace("\\", "/")
-                
-                if os.path.isdir(full):
-                    children = self.scan_recursive(full)
-                    if children: 
-                        res[item] = {'type': 'dir', 'children': children, 'rel': rel}
-                        self.meta_map[rel] = {'type': 'dir', 'name': item}
-                elif item.endswith('.md'):
-                    res[item] = {'type': 'file', 'rel': rel}
-                    self.meta_map[rel] = {'type': 'file', 'name': item}
-        except: pass
-        return res
-
-    def build_ui_tree(self, parent, name, data):
-        # 使用 rel 作为 item_id，确保唯一性
-        if 'rel' in data:
-            node_id = data['rel']
-        else:
-            node_id = name
+        # 图标
+        icon = "📁" if node['type'] == 'dir' else "📄"
+        if text == 'index.md' or node_id == 'index.md': icon = "🏠"
         
-        if self.tree.exists(node_id): 
-            return
-
-        is_dir = (data['type'] == 'dir')
-        is_new = self.check_is_new(node_id, is_dir)
-        tag = 'new' if is_new else 'normal'
-        
-        if is_new and self.first_new_id is None: 
+        # 标签 (颜色)
+        tag = 'new' if node['is_new'] else 'normal'
+        if node['is_new'] and self.first_new_id is None: 
             self.first_new_id = node_id
+            
+        self.tree.insert(parent_id, "end", iid=node_id, text=f"{icon} {text}", tags=(tag,))
         
-        icon = "📁" if is_dir else "📄"
-        if name == 'index.md': 
-            icon = "🏠"
-        
-        try:
-            self.tree.insert(parent, "end", iid=node_id, text=f"{icon} {name}", tags=(tag,))
-        except tk.TclError: 
-            return
-
-        if is_dir:
-            children = data['children']
-            for k in sorted(children.keys(), key=self.natural_sort):
-                self.build_ui_tree(node_id, k, children[k])
-            if parent == "": 
+        if node['children']:
+            for child in node['children']:
+                self._recursive_insert(node_id, child)
+            if parent_id == "": 
                 self.tree.item(node_id, open=True)
-
-    def check_is_new(self, path, is_dir):
-        if not is_dir: 
-            return path not in self.known_paths
-        prefix = path + "/"
-        for p in self.known_paths:
-            if p.startswith(prefix) or p == path: 
-                return False
-        return True
 
     def auto_focus_new(self):
         if self.first_new_id:
             try:
-                parent = self.tree.parent(self.first_new_id)
-                while parent:
-                    self.tree.item(parent, open=True)
-                    parent = self.tree.parent(parent)
                 self.tree.see(self.first_new_id)
                 self.tree.selection_set(self.first_new_id)
                 self.tree.focus(self.first_new_id)
-            except: 
-                pass
+            except: pass
 
-    def save(self):
-        roots = self.tree.get_children()
-        yaml_content = ""
-        for r in roots:
-            yaml_content += self.generate_yaml(r, 1)
-            
-        if self.write_yaml(yaml_content):
-            messagebox.showinfo("成功", "MkDocs 目录已更新！")
+    def save_action(self):
+        # 将 Treeview 适配器传给 Core，让 Core 去遍历并保存
+        adapter = TreeAdapter(self.tree)
+        if self.core.save_to_yaml(adapter):
+            messagebox.showinfo("成功", "mkdocs.yml 已更新！")
             self.destroy()
 
-    def generate_yaml(self, item_id, level):
-        indent = "    " * level
-        meta = self.meta_map.get(item_id)
-        if not meta: 
-            return ""
+# ================= 适配器 (Adapter) =================
+class TreeAdapter:
+    """
+    用于将 Treeview 的操作暴露给 Core，
+    这样 Core 不需要直接依赖 tkinter 的具体控件对象
+    """
+    def __init__(self, tree_widget):
+        self.tree = tree_widget
         
-        name, rel = meta['name'], item_id
+    def get_roots(self):
+        return self.tree.get_children()
         
-        if meta['type'] == 'file':
-            display = os.path.splitext(name)[0]
-            if name == 'index.md': 
-                return f"{indent}- 首页: {rel}\n"
-            return f"{indent}- {display}: {rel}\n"
-        
-        if meta['type'] == 'dir':
-            kids = self.tree.get_children(item_id)
-            target = f"{rel}/{name}.md".replace("//", "/")
-            if len(kids) == 1 and kids[0] == target:
-                return f"{indent}- {name}: {target}\n"
-            
-            block = f"{indent}- {name}:\n"
-            for k in kids: 
-                block += self.generate_yaml(k, level + 1)
-            return block
-
-    def parse_yaml_paths(self):
-        if not os.path.exists(CONFIG_FILE): 
-            return
-        try:
-            with open(CONFIG_FILE, 'r', encoding='utf-8-sig') as f:
-                for line in f:
-                    if ':' in line and '#' not in line.split(':')[0]:
-                        val = line.split(':', 1)[1].strip()
-                        if val:
-                            val = val.strip("'").strip('"')
-                            self.known_paths.add(val)
-        except: 
-            pass
-
-    def write_yaml(self, content):
-        if not os.path.exists(CONFIG_FILE): 
-            return False
-        
-        # 备份原文件
-        shutil.copy(CONFIG_FILE, f"{CONFIG_FILE}.bak")
-        
-        # 读取原文件内容
-        with open(CONFIG_FILE, 'r', encoding='utf-8') as f: 
-            lines = f.readlines()
-        
-        new_lines = []
-        skip = False
-        inserted = False
-        
-        for line in lines:
-            if line.strip().startswith('nav:'):
-                skip = True
-                inserted = True
-                new_lines.extend(["nav:\n", content])
-                continue
-            
-            if skip and (line.strip() and not line.startswith(' ') and not line.startswith('#')):
-                skip = False
-            
-            if not skip:
-                new_lines.append(line)
-        
-        # 如果没有找到 nav: 部分，则在文件末尾添加
-        if not inserted:
-            if new_lines and not new_lines[-1].endswith('\n'):
-                new_lines.append('\n')
-            new_lines.extend(["\nnav:\n", content])
-        
-        # 写入新文件
-        with open(CONFIG_FILE, 'w', encoding='utf-8') as f: 
-            f.writelines(new_lines)
-        return True
-
-    def natural_sort(self, s):
-        return [int(text) if text.isdigit() else text.lower() for text in re.split(r'(\d+)', s)]
+    def get_children(self, item_id):
+        return self.tree.get_children(item_id)
 
 if __name__ == "__main__":
     app = App()
