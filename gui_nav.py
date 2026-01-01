@@ -215,19 +215,36 @@ class MkDocsCore:
         
         name = meta['name']
         
+        # --- 情况 1: 普通文件 ---
         if meta['type'] == 'file':
-            # 处理文件名显示优化
             display = os.path.splitext(name)[0] if name.endswith('.md') else name
             if name == 'index.md' or display == '首页': return f"{indent}- 首页: {item_id}\n"
             return f"{indent}- {display}: {item_id}\n"
         
+        # --- 情况 2: 文件夹 ---
         if meta['type'] == 'dir':
             children = tree_helper.get_children(item_id)
+            
+            # =========== 新增优化逻辑开始 ===========
+            # 如果文件夹下 【只有一个子项】 且该子项是 【文件】
+            if len(children) == 1:
+                child_id = children[0]
+                child_meta = self.meta_map.get(child_id)
+                
+                # 确认子项存在且是文件
+                if child_meta and child_meta['type'] == 'file':
+                    # 直接生成: "- 文件夹名: 子文件路径"
+                    # 这样就跳过了子文件名的那一层显示
+                    return f"{indent}- {name}: {child_id}\n"
+            # =========== 新增优化逻辑结束 ===========
+
+            # 常规逻辑：有多项，或者子项是文件夹，则生成嵌套结构
             block = f"{indent}- {name}:\n"
             for kid in children:
                 block += self._generate_yaml_block(kid, level + 1, tree_helper)
             return block
-
+        
+        
     @staticmethod
     def _natural_sort(s):
         return [int(t) if t.isdigit() else t.lower() for t in re.split(r'(\d+)', s)]
