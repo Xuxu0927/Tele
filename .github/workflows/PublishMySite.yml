@@ -32,16 +32,24 @@ jobs:
           restore-keys: |
             mkdocs-material-
 
-      # 3. 安装 uv (比 pip 快 10-100 倍)
+      # 3. 安装 uv
       - name: Install uv
         uses: astral-sh/setup-uv@v5
         with:
           version: "latest"
 
-      # 4. 使用 uv 安装依赖
+      # 4. 使用 uv 创建虚拟环境并安装依赖 (修复点)
       - name: Install dependencies
         run: |
-          uv pip install --system -r requirements.txt
+          # 1. 创建虚拟环境 (默认在 .venv 目录)
+          uv venv
+          
+          # 2. 关键：将虚拟环境的 bin 目录添加到系统 PATH
+          # 这样后续步骤的 mkdocs 命令会自动使用虚拟环境里的版本
+          echo "$GITHUB_WORKSPACE/.venv/bin" >> $GITHUB_PATH
+          
+          # 3. 安装依赖 (uv 会自动检测到 .venv 并安装进去)
+          uv pip install -r requirements.txt
 
       # 5. 构建并部署
       - run: mkdocs gh-deploy --force
