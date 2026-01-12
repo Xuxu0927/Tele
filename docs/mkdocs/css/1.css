@@ -24,96 +24,107 @@
 
 
 /* ==========================================
-   一级标题：全宽横幅 + 3D 浮起
+   一级标题 (H1)：极简风格 - 无背景 + 主色文字
    ========================================== */
 .md-typeset h1 {
+    /* 重置定位与边距 */
     position: relative;
-    margin: 40px -16px 24px -16px;          /* 突破容器左右边距，形成横幅效果 */
-    padding: 20px 16px 22px;
-    font-size: 2.2rem;
-    font-weight: 800;
-    letter-spacing: .05em;
-    text-align: center;
-    color: #fff;                             /* 固定白色字，保证任何主色下都可读 */
-    border: none;
+    margin: 0 0 1.5rem 0; /* 紧凑一些的下边距 */
+    padding: 0 0 0.5rem 0; /* 仅留出底部线条的空隙 */
+    
+    /* 字体调整：减小字号，使用主色 */
+    font-size: 1.9rem; /* 原 2.2rem -> 现 1.9rem */
+    font-weight: 800;  /* 保持粗体，维持层级 */
+    line-height: 1.3;
+    text-align: left;  /* 去掉背景后，左对齐更符合阅读习惯 */
+    color: var(--md-primary-fg-color); /* 关键：改为主题色，否则白色看不见 */
+    
+    /* 核心：去掉原来的 3D 横幅样式 */
+    background: transparent;
+    box-shadow: none;
+    transform: none;
     border-radius: 0;
-    /* 横向渐变背景（自动跟随主题主色→强调色） */
-    background: linear-gradient(
-        90deg,
-        var(--md-primary-fg-color) 0%,
-        var(--md-accent-fg-color) 100%
-    );
-    box-shadow:
-        0 6px 14px rgba(0,0,0,.18),
-        0 2px 4px rgba(0,0,0,.12);
-    transform: perspective(1000px) rotateX(1.2deg);
-    transition: transform .25s ease;
-}
-/* 悬浮轻微抬起 */
-.md-typeset h1:hover {
-    transform: perspective(1000px) rotateX(0) translateY(-2px);
+    
+    /* 添加一条贯穿的极细底线，作为章节分割 */
+    border-bottom: 1px solid var(--md-default-fg-color--lightest);
 }
 
-/* 深色模式降低饱和度，避免刺眼 */
-[data-md-color-scheme="slate"] .md-typeset h1 {
-    background: linear-gradient(
-        90deg,
-        hsl(var(--md-primary-fg-color--hsl), .85) 0%,
-        hsl(var(--md-accent-fg-color--hsl), .85) 100%
-    );
+/* 移动端适配 */
+@media (max-width: 600px) {
+    .md-typeset h1 {
+        font-size: 1.5rem; /* 移动端进一步缩小 */
+        margin-bottom: 1rem;
+    }
+}
+
+/* 注意：原本 H1 的 :hover 悬浮特效（3D翻转）
+   在这里不再需要，因此直接删除或覆盖为空即可 
+*/
+.md-typeset h1:hover {
+    transform: none;
+    box-shadow: none;
 }
 
 /* ==========================================
-   二级标题：高饱和霓虹柱 + 卡片背景
+   二级标题 (H2)：精致线条风格 - 字号缩小版
    ========================================== */
 .md-typeset h2 {
     position: relative;
-    margin: 32px 0 16px;
-    padding: 10px 12px 10px 20px;
-    font-size: 1.6rem;
+    /* 稍微减小间距，配合更小的字号 */
+    margin: 40px 0 20px; 
+    padding: 0 0 8px 0; 
+    
+    /* 字号调整：原 1.75rem -> 现 1.55rem */
+    font-size: 1.55rem; 
     font-weight: 700;
     color: var(--md-default-fg-color);
-    /* 左侧 8px 霓虹柱 */
-    border-left: 8px solid var(--md-accent-fg-color);
-    border-radius: 0 6px 6px 0;
-    /* 卡片式灰度背景 */
-    background: var(--md-default-bg-color--lighter);
-    box-shadow: 0 2px 6px rgba(0,0,0,.06);
-    transition: all .25s ease;
+    letter-spacing: -0.01em;
+    line-height: 1.4;
+    
+    /* 保持原来的设计：透明背景 + 底部细灰线 */
+    background: transparent; 
+    border-radius: 0;
+    border: none;
+    border-bottom: 2px solid var(--md-default-fg-color--lightest);
+    
+    box-shadow: none;
+    transition: color 0.3s;
 }
-/* 悬浮高亮+光晕 */
-.md-typeset h2:hover {
-    border-left-color: var(--md-primary-fg-color);
-    background: var(--md-default-bg-color--lightest);
-    box-shadow: 0 4px 12px rgba(0,0,0,.1);
-}
-/* 加一条微弱内发光，让柱子更亮 */
+
+/* H2 底部装饰条 (胶囊滑块) */
 .md-typeset h2::before {
     content: "";
     position: absolute;
-    left: -8px;
-    top: 0;
-    bottom: 0;
-    width: 8px;
-    border-radius: 4px;
-    background: var(--md-accent-fg-color);
-    filter: blur(4px);
-    opacity: .55;
-    z-index: -1;
+    bottom: -2px; /* 压在底线上 */
+    left: 0;
+    width: 50px;  /* 稍微缩短装饰条长度，更协调 */
+    height: 4px;  
+    border-radius: 2px;
+    
+    /* 装饰条颜色跟随主色渐变 */
+    background: linear-gradient(
+        90deg, 
+        var(--md-primary-fg-color) 0%, 
+        var(--md-accent-fg-color) 100%
+    );
+    transition: width 0.3s ease;
 }
 
-/* ==========================================
-   移动端缩小夸张度
-   ========================================== */
+/* H2 悬浮交互 */
+.md-typeset h2:hover {
+    color: var(--md-primary-fg-color);
+}
+
+/* 悬浮时，装饰条伸长填满底部 */
+.md-typeset h2:hover::before {
+    width: 100%; 
+}
+
+/* 移动端适配 */
 @media (max-width: 600px) {
-    .md-typeset h1 {
-        font-size: 1.8rem;
-        margin: 24px -12px 16px;
-        padding: 14px 12px 16px;
-    }
     .md-typeset h2 {
-        font-size: 1.35rem;
-        padding-left: 16px;
+        font-size: 1.35rem; /* 移动端对应缩小 */
+        margin-top: 28px;
     }
 }
 

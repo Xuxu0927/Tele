@@ -177,33 +177,49 @@ class MkDocsCore:
 
     def save_to_yaml(self, ui_tree_helper) -> bool:
         """保存逻辑：利用 UI 树的顺序生成 YAML"""
-        if not os.path.exists(Config.CONFIG_FILE): return False
+        if not os.path.exists(Config.CONFIG_FILE):
+            return False
         
-        # 生成 content
+        # 1. 生成新的 nav 内容块
         roots = ui_tree_helper.get_roots()
         content = ""
         for r in roots:
             content += self._generate_yaml_block(r, 1, ui_tree_helper)
             
-        # 写入文件
+        # 2. 读取旧文件
         shutil.copy(Config.CONFIG_FILE, f"{Config.CONFIG_FILE}.bak")
-        with open(Config.CONFIG_FILE, 'r', encoding='utf-8') as f: lines = f.readlines()
+        with open(Config.CONFIG_FILE, 'r', encoding='utf-8') as f:
+            lines = f.readlines()
         
+        # 3. 替换 nav 部分
         new_lines = []
-        skip, inserted = False, False
+        skip = False
+        inserted = False
         
         for line in lines:
             s = line.strip()
+            # 遇到 nav: 开头，标记开始跳过，并插入新内容
             if s.startswith('nav:'):
-                skip = True; inserted = True
-                new_lines.extend(["nav:\n", content])
+                skip = True
+                inserted = True
+                new_lines.append("nav:\n")
+                new_lines.append(content)
                 continue
+            
+            # 如果处于跳过状态，且遇到了非缩进的行（且不是空行或注释），说明 nav 部分结束了
             if skip and (s and not line.startswith(' ') and not line.startswith('#')):
                 skip = False
-            if not skip: new_lines.append(line)
             
-        if not inserted: new_lines.extend(["\nnav:\n", content])
+            # 非跳过状态下，保留原行
+            if not skip:
+                new_lines.append(line)
+            
+        # 如果文件里原来没有 nav，则追加在最后
+        if not inserted:
+            new_lines.append("\nnav:\n")
+            new_lines.append(content)
         
+        # 4. 写入文件
         with open(Config.CONFIG_FILE, 'w', encoding='utf-8') as f:
             f.writelines(new_lines)
         return True
@@ -211,38 +227,43 @@ class MkDocsCore:
     def _generate_yaml_block(self, item_id, level, tree_helper) -> str:
         indent = "    " * level
         meta = self.meta_map.get(item_id)
-        if not meta: return ""
+        # 路径1：没有元数据，返回空字符串
+        if not meta:
+            return ""
         
         name = meta['name']
         
-        # --- 情况 1: 普通文件 ---
+        # 路径2：是文件，返回字符串
         if meta['type'] == 'file':
             display = os.path.splitext(name)[0] if name.endswith('.md') else name
-            if name == 'index.md' or display == '首页': return f"{indent}- 首页: {item_id}\n"
+            if name == 'index.md' or display == '首页':
+                return f"{indent}- 首页: {item_id}\n"
             return f"{indent}- {display}: {item_id}\n"
         
-        # --- 情况 2: 文件夹 ---
+        # 路径3：是文件夹，返回字符串
         if meta['type'] == 'dir':
             children = tree_helper.get_children(item_id)
             
-            # =========== 新增优化逻辑开始 ===========
-            # 如果文件夹下 【只有一个子项】 且该子项是 【文件】
+            # 优化逻辑：单文件文件夹展平
             if len(children) == 1:
                 child_id = children[0]
                 child_meta = self.meta_map.get(child_id)
-                
-                # 确认子项存在且是文件
                 if child_meta and child_meta['type'] == 'file':
-                    # 直接生成: "- 文件夹名: 子文件路径"
-                    # 这样就跳过了子文件名的那一层显示
                     return f"{indent}- {name}: {child_id}\n"
-            # =========== 新增优化逻辑结束 ===========
 
-            # 常规逻辑：有多项，或者子项是文件夹，则生成嵌套结构
+            # 常规逻辑
             block = f"{indent}- {name}:\n"
             for kid in children:
+                # 递归调用
                 block += self._generate_yaml_block(kid, level + 1, tree_helper)
             return block
+            
+        # =================================================
+        # 🔴 修复点：添加这个保底返回
+        # 如果 type 既不是 file 也不是 dir (虽然逻辑上不可能)，
+        # 必须返回一个空字符串来满足 -> str 的要求。
+        # =================================================
+        return ""
         
         
     @staticmethod
