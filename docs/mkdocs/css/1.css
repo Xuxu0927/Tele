@@ -1,86 +1,70 @@
 /* ==========================================
-   一级标题 (H1)：重视觉 - 3D 浮雕横幅
-   (保持了你的原意，微调阴影让它更“实”)
+   一级标题 (H1)：极简风格 - 纯文字 + 紧凑
+   (去除了背景块、阴影和 3D 效果)
    ========================================== */
 .md-typeset h1 {
+    /* 重置定位和变换 */
     position: relative;
-    /* 调整边距，增加下方呼吸感 */
-    margin: 40px -20px 32px -20px;
-    padding: 16px 20px;
+    transform: none;
+    box-shadow: none;
+    background: transparent; /* 去除背景色 */
     
-    font-size: 2.2rem;
-    font-weight: 900;
-    text-align: center;
-    color: #fff;
+    /* 调整排版：回归左对齐，去除由于背景块引入的负边距 */
+    text-align: left; 
+    margin: 40px 0 24px 0; /* 上下间距调整 */
+    padding: 0;
     
-    /* 背景：更加平滑的渐变 */
-    background: linear-gradient(
-        135deg,
-        var(--md-primary-fg-color) 0%,
-        var(--md-primary-fg-color--light) 60%,
-        var(--md-accent-fg-color) 100%
-    );
+    /* 字体调整：变小，变色 */
+    font-size: 1.9rem; /* 原 2.2rem -> 1.9rem */
+    font-weight: 800;  /* 保持粗体 */
+    line-height: 1.3;
     
-    /* 阴影优化：增加层次感，减少脏感 */
-    box-shadow: 
-        0 10px 20px -5px rgba(0, 0, 0, 0.3),
-        0 6px 6px -5px rgba(0, 0, 0, 0.1);
-        
-    /* 3D 变换 */
-    transform: perspective(1000px) rotateX(2deg);
-    transform-origin: center bottom;
-    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    /* 颜色：因为没了背景，必须从白色改为主题色或深色，否则看不见 */
+    color: var(--md-primary-fg-color); 
     
-    /* 边框圆角微调，防止太锐利 */
-    border-radius: 2px; 
-    z-index: 2;
+    /* 可选：加一个极细的底部装饰，避免头重脚轻（不需要可删掉下面两行） */
+    border-bottom: 1px solid var(--md-default-fg-color--lightest);
+    padding-bottom: 12px;
 }
 
-/* 悬浮效果：回正并轻微发光 */
+/* 去除 H1 之前的悬浮 3D 效果，改为简单的颜色加深或无效果 */
 .md-typeset h1:hover {
-    transform: perspective(1000px) rotateX(0deg) translateY(-4px) scale(1.01);
-    box-shadow: 
-        0 14px 28px rgba(0,0,0,0.25), 
-        0 10px 10px rgba(0,0,0,0.22);
+    transform: none;
+    box-shadow: none;
+    /* 只有轻微的颜色变化 */
+    color: var(--md-primary-fg-color--dark);
 }
 
 /* ==========================================
-   二级标题 (H2)：轻视觉 - 底部渐变线条 + 图标锚点
-   (核心改动：去掉背景块，拉开与 H1 的差距)
+   二级标题 (H2)：精致下划线 - 尺寸缩小
+   (保持了你的“胶囊”滑块动画)
    ========================================== */
 .md-typeset h2 {
     position: relative;
-    margin: 48px 0 24px; /* 增加上间距，区分段落 */
-    padding: 0 0 10px 0; /* 留出底部线条空间 */
+    margin: 32px 0 16px; /* 间距稍微收紧 */
+    padding: 0 0 8px 0;
     
-    font-size: 1.75rem;
+    font-size: 1.45rem; /* 原 1.75rem -> 1.45rem */
     font-weight: 700;
-    color: var(--md-default-fg-color);
+    color: var(--md-default-fg-color); /* 默认深灰 */
     letter-spacing: -0.01em;
     
-    /* 核心改动：只保留底部线条，形成“通透感” */
     background: transparent; 
-    border-radius: 0;
     border: none;
-    border-bottom: 2px solid var(--md-default-fg-color--lightest);
-    
-    /* 必须：重置之前的阴影 */
-    box-shadow: none;
-    transition: color 0.3s;
+    /* 底部细灰线作为轨道 */
+    border-bottom: 1px solid var(--md-default-fg-color--lightest); 
 }
 
-/* H2 的左侧装饰元素（替换原来的粗边框） */
-/* 这里做一个“胶囊型”的小滑块，非常精致 */
+/* H2 的左侧装饰元素（胶囊滑块） */
 .md-typeset h2::before {
     content: "";
     position: absolute;
-    bottom: -2px; /* 压在底线上 */
+    bottom: -1px; /* 压在底线上 */
     left: 0;
-    width: 60px; /* 装饰条长度 */
-    height: 4px; /* 装饰条高度 */
-    border-radius: 2px;
+    width: 40px; /* 初始宽度随字体缩小稍微变短 */
+    height: 3px; /* 高度稍微变细 */
+    border-radius: 3px;
     
-    /* 装饰条颜色跟随主色渐变 */
     background: linear-gradient(
         90deg, 
         var(--md-primary-fg-color) 0%, 
@@ -93,9 +77,8 @@
 .md-typeset h2:hover {
     color: var(--md-primary-fg-color);
 }
-/* 悬浮时，底部的装饰条伸长 */
 .md-typeset h2:hover::before {
-    width: 100%; /* 充满整个底部 */
+    width: 100%;
 }
 
 /* ==========================================
@@ -103,16 +86,13 @@
    ========================================== */
 @media (max-width: 600px) {
     .md-typeset h1 {
-        font-size: 1.6rem;
-        margin: 32px -16px 24px;
-        transform: none; /* 移动端取消 3D，避免排版问题 */
-    }
-    .md-typeset h1:hover {
-        transform: none;
+        font-size: 1.5rem; /* 移动端更小 */
+        margin: 24px 0 16px;
+        padding-bottom: 8px;
     }
     
     .md-typeset h2 {
-        font-size: 1.4rem;
-        margin-top: 32px;
+        font-size: 1.25rem; /* 移动端更小 */
+        margin-top: 24px;
     }
 }
