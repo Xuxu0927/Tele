@@ -3,7 +3,7 @@ name: Publish to GitHub Pages
 on:
   push:
     branches:
-      - main  # 或者 master，根据你的主分支名
+      - main
 
 # 1. 自动取消旧构建
 concurrency:
@@ -19,16 +19,29 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 10 # 为了 git-revision-date-localized 需要全量历史，如果太慢可改为 0 以外的数字
+          # 注意：fetch-depth: 0 (全量) 是日期插件准确性的前提。
+          # 如果设为 10，超过10次提交未修改的文件日期会显示错误或变成构建时间。
+          # 配合下面的构建缓存，建议改回 0 以保证正确性，速度由缓存来保障。
+          fetch-depth: 0 
 
-      # 2. 启用 Python 缓存
-      - uses: actions/setup-python@v5
+      # 2. 恢复 MkDocs 构建缓存 (这对 git-revision-date 插件和图片处理提速巨大)
+      - uses: actions/cache@v4
         with:
-          python-version: 3.x
-          cache: 'pip' 
-      
-      # 3. 安装依赖 (如果 requirements.txt 没变，这步会飞快)
-      - run: pip install -r requirements.txt
+          key: mkdocs-material-${{ hashFiles('mkdocs.yml') }}
+          path: .cache
+          restore-keys: |
+            mkdocs-material-
 
-      # 4. 构建并部署
+      # 3. 安装 uv (比 pip 快 10-100 倍)
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          version: "latest"
+
+      # 4. 使用 uv 安装依赖
+      - name: Install dependencies
+        run: |
+          uv pip install --system -r requirements.txt
+
+      # 5. 构建并部署
       - run: mkdocs gh-deploy --force
