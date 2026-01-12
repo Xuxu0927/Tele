@@ -10,7 +10,7 @@
     background: transparent; /* 去除背景色 */
     
     /* 调整排版：回归左对齐，去除由于背景块引入的负边距 */
-    text-align: left; 
+    text-align: center; 
     margin: 40px 0 24px 0; /* 上下间距调整 */
     padding: 0;
     
@@ -22,9 +22,6 @@
     /* 颜色：因为没了背景，必须从白色改为主题色或深色，否则看不见 */
     color: var(--md-primary-fg-color); 
     
-    /* 可选：加一个极细的底部装饰，避免头重脚轻（不需要可删掉下面两行） */
-    border-bottom: 1px solid var(--md-default-fg-color--lightest);
-    padding-bottom: 12px;
 }
 
 /* 去除 H1 之前的悬浮 3D 效果，改为简单的颜色加深或无效果 */
@@ -44,7 +41,7 @@
     margin: 32px 0 16px; /* 间距稍微收紧 */
     padding: 0 0 8px 0;
     
-    font-size: 1.45rem; /* 原 1.75rem -> 1.45rem */
+    font-size: 1.25rem; /* 原 1.75rem -> 1.25rem */
     font-weight: 700;
     color: var(--md-default-fg-color); /* 默认深灰 */
     letter-spacing: -0.01em;
