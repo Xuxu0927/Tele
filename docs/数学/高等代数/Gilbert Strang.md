@@ -43,11 +43,5 @@ Strang 教授的这部《线性代数及其应用（第4版）》介绍了线性
 
 ## 课程资源
 
-- 课程视频：<https://www.bilibili.com/video/BV16Z4y1U7oU/>
-- 课程教材： [Introduction to Linear Algebra(5th edition)__Gilbert Strang.pdf](Introduction to Linear Algebra(5th edition)__Gilbert Strang.pdf) （英文） [线性代数引论原书第五版（introduction to linear algebra 中译版） (Gilbert Strang, 峁院长) (Z-Library).pdf](线性代数引论原书第五版（introduction to linear algebra 中译版） (Gilbert Strang, 峁院长) (Z-Library).pdf) （中文）
-- 课程网站：[Syllabus | Linear Algebra | Mathematics | MIT OpenCourseWare](https://ocw.mit.edu/courses/18-06sc-linear-algebra-fall-2011/pages/syllabus/)
-
-
-
-另附网红视频*线性代数的本质***3Blue1Brown**[Essence of linear algebra - YouTube](https://www.youtube.com/playlist?list=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab)
+- 
 
