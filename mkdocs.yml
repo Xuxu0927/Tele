@@ -123,9 +123,7 @@ nav:
     - 电子通信:
         - 首页: 电子通信/index.md
         - 工具软件:
-            - essay-template: 电子通信/工具软件/essay-template.md
             - Matlab: 电子通信/工具软件/Matlab.md
-            - 常用网站: 电子通信/工具软件/常用网站.md
             - 论文妙招: 电子通信/工具软件/论文妙招.md
         - 信号与系统:
             - MIT 6.007 Signals and Systems: 电子通信/信号与系统/MIT 6.007 Signals and Systems.md

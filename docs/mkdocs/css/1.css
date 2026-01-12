@@ -1,3 +1,5 @@
+/*超链接下划线css*/
+
 /* 去掉默认的下划线 */
 .md-typeset a {
     text-decoration: none;
@@ -21,21 +23,103 @@
 
 
 
-
-
-/* 一级标题：底部渐变线条 */
+/* ===== 一级标题：极光底边 + 悬浮光晕 ===== */
 .md-typeset h1 {
-    color: var(--md-primary-fg-color); /* 使用主题色 */
-    border-bottom: 2px solid rgba(0,0,0,0.05); /* 浅色底线 */
-    padding-bottom: 10px;
-    margin-bottom: 20px;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.1); /* 轻微浮雕感 */
+    position: relative;
+    color: var(--md-primary-fg-color);
+    padding-bottom: .6em;
+    margin: 1.2em 0 .8em;
+    font-weight: 700;
+    letter-spacing: .02em;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, .08);
+    /* 底边渐变（极光色） */
+    border: none;
+    background: linear-gradient(
+        90deg,
+        var(--md-primary-fg-color) 0%,
+        var(--md-accent-fg-color) 50%,
+        var(--md-primary-fg-color) 100%
+    ) left bottom / 100% 3px no-repeat content-box;
+    transition: background-size .4s ease;
+}
+/* 悬浮时底边延伸 */
+.md-typeset h1:hover {
+    background-size: 100% 6px;
+}
+/* 光晕呼吸 */
+.md-typeset h1::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -3px;
+    width: 100%;
+    height: 3px;
+    border-radius: 3px;
+    background: inherit;
+    filter: blur(8px);
+    opacity: .6;
+    animation: breathe 3s ease-in-out infinite;
+}
+@keyframes breathe {
+    50% { opacity: .9; }
 }
 
-/* 二级标题：左侧竖线指示符 */
+/* ===== 二级标题：左侧光柱 + 玻璃态 ===== */
 .md-typeset h2 {
-    border-left: 5px solid var(--md-primary-fg-color); /* 左侧加粗线 */
-    padding-left: 15px; /* 文字右移 */
-    background: linear-gradient(to right, rgba(0,0,0,0.03), transparent); /* 淡淡的背景拖尾 */
-    border-radius: 0 5px 5px 0;
+    position: relative;
+    margin: 1em 0 .6em;
+    padding: .4em .8em .4em 1.2em;
+    font-weight: 600;
+    color: var(--md-primary-fg-color);
+    border: none;
+    border-radius: 0 6px 6px 0;
+    background: linear-gradient(
+        90deg,
+        var(--md-primary-fg-color) 0%,
+        transparent 10%
+    );
+    background-size: 6px 100%;
+    background-repeat: no-repeat;
+    transition: all .3s ease;
 }
+/* 悬浮高亮 */
+.md-typeset h2:hover {
+    background-color: rgba(var(--md-primary-fg-color--rgb), .04);
+    padding-left: 1.4em;
+}
+/* 玻璃拖尾 */
+.md-typeset h2::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(
+        90deg,
+        rgba(var(--md-primary-fg-color--rgb), .06) 0%,
+        transparent 30%
+    );
+    backdrop-filter: blur(2px);
+    z-index: -1;
+}
+
+/* ===== 深色模式微调 ===== */
+[data-md-color-scheme="slate"] .md-typeset h1 {
+    text-shadow: 0 1px 2px rgba(0, 0, 0, .4);
+}
+[data-md-color-scheme="slate"] .md-typeset h2::before {
+    background: linear-gradient(
+        90deg,
+        rgba(var(--md-primary-fg-color--rgb), .12) 0%,
+        transparent 40%
+    );
+}
+
+/* ===== 移动端减小夸张度 ===== */
+@media (max-width: 600px) {
+    .md-typeset h1 { font-size: 1.7rem; }
+    .md-typeset h2 { font-size: 1.4rem; }
+}
+
+
+
+

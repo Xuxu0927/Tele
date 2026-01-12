@@ -123,9 +123,7 @@ nav:
     - 电子通信:
         - 首页: 电子通信/index.md
         - 工具软件:
-            - essay-template: 电子通信/工具软件/essay-template.md
             - Matlab: 电子通信/工具软件/Matlab.md
-            - 常用网站: 电子通信/工具软件/常用网站.md
             - 论文妙招: 电子通信/工具软件/论文妙招.md
         - 信号与系统:
             - MIT 6.007 Signals and Systems: 电子通信/信号与系统/MIT 6.007 Signals and Systems.md
@@ -190,13 +188,13 @@ nav:
     - 计算机:
         - 首页: 计算机/index.md
         - c语言: 计算机/c语言/c语言.md
-        - git: 计算机/git/廖雪峰.md
+        - git: 计算机/git/git.md
         - python:
             - 打包工具: 计算机/python/打包工具.md
             - 课程推荐: 计算机/python/课程推荐.md
-        - 操作系统: 计算机/操作系统/南大 蒋炎岩.md
-        - 数据结构: 计算机/数据结构/印度小哥.md
-        - 计算机组成: 计算机/计算机组成/课程.md
+        - 操作系统: 计算机/操作系统/操作系统.md
+        - 数据结构: 计算机/数据结构/index.md
+        - 计算机组成: 计算机/计算机组成/index.md
     - 书籍:
         - 首页: 书籍/index.md
         - 上帝掷骰子吗:
