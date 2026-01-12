@@ -1,7 +1,10 @@
-/*超链接下划线css*/
+/* ============================================================
+   超链接动效：下划线展开
+   (修复版：已排除标题锚点、按钮、图标等非正文链接)
+   ============================================================ */
 
-/* 去掉默认的下划线 */
-.md-typeset a {
+/* 核心定义：排除 .headerlink (标题锚点) 和 .md-button (按钮) */
+.md-typeset a:not(.headerlink):not(.md-button):not(.md-content__button) {
     text-decoration: none;
     background-image: linear-gradient(var(--md-primary-fg-color), var(--md-primary-fg-color));
     background-position: 0% 100%;
@@ -11,12 +14,25 @@
 }
 
 /* 鼠标悬停时，下划线展开到 100% */
-.md-typeset a:hover {
+.md-typeset a:not(.headerlink):not(.md-button):not(.md-content__button):hover {
     background-size: 100% 2px;
 }
 
-/* 排除按钮和导航栏链接，防止误伤 */
-.md-typeset .md-button, .md-nav__link {
+/* === 双重保险：强制移除标题内部所有链接的特效 === */
+/* 防止这一特效破坏 H1/H2 刚才设计的底部线条 */
+.md-typeset h1 a,
+.md-typeset h2 a,
+.md-typeset h3 a,
+.md-typeset h4 a,
+.md-typeset h5 a,
+.md-typeset h6 a {
+    background-image: none !important;
+    text-decoration: none !important;
+    transition: none !important;
+}
+
+/* 排除导航栏链接 (通常不在 .md-typeset 内，但为了保险保留) */
+.md-nav__link {
     background-image: none !important;
 }
 
@@ -75,7 +91,7 @@
     padding: 0 0 8px 0; 
     
     /* 字号调整：原 1.75rem -> 现 1.55rem */
-    font-size: 1.55rem; 
+    font-size: 1.35rem; 
     font-weight: 700;
     color: var(--md-default-fg-color);
     letter-spacing: -0.01em;

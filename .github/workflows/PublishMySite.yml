@@ -1,36 +1,34 @@
-name: publish site
-on: # 在什么时候触发工作流
-  push: # 在从本地main分支被push到GitHub仓库时
+name: Publish to GitHub Pages
+
+on:
+  push:
     branches:
-      - master
-      - main
-  pull_request: # 在main分支合并别人提的pr时
-    branches:
-      - main
+      - main  # 或者 master，根据你的主分支名
+
+# 1. 自动取消旧构建
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 permissions:
   contents: write
-jobs: # 工作流的具体内容
+
+jobs:
   deploy:
-    runs-on: ubuntu-latest # 创建一个新的云端虚拟机 使用最新Ubuntu系统
+    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3 # 先checkout到main分支
+      - uses: actions/checkout@v4
         with:
-          fetch-depth: 0 # 获取所有标签和分支的所有历史记录
-      
-      - uses: actions/setup-python@v4 # 再安装Python3和相关环境
+          fetch-depth: 10 # 为了 git-revision-date-localized 需要全量历史，如果太慢可改为 0 以外的数字
+
+      # 2. 启用 Python 缓存
+      - uses: actions/setup-python@v5
         with:
           python-version: 3.x
+          cache: 'pip' 
       
-      - run: echo "cache_id=$(date --utc '+%V')" >> $GITHUB_ENV
-      
-      - uses: actions/cache@v3
-        with:
-          key: mkdocs-material-${{ env.cache_id }}
-          path: .cache
-          restore-keys: |
-            mkdocs-material-
-      
-      # [修改重点] 这里原本是6行 pip install，现在合并为一行：
-      - run: pip install -r requirements.txt 
-      
-      - run: mkdocs gh-deploy --force # 使用mkdocs-material部署gh-pages分支
+      # 3. 安装依赖 (如果 requirements.txt 没变，这步会飞快)
+      - run: pip install -r requirements.txt
+
+      # 4. 构建并部署
+      - run: mkdocs gh-deploy --force
