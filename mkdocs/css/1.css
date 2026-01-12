@@ -1,0 +1,99 @@
+/* ==========================================
+   2. 一级标题 (H1)：极简风格
+   ========================================== */
+.md-typeset h1 {
+    position: relative;
+    margin: 0 0 1.5rem 0;
+    padding: 0 0 0.5rem 0;
+    
+    /* 字体调整 */
+    font-size: 1.9rem; 
+    font-weight: 800;
+    line-height: 1.3;
+    text-align: left;
+    color: var(--md-primary-fg-color); /* 跟随主题色 */
+    
+    /* 底部贯穿细线 (静态) */
+    border-bottom: 1px solid var(--md-default-fg-color--lightest);
+    
+    /* 确保重置所有 3D 或背景效果 */
+    background: transparent;
+    box-shadow: none;
+    transform: none;
+    border-radius: 0;
+}
+
+/* 悬浮时保持静止 */
+.md-typeset h1:hover {
+    transform: none;
+    box-shadow: none;
+}
+
+
+
+
+
+
+
+/* ==========================================
+   二级标题 (H2)：精致线条风格 - 字号缩小版
+   ========================================== */
+.md-typeset h2 {
+    position: relative;
+    /* 稍微减小间距，配合更小的字号 */
+    margin: 40px 0 20px; 
+    padding: 0 0 8px 0; 
+    
+    /* 字号调整：原 1.75rem -> 现 1.55rem */
+    font-size: 1.55rem; 
+    font-weight: 700;
+    color: var(--md-default-fg-color);
+    letter-spacing: -0.01em;
+    line-height: 1.4;
+    
+    /* 保持原来的设计：透明背景 + 底部细灰线 */
+    background: transparent; 
+    border-radius: 0;
+    border: none;
+    border-bottom: 2px solid var(--md-default-fg-color--lightest);
+    
+    box-shadow: none;
+    transition: color 0.3s;
+}
+
+/* H2 底部装饰条 (胶囊滑块) */
+.md-typeset h2::before {
+    content: "";
+    position: absolute;
+    bottom: -2px; /* 压在底线上 */
+    left: 0;
+    width: 50px;  /* 稍微缩短装饰条长度，更协调 */
+    height: 4px;  
+    border-radius: 2px;
+    
+    /* 装饰条颜色跟随主色渐变 */
+    background: linear-gradient(
+        90deg, 
+        var(--md-primary-fg-color) 0%, 
+        var(--md-accent-fg-color) 100%
+    );
+    transition: width 0.3s ease;
+}
+
+/* H2 悬浮交互 */
+.md-typeset h2:hover {
+    color: var(--md-primary-fg-color);
+}
+
+/* 悬浮时，装饰条伸长填满底部 */
+.md-typeset h2:hover::before {
+    width: 100%; 
+}
+
+/* 移动端适配 */
+@media (max-width: 600px) {
+    .md-typeset h2 {
+        font-size: 1.35rem; /* 移动端对应缩小 */
+        margin-top: 28px;
+    }
+}
