@@ -3,7 +3,7 @@ name: Publish to GitHub Pages
 on:
   push:
     branches:
-      - main
+      - main  # 或者 master，根据你的主分支名
 
 # 1. 自动取消旧构建
 concurrency:
@@ -19,37 +19,16 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          # 注意：fetch-depth: 0 (全量) 是日期插件准确性的前提。
-          # 如果设为 10，超过10次提交未修改的文件日期会显示错误或变成构建时间。
-          # 配合下面的构建缓存，建议改回 0 以保证正确性，速度由缓存来保障。
-          fetch-depth: 0 
+          fetch-depth: 0 # 为了 git-revision-date-localized 需要全量历史，如果太慢可改为 0 以外的数字
 
-      # 2. 恢复 MkDocs 构建缓存 (这对 git-revision-date 插件和图片处理提速巨大)
-      - uses: actions/cache@v4
+      # 2. 启用 Python 缓存
+      - uses: actions/setup-python@v5
         with:
-          key: mkdocs-material-${{ hashFiles('mkdocs.yml') }}
-          path: .cache
-          restore-keys: |
-            mkdocs-material-
+          python-version: 3.x
+          cache: 'pip' 
+      
+      # 3. 安装依赖 (如果 requirements.txt 没变，这步会飞快)
+      - run: pip install -r requirements.txt
 
-      # 3. 安装 uv
-      - name: Install uv
-        uses: astral-sh/setup-uv@v5
-        with:
-          version: "latest"
-
-      # 4. 使用 uv 创建虚拟环境并安装依赖 (修复点)
-      - name: Install dependencies
-        run: |
-          # 1. 创建虚拟环境 (默认在 .venv 目录)
-          uv venv
-          
-          # 2. 关键：将虚拟环境的 bin 目录添加到系统 PATH
-          # 这样后续步骤的 mkdocs 命令会自动使用虚拟环境里的版本
-          echo "$GITHUB_WORKSPACE/.venv/bin" >> $GITHUB_PATH
-          
-          # 3. 安装依赖 (uv 会自动检测到 .venv 并安装进去)
-          uv pip install -r requirements.txt
-
-      # 5. 构建并部署
+      # 4. 构建并部署
       - run: mkdocs gh-deploy --force
