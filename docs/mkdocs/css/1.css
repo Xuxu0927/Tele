@@ -1,45 +1,3 @@
-/* ============================================================
-   1. 正文超链接特效 (智能排除版)
-   ============================================================ */
-
-/* 定义超链接样式：
-   排除 .headerlink (标题旁的锚点符号)
-   排除 .md-button (按钮)
-   排除 .md-content__button (复制代码/编辑按钮)
-   排除 .md-nav__link (导航链接，以防万一)
-*/
-.md-typeset a:not(.headerlink):not(.md-button):not(.md-content__button):not(.md-nav__link) {
-    text-decoration: none;
-    /* 定义渐变背景作为下划线 */
-    background-image: linear-gradient(var(--md-primary-fg-color), var(--md-primary-fg-color));
-    background-position: 0% 100%;
-    background-repeat: no-repeat;
-    background-size: 0% 2px; /* 初始宽度为 0 */
-    transition: background-size .3s;
-}
-
-/* 鼠标悬停时，下划线展开到 100% */
-.md-typeset a:not(.headerlink):not(.md-button):not(.md-content__button):not(.md-nav__link):hover {
-    background-size: 100% 2px;
-}
-
-/* === 核心修复：标题样式“防火墙” === */
-/* 强制清除 H1-H6 内部任何自动生成的链接样式 */
-/* 使用 !important 确保没有任何插件能给标题加背景或边框 */
-.md-typeset h1 a,
-.md-typeset h2 a,
-.md-typeset h3 a,
-.md-typeset h4 a,
-.md-typeset h5 a,
-.md-typeset h6 a {
-    background: none !important; 
-    text-decoration: none !important;
-    transition: none !important;
-    border: none !important; 
-    box-shadow: none !important;
-}
-
-
 /* ==========================================
    2. 一级标题 (H1)：极简风格
    ========================================== */
@@ -72,66 +30,70 @@
 }
 
 
+
+
+
+
+
 /* ==========================================
-   3. 二级标题 (H2)：精致静态装饰
+   二级标题 (H2)：精致线条风格 - 字号缩小版
    ========================================== */
 .md-typeset h2 {
     position: relative;
-    margin: 40px 0 20px;
-    padding: 0 0 8px 0;
+    /* 稍微减小间距，配合更小的字号 */
+    margin: 40px 0 20px; 
+    padding: 0 0 8px 0; 
     
-    /* 字体缩小 */
-    font-size: 1.10rem; 
+    /* 字号调整：原 1.75rem -> 现 1.55rem */
+    font-size: 1.55rem; 
     font-weight: 700;
     color: var(--md-default-fg-color);
     letter-spacing: -0.01em;
     line-height: 1.4;
     
-    /* 底部通栏灰线 */
+    /* 保持原来的设计：透明背景 + 底部细灰线 */
+    background: transparent; 
+    border-radius: 0;
     border: none;
     border-bottom: 2px solid var(--md-default-fg-color--lightest);
-    background: transparent;
+    
     box-shadow: none;
     transition: color 0.3s;
 }
 
-/* 装饰条：彩色胶囊 (固定宽度，绝对不动) */
+/* H2 底部装饰条 (胶囊滑块) */
 .md-typeset h2::before {
     content: "";
     position: absolute;
     bottom: -2px; /* 压在底线上 */
     left: 0;
-    width: 50px;  /* 固定宽度 50px */
-    height: 4px;
+    width: 50px;  /* 稍微缩短装饰条长度，更协调 */
+    height: 4px;  
     border-radius: 2px;
     
-    /* 渐变色 */
+    /* 装饰条颜色跟随主色渐变 */
     background: linear-gradient(
         90deg, 
         var(--md-primary-fg-color) 0%, 
         var(--md-accent-fg-color) 100%
     );
-    
-    /* 移除 width 动画，只保留透明度过渡 */
-    transition: opacity 0.3s;
+    transition: width 0.3s ease;
 }
 
-/* H2 悬浮交互：仅文字变色 */
+/* H2 悬浮交互 */
 .md-typeset h2:hover {
     color: var(--md-primary-fg-color);
 }
 
+/* 悬浮时，装饰条伸长填满底部 */
+.md-typeset h2:hover::before {
+    width: 100%; 
+}
 
-/* ==========================================
-   4. 移动端适配
-   ========================================== */
+/* 移动端适配 */
 @media (max-width: 600px) {
-    .md-typeset h1 {
-        font-size: 1.5rem;
-        margin-bottom: 1rem;
-    }
     .md-typeset h2 {
-        font-size: 1.25rem;
+        font-size: 1.35rem; /* 移动端对应缩小 */
         margin-top: 28px;
     }
 }
