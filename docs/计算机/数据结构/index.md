@@ -1,3 +1,3 @@
-印度小哥
+## 课程推荐
 
-<https://www.youtube.com/watch?v=92S4zgXN17o&list=PL2_aWCzGMAwI3W_JlcBbtYTwiQSsOTa6P&index=1>
+[Introduction to data structures - YouTube](https://www.youtube.com/watch?v=92S4zgXN17o&list=PL2_aWCzGMAwI3W_JlcBbtYTwiQSsOTa6P&index=1)

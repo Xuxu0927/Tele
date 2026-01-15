@@ -1,14 +1,8 @@
-# 视频推荐
-
 ## 英语口语
 
 [【TED-ED 700集】B站最好英语合集，刷一遍绝对能让你英语口语起飞！_哔哩哔哩_bilibili](https://www.bilibili.com/video/BV1Dk4y1q781?spm_id_from=333.788.videopod.episodes&vd_source=c7e3675d49afb96c142d2e0f81613b1e)
 
-
-
 [【YouTube最好的英语播客】初级版 | 适合每天磨耳朵，绝佳的英语听力素材_哔哩哔哩_bilibili](https://www.bilibili.com/video/BV1MN4dewEQZ?spm_id_from=333.788.recommend_more_video.2&trackid=web_related_0.router-related-2206146-8hcng.1768220203900.922&vd_source=c7e3675d49afb96c142d2e0f81613b1e)
-
-
 
 
 
