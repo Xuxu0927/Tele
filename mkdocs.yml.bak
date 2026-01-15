@@ -123,9 +123,7 @@ nav:
     - 首页: index.md
     - 电子通信:
         - 首页: 电子通信/index.md
-        - 工具软件:
-            - Matlab: 电子通信/工具软件/Matlab.md
-            - 论文妙招: 电子通信/工具软件/论文妙招.md
+        - 工具软件: 电子通信/工具软件/Matlab.md
         - 信号与系统:
             - MIT 6.007 Signals and Systems: 电子通信/信号与系统/MIT 6.007 Signals and Systems.md
             - UCB EE120 Signal and Systems: 电子通信/信号与系统/UCB EE120 Signal and Systems.md
@@ -169,7 +167,7 @@ nav:
         - 首页: 数学/index.md
         - 工具软件: 数学/工具软件/Mathtools.md
         - 数学分析: 数学/数学分析/数学分析.md
-        - 高等代数: 数学/高等代数/index.md
+        - 高等代数: 数学/高等代数/高等代数.md
         - 高中宝典:
             - 首页: 数学/高中宝典/index.md
             - 高中数学思想: 数学/高中宝典/高中数学思想/高中数学思想.md
