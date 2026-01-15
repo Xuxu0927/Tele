@@ -7,11 +7,10 @@
 基础不牢 地动山摇
 
 
+
+
 ## 常用网站
 
-### 中国科学技术大学课程资源
-
-<https://github.com/Lighter-z/USTC-Course>
 ### 菜鸟教程
 
 <https://www.runoob.com/>
@@ -26,11 +25,11 @@
 
 ### ST官网
 
-https://www.st.com.cn/content/st_com/zh.html
+[https://www.st.com.cn/content/st_com/zh.html](https://www.st.com.cn/content/st_com/zh.html)
 
 ### ST中文论坛
 
-<https://shequ.stmicroelectronics.cn/>没至于
+<https://shequ.stmicroelectronics.cn/>
 
 ### 正点原子资料下载
 
@@ -42,7 +41,7 @@ https://www.st.com.cn/content/st_com/zh.html
 
 ### 亚博智能产品中心
 
-https://www.yahboom.com/store
+<https://www.yahboom.com/store>
 
 ### 清华大学开源软件镜像站
 
