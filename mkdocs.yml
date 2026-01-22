@@ -72,17 +72,7 @@ plugins:
   - git-authors: # 显示作者
   - glightbox: # 图像缩放
   - meta-manager: # 元数据管理
-  - encryptcontent:
-      title: "需要密码"           # 弹窗标题
-      placeholder: "请输入密码 （当然 因为公开源码 这个密码很容易就能找到 只是单纯玩一下）"    # 输入框提示
-      decryption_failure_message: "密码错误，请重试！" # 错误提示
-      
-      # 定义不同路径的规则
-      path_encryption_map:
-        # 格式： '路径前缀': '密码'
-        '苏大电子信息资料库/': '321321' 
   
-
 markdown_extensions:
   - pymdownx.arithmatex: # latex支持
       generic: true
@@ -94,7 +84,7 @@ markdown_extensions:
   - pymdownx.highlight: # 代码块高亮
       linenums: false # 显示行号
       linenums_style: table
-      # auto_title: true # 显示编程语言名称
+      auto_title: true # 显示编程语言名称
   - pymdownx.superfences: # 代码块高亮插件
   - pymdownx.inlinehilite: # 段落中内置的小代码高亮
   - admonition: # https://squidfunk.github.io/mkdocs-material/reference/admonitions/#inline-blocks
