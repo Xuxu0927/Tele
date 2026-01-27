@@ -1,10 +1,33 @@
-## 简介
+---
+hide:
+  - toc
+---
 
-这部分是关于电子通信学习过程中的ji'lu
+# 电子通信知识库
 
+<div class="grid cards" markdown>
 
+-   :material-chip: **半导体**
+    ---
+    PN结、MOS管与制程工艺
+    [:octicons-arrow-right-24: 进入](半导体/半导体.md)
 
-基础不牢 地动山摇
+-   :material-cpu-64-bit: **单片机 & 嵌入式**
+    ---
+    STM32 HAL库与LoRa通信实战
+    [:octicons-arrow-right-24: 进入](单片机/单片机.md)
+
+-   :material-wave: **信号与系统**
+    ---
+    MIT & UCB 课程笔记
+    [:octicons-arrow-right-24: 进入](信号与系统/MIT 6.007 Signals and Systems.md)
+
+-   :fontawesome-solid-network-wired: **计算机网络**
+    ---
+    TCP/IP 协议栈详解
+    [:octicons-arrow-right-24: 进入](计算机网络/计算机网络.md)
+
+</div>
 
 
 
