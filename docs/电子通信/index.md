@@ -1,6 +1,5 @@
 ---
-hide:
-  - toc
+comments: false
 ---
 
 # 电子通信知识库
@@ -14,7 +13,7 @@ hide:
 
 -   :material-cpu-64-bit: **单片机 & 嵌入式**
     ---
-    STM32 HAL库与LoRa通信实战
+    STM32 
     [:octicons-arrow-right-24: 进入](单片机/单片机.md)
 
 -   :material-wave: **信号与系统**

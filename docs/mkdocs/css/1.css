@@ -18,14 +18,11 @@ article ul ul ul ul {
 
 
 
-
-
 /* Center all images */
 img {
   display: block;
   margin: 0 auto;
 }
-
 
 
 
@@ -123,4 +120,29 @@ img {
         font-size: 1.25rem; /* 移动端更小 */
         margin-top: 24px;
     }
+}
+
+
+
+/* --- 方案 B：科技极客卡片 --- */
+
+.md-typeset .grid.cards > ul > li {
+    border: none;
+    border-top: 4px solid var(--md-primary-fg-color); /* 顶部色条 */
+    border-radius: 4px; /* 小圆角，更硬朗 */
+    background: var(--md-default-bg-color);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.md-typeset .grid.cards > ul > li:hover {
+    transform: scale(1.02); /* 轻微放大 */
+    box-shadow: 0 0 15px rgba(92, 107, 192, 0.4); /* 主题色的辉光 */
+    z-index: 10;
+}
+
+/* 标题样式 */
+.md-typeset .grid.cards > ul > li > strong {
+    font-weight: 700;
+    letter-spacing: 0.5px;
 }
