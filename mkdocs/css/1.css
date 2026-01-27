@@ -18,14 +18,11 @@ article ul ul ul ul {
 
 
 
-
-
 /* Center all images */
 img {
   display: block;
   margin: 0 auto;
 }
-
 
 
 
@@ -124,3 +121,6 @@ img {
         margin-top: 24px;
     }
 }
+
+
+
