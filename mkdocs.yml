@@ -97,10 +97,8 @@ markdown_extensions:
 
 extra_javascript:
   # latex支持
-  - mkdocs/js/mathjax.js
   - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
 extra_css:
-  - mkdocs/css/unordered-list-symbols.css # 多个无序列表符号
   - mkdocs/css/img-center.css # 图像居中
   - mkdocs/css/1.css
 
