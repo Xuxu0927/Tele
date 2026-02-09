@@ -3,144 +3,150 @@ hide:
   - toc
 
 <style>
-  /* === 1. 全局布局与背景优化 === */
+  /* === 1. 基础重置与全屏容器 === */
   .md-content__inner { margin-top: 0; padding-top: 0; }
-  .md-typeset h1 { display: none; }
+  .md-typeset h1 { display: none; } /* 隐藏默认标题 */
+
+  body, html {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    background-color: #050505; /* 纯黑底色 */
+  }
 
   .hero-container {
     position: relative;
-    height: 90vh; /*稍微增加高度*/
+    width: 100vw;
+    height: 100vh; /* 占满全屏 */
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
     overflow: hidden;
-    /* 动态深色渐变背景 */
-    background: linear-gradient(-45deg, #0f0c29, #302b63, #24243e, #1a1a2e);
-    background-size: 400% 400%;
-    animation: gradientBG 15s ease infinite;
     color: white;
-    border-radius: 0 0 20px 20px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
   }
 
-  @keyframes gradientBG {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-  }
-
-  /* Canvas 必须在最底层 */
+  /* Canvas 背景层 */
   #hero-canvas {
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1; 
+    z-index: 1;
+    /* 轻微的径向渐变，营造深空感 */
+    background: radial-gradient(circle at center, #1a1f35 0%, #050505 80%);
   }
 
-  /* === 2. 内容卡片：磨砂玻璃特效 === */
+  /* === 2. 内容层：居中展示 === */
   .hero-content {
     z-index: 10;
     text-align: center;
-    padding: 40px 60px;
-    background: rgba(255, 255, 255, 0.03); /* 极低透明度 */
-    backdrop-filter: blur(10px); /* 磨砂效果 */
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 24px;
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
-    transition: transform 0.3s ease;
+    pointer-events: none; /* 让鼠标事件穿透文字，直接作用于粒子 */
+    user-select: none;
   }
 
-  .hero-content:hover {
-    transform: translateY(-5px);
-    border-color: rgba(255, 255, 255, 0.3);
+  /* === 3. 故障风格标题 (Glitch Title) === */
+  .glitch-wrapper {
+    position: relative;
+    margin-bottom: 20px;
   }
 
-  /* === 3. 字体特效 === */
   .main-title {
-    font-size: 5rem;
-    font-weight: 800;
-    margin-bottom: 0.5rem;
-    letter-spacing: -2px;
-    /* 霓虹发光文字 */
+    font-size: 7rem;
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: -5px;
     color: #fff;
-    text-shadow: 0 0 10px rgba(64, 224, 208, 0.7),
-                 0 0 20px rgba(64, 224, 208, 0.5),
-                 0 0 40px rgba(64, 224, 208, 0.3);
-    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    font-family: 'Segoe UI', Impact, sans-serif;
+    position: relative;
+    text-transform: uppercase;
   }
 
+  /* 故障残影层 1 */
+  .main-title::before {
+    content: attr(data-text);
+    position: absolute;
+    left: -2px;
+    text-shadow: 1px 0 #ff00c1;
+    top: 0;
+    color: white;
+    background: #050505;
+    overflow: hidden;
+    clip: rect(0, 900px, 0, 0); 
+    animation: glitch-anim-1 2s infinite linear alternate-reverse;
+  }
+
+  /* 故障残影层 2 */
+  .main-title::after {
+    content: attr(data-text);
+    position: absolute;
+    left: 2px;
+    text-shadow: -1px 0 #00fff9;
+    top: 0;
+    color: white;
+    background: #050505;
+    overflow: hidden;
+    clip: rect(0, 900px, 0, 0); 
+    animation: glitch-anim-2 3s infinite linear alternate-reverse;
+  }
+
+  @keyframes glitch-anim-1 {
+    0% { clip: rect(20px, 9999px, 15px, 0); }
+    20% { clip: rect(70px, 9999px, 90px, 0); }
+    40% { clip: rect(30px, 9999px, 5px, 0); }
+    60% { clip: rect(80px, 9999px, 55px, 0); }
+    80% { clip: rect(10px, 9999px, 40px, 0); }
+    100% { clip: rect(60px, 9999px, 75px, 0); }
+  }
+
+  @keyframes glitch-anim-2 {
+    0% { clip: rect(65px, 9999px, 100px, 0); }
+    20% { clip: rect(10px, 9999px, 50px, 0); }
+    40% { clip: rect(90px, 9999px, 20px, 0); }
+    60% { clip: rect(15px, 9999px, 60px, 0); }
+    80% { clip: rect(55px, 9999px, 35px, 0); }
+    100% { clip: rect(40px, 9999px, 80px, 0); }
+  }
+
+  /* === 4. 副标题与打字机 === */
   .subtitle {
-    font-size: 1.5rem;
-    color: rgba(255, 255, 255, 0.8);
-    margin-bottom: 2rem;
-    font-weight: 300;
-    min-height: 1.5em; /* 防止打字时跳动 */
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.6);
+    font-family: monospace;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    display: inline-block;
+    padding: 5px 15px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 4px;
+    border: 1px solid rgba(255,255,255,0.1);
   }
 
-  /* 光标闪烁 */
   .typing-cursor {
     display: inline-block;
-    width: 3px;
-    height: 1.2em;
-    background-color: #00f2ff;
-    margin-left: 5px;
-    vertical-align: middle;
-    animation: blink 1s step-end infinite;
+    width: 8px;
+    height: 10px;
+    background-color: #00fff9;
+    animation: blink 0.8s step-end infinite;
   }
   @keyframes blink { 50% { opacity: 0; } }
 
-  /* === 4. 按钮组 === */
-  .hero-buttons {
-    display: flex;
-    gap: 20px;
-    justify-content: center;
+  /* 底部装饰：滚动提示 */
+  .scroll-indicator {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: rgba(255,255,255,0.3);
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    animation: float 2s ease-in-out infinite;
   }
-
-  .hero-btn {
-    padding: 14px 36px;
-    border-radius: 50px;
-    font-weight: 600;
-    font-size: 1.1rem;
-    text-decoration: none !important;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    position: relative;
-    overflow: hidden;
-  }
-
-  /* 主要按钮：渐变流光 */
-  .hero-btn-primary {
-    background: linear-gradient(90deg, #00c6ff, #0072ff);
-    color: white !important;
-    box-shadow: 0 0 20px rgba(0, 198, 255, 0.4);
-    border: none;
-  }
-
-  .hero-btn-primary:hover {
-    box-shadow: 0 0 30px rgba(0, 198, 255, 0.7);
-    transform: scale(1.05);
-  }
-
-  /* 次要按钮：透明描边 */
-  .hero-btn-secondary {
-    background: transparent;
-    color: #fff !important;
-    border: 2px solid rgba(255, 255, 255, 0.3);
-  }
-
-  .hero-btn-secondary:hover {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: #fff;
-  }
+  @keyframes float { 0%, 100% { transform: translate(-50%, 0); } 50% { transform: translate(-50%, 10px); } }
 
   /* 移动端适配 */
   @media screen and (max-width: 768px) {
-    .main-title { font-size: 2.8rem; }
-    .hero-content { padding: 20px; width: 90%; }
-    .hero-container { height: 70vh; }
+    .main-title { font-size: 3.5rem; letter-spacing: -2px; }
+    .subtitle { font-size: 0.9rem; }
   }
 </style>
 
@@ -148,27 +154,27 @@ hide:
   <canvas id="hero-canvas"></canvas>
 
   <div class="hero-content">
-    <div class="main-title">TeleComm</div>
-    <div class="subtitle">
-      <span id="typing-text"></span><span class="typing-cursor"></span>
+    <div class="glitch-wrapper">
+      <div class="main-title" data-text="Tele">TeleComm</div>
     </div>
 
-    <div class="hero-buttons">
-      <a href="./docs/" class="hero-btn hero-btn-primary">开始探索</a>
-      <a href="https://github.com/Xuxu0927" target="_blank" class="hero-btn hero-btn-secondary">GitHub</a>
+    <div class="subtitle">
+      <span style="color: #00fff9;">SYSTEM:</span> <span id="typing-text"></span><span class="typing-cursor"></span>
     </div>
   </div>
+
+  <div class="scroll-indicator">SCROLL TO EXPLORE</div>
 </div>
 
 <script>
 // --- 配置参数 ---
 const config = {
-  text: "连接世界，感知未来。", // 打字机文字
-  typingSpeed: 120,
-  particleCount: window.innerWidth < 768 ? 45 : 110, // 粒子数量
-  connectionDist: 140, // 连线距离
-  mouseDist: 200, // 鼠标吸附距离
-  color: '255, 255, 255' // 粒子颜色 (RGB)
+  text: "communication",
+  typingSpeed: 60,
+  particleCount: window.innerWidth < 768 ? 60 : 150, // 增加粒子密度
+  connectionDist: 120,
+  mouseDist: 250, // 增大鼠标吸附范围
+  colors: ['#00fff9', '#ffffff', '#4d4d4d'] // 青色、白色、灰色混合
 };
 
 // --- 打字机逻辑 ---
@@ -181,86 +187,71 @@ function typeWriter() {
         setTimeout(typeWriter, config.typingSpeed);
     }
 }
-setTimeout(typeWriter, 800);
+setTimeout(typeWriter, 500);
 
-// --- 炫酷粒子系统 ---
+// --- 粒子网络系统 ---
 const canvas = document.getElementById('hero-canvas');
 const ctx = canvas.getContext('2d');
 let w, h;
 let particles = [];
-
-// 鼠标位置对象
 let mouse = { x: null, y: null };
 
-// 监听鼠标移动
+// 鼠标监听
 window.addEventListener('mousemove', (e) => {
-    // 修正 Canvas 在页面中的偏移
     const rect = canvas.getBoundingClientRect();
     mouse.x = e.clientX - rect.left;
     mouse.y = e.clientY - rect.top;
 });
-
-window.addEventListener('mouseout', () => {
-    mouse.x = null;
-    mouse.y = null;
-});
+window.addEventListener('mouseout', () => { mouse.x = null; mouse.y = null; });
 
 function resize() {
-    w = canvas.width = canvas.parentElement.offsetWidth;
-    h = canvas.height = canvas.parentElement.offsetHeight;
+    w = canvas.width = window.innerWidth;
+    h = canvas.height = window.innerHeight;
 }
 
 class Particle {
     constructor() {
         this.x = Math.random() * w;
         this.y = Math.random() * h;
-        // 随机速度，稍微慢一点更有“漂浮感”
-        this.vx = (Math.random() - 0.5) * 0.8; 
-        this.vy = (Math.random() - 0.5) * 0.8;
+        // 随机速度
+        this.vx = (Math.random() - 0.5) * 1.5; 
+        this.vy = (Math.random() - 0.5) * 1.5;
         this.size = Math.random() * 2;
-        // 随机透明度，制造闪烁感
-        this.baseAlpha = Math.random() * 0.5 + 0.2; 
-        this.alpha = this.baseAlpha;
-        this.phase = Math.random() * Math.PI * 2; // 呼吸相位
+        // 随机颜色
+        this.color = config.colors[Math.floor(Math.random() * config.colors.length)];
     }
 
     update() {
-        // 1. 基础移动
         this.x += this.vx;
         this.y += this.vy;
     
-        // 2. 边界反弹
+        // 边界反弹
         if (this.x < 0 || this.x > w) this.vx *= -1;
         if (this.y < 0 || this.y > h) this.vy *= -1;
     
-        // 3. 鼠标交互 (核心炫酷点)
+        // 强力鼠标吸附
         if (mouse.x != null) {
             let dx = mouse.x - this.x;
             let dy = mouse.y - this.y;
             let distance = Math.sqrt(dx * dx + dy * dy);
     
             if (distance < config.mouseDist) {
-                // 吸引力：粒子会稍微向鼠标靠近
                 const forceDirectionX = dx / distance;
                 const forceDirectionY = dy / distance;
                 const force = (config.mouseDist - distance) / config.mouseDist;
-                const directionX = forceDirectionX * force * 2; // 2是力度
-                const directionY = forceDirectionY * force * 2;
-                
+                // 更加顺滑的牵引力
+                const directionX = forceDirectionX * force * 3; 
+                const directionY = forceDirectionY * force * 3;
                 this.x += directionX;
                 this.y += directionY;
             }
         }
-        
-        // 4. 呼吸闪烁效果
-        this.phase += 0.05;
-        this.alpha = this.baseAlpha + Math.sin(this.phase) * 0.2;
     }
     
     draw() {
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(${config.color}, ${this.alpha})`;
+        ctx.fillStyle = this.color;
         ctx.fill();
     }
 }
@@ -282,7 +273,7 @@ function animate() {
         p.update();
         p.draw();
     
-        // 粒子间连线
+        // 连线逻辑
         for (let j = i + 1; j < particles.length; j++) {
             let p2 = particles[j];
             let dx = p.x - p2.x;
@@ -291,25 +282,25 @@ function animate() {
     
             if (dist < config.connectionDist) {
                 ctx.beginPath();
-                // 线条透明度基于距离
+                // 只有近距离才连线，且线条更细更科幻
                 let opacity = 1 - (dist / config.connectionDist);
-                ctx.strokeStyle = `rgba(${config.color}, ${opacity * 0.3})`; 
-                ctx.lineWidth = 0.5;
+                ctx.strokeStyle = `rgba(0, 255, 249, ${opacity * 0.2})`; // 统一使用青色连线
+                ctx.lineWidth = 0.4;
                 ctx.moveTo(p.x, p.y);
                 ctx.lineTo(p2.x, p2.y);
                 ctx.stroke();
             }
         }
     
-        // 鼠标连线 (高亮显示)
+        // 鼠标高亮连线
         if (mouse.x != null) {
             let dx = mouse.x - p.x;
             let dy = mouse.y - p.y;
             let dist = Math.sqrt(dx*dx + dy*dy);
             if (dist < config.mouseDist) {
                 ctx.beginPath();
-                ctx.strokeStyle = `rgba(0, 242, 255, ${1 - dist / config.mouseDist})`; // 青色高亮连线
-                ctx.lineWidth = 1;
+                ctx.strokeStyle = `rgba(255, 255, 255, ${1 - dist / config.mouseDist})`; // 鼠标连线为白色
+                ctx.lineWidth = 0.8;
                 ctx.moveTo(p.x, p.y);
                 ctx.lineTo(mouse.x, mouse.y);
                 ctx.stroke();

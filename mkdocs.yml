@@ -2,7 +2,7 @@
 site_name: Tele # 左上角标题
 site_url: https://xuxu0927.github.io/Tele/
 site_author: Xuxu0927
-site_description: 通信learn
+site_description: 通信学习
 
 
 # [UI] 界面设置
@@ -15,8 +15,8 @@ theme:
     code: JetBrains Mono
   palette: 
     - scheme: default # 默认日间模式
-      primary: indigo # 上方的
-      accent: indigo # 链接等可交互元件的高亮色
+      primary: black # 上方的
+      accent: black # 链接等可交互元件的高亮色
       toggle:
         icon: material/weather-night # 图标
         name: 切换至夜间模式 # 鼠标悬浮提示
