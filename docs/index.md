@@ -8,7 +8,7 @@ hide:
   /* 隐藏默认的标题层级，让Hero区域独占 */
   .md-content__inner { margin-top: 0; padding-top: 0; }
   .md-typeset h1 { display: none; }
-  
+
   /* Hero 容器 */
   .hero-container {
     position: relative;
@@ -100,7 +100,7 @@ hide:
     background: #fff;
     transform: translateY(-3px);
   }
-  
+
   /* 移动端适配 */
   @media screen and (max-width: 768px) {
     .gradient-text { font-size: 2.5rem; }
@@ -116,45 +116,16 @@ hide:
             <span id="typing-text"></span><span class="typing-cursor"></span>
         </p>
         <div class="hero-buttons">
-            <a href="电子通信/" class="hero-btn hero-btn-primary">探索知识库</a>
-            <a href="https://github.com/Xuxu0927" class="hero-btn hero-btn-secondary">GitHub</a>
+            <a href="电子通信/" class="hero-btn hero-btn-primary">探索知识库</a>      
         </div>
     </div>
 </div>
 
-<h2 style="text-align: center; margin-bottom: 2rem; border-bottom: none;">知识图谱</h2>
 
-<div class="grid cards" markdown>
-
--   :material-access-point-network: **电子与通信**
-    ---
-    涵盖 5G/6G 技术、光通信系统仿真、信号处理与微波技术。
-    
-    [:octicons-arrow-right-24: 进入专栏](电子通信/index.md)
-
--   :material-chip: **嵌入式与硬件**
-    ---
-    STM32 开发实战、PCB 设计、FPGA 与单片机底层驱动。
-    
-    [:octicons-arrow-right-24: 进入专栏](电子通信/单片机/单片机.md)
-
--   :material-language-python: **计算机与代码**
-    ---
-    Python 自动化、Web 全栈开发 (MkDocs/Django) 及算法研究。
-    
-    [:octicons-arrow-right-24: 进入专栏](计算机/index.md)
-
--   :material-book-open-page-variant: **数学与基础**
-    ---
-    复变函数、随机过程、线性代数等通信原理所需的数学基石。
-    
-    [:octicons-arrow-right-24: 进入专栏](数学/index.md)
-
-</div>
 
 <script>
 // --- 打字机特效 ---
-const textToType = "探索通信原理，构建嵌入式未来。";
+const textToType = "探索原理，构建未来。";
 const typeSpeed = 100;
 let charIndex = 0;
 function typeWriter() {
@@ -166,6 +137,7 @@ function typeWriter() {
 }
 // 延迟一点开始打字
 setTimeout(typeWriter, 1000);
+
 
 // --- 粒子连线动画 (无需Three.js) ---
 const canvas = document.getElementById('hero-canvas');
