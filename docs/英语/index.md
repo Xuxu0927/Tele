@@ -11,3 +11,7 @@
 [权利的游戏-哔哩哔哩_bilibili](https://search.bilibili.com/pgc?keyword=权利的游戏&from_source=webtop_search&spm_id_from=333.1007&search_source=5)
 
 [【看美剧学英语】《辛普森一家》完整版 语境听说提升 词汇量暴涨6000+_哔哩哔哩_bilibili](https://www.bilibili.com/video/BV1Bj421976y/?spm_id_from=333.337.search-card.all.click&vd_source=c7e3675d49afb96c142d2e0f81613b1e)
+
+
+
+![img](./index.assets/282&e=2051020800&token=P7S2Xpzfz11vAkASLTkfHN7Fw-oOZBecqeJaxypLDBrv62QOFjjn6X15ouCr3dvWU5o=.gif)
