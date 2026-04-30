@@ -27,3 +27,7 @@
 [PDF24 Tools: 免费且易于使用的在线PDF工具](https://tools.pdf24.org/zh/)
 
 [easygif-首页](https://easygif.cn/)
+
+
+
+[prompt模板](https://github.com/Leey21/awesome-ai-research-writing)
