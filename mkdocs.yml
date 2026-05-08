@@ -122,6 +122,7 @@ nav:
         - 信号与系统:
             - MIT 6.007 Signals and Systems: 电子通信/信号与系统/MIT 6.007 Signals and Systems.md
             - UCB EE120 Signal and Systems: 电子通信/信号与系统/UCB EE120 Signal and Systems.md
+            - 胡浩基: 电子通信/信号与系统/胡浩基.md
         - 通信原理:
             - 课程: 电子通信/通信原理/课程.md
             - 通信原理笔记:
@@ -191,12 +192,15 @@ nav:
         - 数学物理方法: 物理/数学物理方法/数学物理方法.md
     - 计算机:
         - 首页: 计算机/index.md
+        - 常用工具: 计算机/常用工具.md
         - c语言: 计算机/c语言/c语言.md
         - git: 计算机/git/git.md
         - python:
             - 打包工具: 计算机/python/打包工具.md
             - 课程推荐: 计算机/python/课程推荐.md
-        - 操作系统: 计算机/操作系统/操作系统.md
+        - 操作系统:
+            - linux: 计算机/操作系统/linux.md
+            - 操作系统: 计算机/操作系统/操作系统.md
         - 数据结构: 计算机/数据结构/index.md
         - 计算机组成: 计算机/计算机组成/index.md
         - AI体系:
