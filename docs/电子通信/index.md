@@ -1,51 +1,29 @@
----
-comments: true
----
+# 电子通信
 
+## 简介
 
+加油
 
 ## 常用网站
 
-### 菜鸟教程
+菜鸟教程<https://www.runoob.com/>
 
-<https://www.runoob.com/>
+arm官网<https://www.arm.com/>
 
-### arm官网
+立创开源广场<https://oshwhub.com/>
 
-<https://www.arm.com/>
+ST官网[https://www.st.com.cn/content/st_com/zh.html](https://www.st.com.cn/content/st_com/zh.html)
 
-### 立创开源广场
+ST中文论坛<https://shequ.stmicroelectronics.cn/>
 
-<https://oshwhub.com/>
+正点原子资料下载<http://www.openedv.com/docs/index.html>
 
-### ST官网
+野火资料下载中心<http://doc.embedfire.com/products/link/zh/latest/index.html>
 
-[https://www.st.com.cn/content/st_com/zh.html](https://www.st.com.cn/content/st_com/zh.html)
+亚博智能产品中心<https://www.yahboom.com/store>
 
-### ST中文论坛
+清华大学开源软件镜像站<https://mirrors.tuna.tsinghua.edu.cn/>
 
-<https://shequ.stmicroelectronics.cn/>
+z-library<https://zh.z-library.sk>
 
-### 正点原子资料下载
-
-<http://www.openedv.com/docs/index.html>
-
-### 野火资料下载中心
-
-<http://doc.embedfire.com/products/link/zh/latest/index.html>
-
-### 亚博智能产品中心
-
-<https://www.yahboom.com/store>
-
-### 清华大学开源软件镜像站
-
-<https://mirrors.tuna.tsinghua.edu.cn/>
-
-### z-library
-
-<https://zh.z-library.sk>
-
-### archive
-
-[Internet Archive: Digital Library of Free & Borrowable Texts, Movies, Music & Wayback Machine](https://archive.org/)
+archive[Internet Archive: Digital Library of Free & Borrowable Texts, Movies, Music & Wayback Machine](https://archive.org/)

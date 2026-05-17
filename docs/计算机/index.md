@@ -1,3 +1,5 @@
+# 计算机
+
 ## 寄语
 
 加油转码
@@ -26,3 +28,14 @@
 
 
 
+[科技爱好者周刊](https://github.com/ruanyf/weekly)
+
+## 常用工具
+
+[PDF24 Tools: 免费且易于使用的在线PDF工具](https://tools.pdf24.org/zh/)
+
+[easygif-首页](https://easygif.cn/)
+
+[prompt模板](https://github.com/Leey21/awesome-ai-research-writing)
+
+[经典编程书籍大全](https://github.com/imarvinle/awesome-cs-books)
