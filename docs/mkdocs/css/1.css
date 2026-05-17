@@ -62,48 +62,57 @@ img {
 
 /* ==========================================
    二级标题 (H2)：精致下划线 - 尺寸缩小
-   (保持了你的“胶囊”滑块动画)
+   ★ 特效已更换：悬浮时渐变线从中心向两侧展开 ★
    ========================================== */
 .md-typeset h2 {
     position: relative;
-    margin: 32px 0 16px; /* 间距稍微收紧 */
+    margin: 32px 0 16px;
     padding: 0 0 8px 0;
     
-    font-size: 1.25rem; /* 原 1.75rem -> 1.25rem */
+    font-size: 1.25rem;
     font-weight: 700;
-    color: var(--md-default-fg-color); /* 默认深灰 */
+    color: var(--md-default-fg-color);
     letter-spacing: -0.01em;
     
-    background: transparent; 
-    border: none;
-    /* 底部细灰线作为轨道 */
-    border-bottom: 1px solid var(--md-default-fg-color--lightest); 
+    background: transparent;
+    border: none; /* 移除原有底部边框，改用伪元素实现下划线 */
 }
 
-/* H2 的左侧装饰元素（胶囊滑块） */
+/* 默认的细下划线轨道（半透明灰线） */
 .md-typeset h2::before {
     content: "";
     position: absolute;
-    bottom: -1px; /* 压在底线上 */
+    bottom: 0;
     left: 0;
-    width: 40px; /* 初始宽度随字体缩小稍微变短 */
-    height: 3px; /* 高度稍微变细 */
-    border-radius: 3px;
-    
-    background: linear-gradient(
-        90deg, 
-        var(--md-primary-fg-color) 0%, 
-        var(--md-accent-fg-color) 100%
-    );
-    transition: width 0.3s ease;
+    width: 100%;
+    height: 1px;
+    background: var(--md-default-fg-color--lightest);
+    transition: all 0.2s ease;
+    z-index: 1;
 }
 
-/* H2 悬浮交互 */
+/* 高亮渐变下划线：初始宽度为0，居中，悬浮时从中心向两侧展开 */
+.md-typeset h2::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%) scaleX(0);
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, var(--md-primary-fg-color), var(--md-accent-fg-color));
+    border-radius: 3px;
+    transition: transform 0.3s ease;
+    z-index: 2;
+    transform-origin: center;
+}
+
+/* 悬浮时：渐变线完全展开，标题颜色变为主色调 */
+.md-typeset h2:hover::after {
+    transform: translateX(-50%) scaleX(1);
+}
 .md-typeset h2:hover {
     color: var(--md-primary-fg-color);
-}
-.md-typeset h2:hover::before {
-    width: 100%;
 }
 
 /* ==========================================
@@ -121,6 +130,3 @@ img {
         margin-top: 24px;
     }
 }
-
-
-
