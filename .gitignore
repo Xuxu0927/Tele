@@ -1,0 +1,26 @@
+# Conda environment
+.conda/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+
+# MkDocs build output
+site/
+
+# Binary / compiled
+gui_nav.exe
+*.exe
+
+# Backup files
+*.bak
+
+# IDE
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db

@@ -6,3 +6,4 @@ mkdocs-git-authors-plugin
 mkdocs-glightbox
 mkdocs-meta-manager
 mkdocs-encryptcontent-plugin
+customtkinter

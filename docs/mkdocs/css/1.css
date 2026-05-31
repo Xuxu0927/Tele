@@ -1,84 +1,112 @@
-/* Custom styles to override MkDocs defaults and enhance theme */
-
-article ul {
-    list-style-type: disc !important;
-}
-
-article ul ul {
-    list-style-type: circle !important;
-}
-
-article ul ul ul {
-    list-style-type: circle !important;
-}
-
-article ul ul ul ul {
-    list-style-type: circle !important;
-}
-
-
-
-/* Center all images */
-img {
-  display: block;
-  margin: 0 auto;
-}
-
-
+/* ============================================================
+   Tele 主题增强 — 舒适阅读体验
+   ============================================================ */
 
 /* ==========================================
-   一级标题 (H1)：极简风格 - 纯文字 + 紧凑
-   (去除了背景块、阴影和 3D 效果)
+   0. 根变量 & 全局基础
+   ========================================== */
+:root {
+    --tele-radius: 8px;
+    --tele-transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ---------- 平滑滚动 ---------- */
+html {
+    scroll-behavior: smooth;
+}
+
+/* ---------- 正文基础排版 ---------- */
+.md-typeset {
+    font-size: 0.95rem;
+    line-height: 1.8;
+    letter-spacing: 0.01em;
+}
+
+/* ---------- 段落间距 ---------- */
+.md-typeset p {
+    margin: 0.8em 0;
+}
+
+/* ==========================================
+   1. 阅读进度条
+   ========================================== */
+.reading-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--md-primary-fg-color), var(--md-accent-fg-color));
+    z-index: 9999;
+    width: 0;
+    transition: width 0.1s linear;
+    border-radius: 0 2px 2px 0;
+}
+
+/* ==========================================
+   2. 自定义滚动条
+   ========================================== */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--md-default-fg-color--lighter);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--md-default-fg-color--light);
+}
+
+/* ==========================================
+   3. 一级标题 (H1) — 大气居中
    ========================================== */
 .md-typeset h1 {
-    /* 重置定位和变换 */
     position: relative;
+    text-align: center;
+    margin: 48px 0 28px 0;
+    padding: 0;
+    font-size: 2rem;
+    font-weight: 800;
+    line-height: 1.3;
+    color: var(--md-primary-fg-color);
+    background: transparent;
     transform: none;
     box-shadow: none;
-    background: transparent; /* 去除背景色 */
-    
-    /* 调整排版：回归左对齐，去除由于背景块引入的负边距 */
-    text-align: center; 
-    margin: 40px 0 24px 0; /* 上下间距调整 */
-    padding: 0;
-    
-    /* 字体调整：变小，变色 */
-    font-size: 1.9rem; /* 原 2.2rem -> 1.9rem */
-    font-weight: 800;  /* 保持粗体 */
-    line-height: 1.3;
-    
-    /* 颜色：因为没了背景，必须从白色改为主题色或深色，否则看不见 */
-    color: var(--md-primary-fg-color); 
-    
 }
 
-/* 去除 H1 之前的悬浮 3D 效果，改为简单的颜色加深或无效果 */
-.md-typeset h1:hover {
-    transform: none;
-    box-shadow: none;
-    /* 只有轻微的颜色变化 */
-    color: var(--md-primary-fg-color--dark);
+.md-typeset h1::after {
+    content: "";
+    display: block;
+    width: 60px;
+    height: 3px;
+    margin: 12px auto 0;
+    background: linear-gradient(90deg, var(--md-primary-fg-color), var(--md-accent-fg-color));
+    border-radius: 2px;
 }
 
 /* ==========================================
-   二级标题 (H2)：精致下划线 - 尺寸缩小
-   ★ 特效已更换：悬浮时渐变线从中心向两侧展开 ★
+   4. 二级标题 (H2) — 左侧色条 + 悬浮下划线
    ========================================== */
 .md-typeset h2 {
     position: relative;
-    margin: 32px 0 16px;
-    padding: 0 0 8px 0;
-    
-    font-size: 1.25rem;
+    margin: 36px 0 16px;
+    padding: 0 0 8px 14px;
+    font-size: 1.35rem;
     font-weight: 700;
     color: var(--md-default-fg-color);
     letter-spacing: -0.01em;
-    
     background: transparent;
-    border: none; /* 移除原有底部边框，改用伪元素实现下划线 */
+    border: none;
+    border-left: 4px solid var(--md-primary-fg-color);
+    transition: color var(--tele-transition), border-color var(--tele-transition);
 }
 
-/* 默认的细下划线轨道（半透明灰线） */
 .md-typeset h2::before {
     content: "";
     position: absolute;
@@ -87,11 +115,10 @@ img {
     width: 100%;
     height: 1px;
     background: var(--md-default-fg-color--lightest);
-    transition: all 0.2s ease;
+    transition: all var(--tele-transition);
     z-index: 1;
 }
 
-/* 高亮渐变下划线：初始宽度为0，居中，悬浮时从中心向两侧展开 */
 .md-typeset h2::after {
     content: "";
     position: absolute;
@@ -102,31 +129,281 @@ img {
     height: 2px;
     background: linear-gradient(90deg, var(--md-primary-fg-color), var(--md-accent-fg-color));
     border-radius: 3px;
-    transition: transform 0.3s ease;
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 2;
     transform-origin: center;
 }
 
-/* 悬浮时：渐变线完全展开，标题颜色变为主色调 */
-.md-typeset h2:hover::after {
-    transform: translateX(-50%) scaleX(1);
-}
 .md-typeset h2:hover {
     color: var(--md-primary-fg-color);
 }
 
+.md-typeset h2:hover::after {
+    transform: translateX(-50%) scaleX(1);
+}
+
 /* ==========================================
-   移动端适配
+   5. 三级标题 (H3) — 简洁精致
+   ========================================== */
+.md-typeset h3 {
+    margin: 28px 0 12px;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--md-default-fg-color--light);
+    transition: color var(--tele-transition);
+}
+
+.md-typeset h3:hover {
+    color: var(--md-primary-fg-color);
+}
+
+/* ==========================================
+   6. 链接交互
+   ========================================== */
+.md-typeset a {
+    text-decoration: none;
+    background-image: linear-gradient(var(--md-accent-fg-color), var(--md-accent-fg-color));
+    background-size: 0% 1.5px;
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    transition: background-size 0.3s ease, color var(--tele-transition);
+}
+
+.md-typeset a:hover {
+    background-size: 100% 1.5px;
+}
+
+/* 导航区链接不带动画下划线 */
+.md-nav__link,
+.md-tabs__link {
+    background-image: none !important;
+}
+
+/* ==========================================
+   7. 表格 — 斑马纹 + 悬浮高亮
+   ========================================== */
+.md-typeset table {
+    border-radius: var(--tele-radius);
+    overflow: hidden;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+    font-size: 0.9rem;
+}
+
+.md-typeset table thead th {
+    background: var(--md-primary-fg-color);
+    color: #fff;
+    font-weight: 600;
+    padding: 12px 16px;
+    border: none;
+}
+
+.md-typeset table tbody tr:nth-child(even) {
+    background: rgba(128, 128, 128, 0.04);
+}
+
+.md-typeset table tbody tr:hover {
+    background: rgba(128, 128, 128, 0.08);
+    transition: background var(--tele-transition);
+}
+
+.md-typeset table td {
+    padding: 10px 16px;
+    border-color: var(--md-default-fg-color--lightest);
+}
+
+/* ==========================================
+   8. 引用块 (Blockquote)
+   ========================================== */
+.md-typeset blockquote {
+    border-left: 4px solid var(--md-primary-fg-color);
+    border-radius: 0 var(--tele-radius) var(--tele-radius) 0;
+    background: color-mix(in srgb, var(--md-primary-fg-color) 4%, transparent);
+    padding: 14px 20px;
+    margin: 16px 0;
+    font-style: italic;
+    color: var(--md-default-fg-color--light);
+    transition: border-color var(--tele-transition);
+}
+
+.md-typeset blockquote:hover {
+    border-left-color: var(--md-accent-fg-color);
+}
+
+/* ==========================================
+   9. 行内代码
+   ========================================== */
+.md-typeset code:not(pre code) {
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.85em;
+    background: rgba(128, 128, 128, 0.1);
+    color: var(--md-primary-fg-color);
+    font-weight: 500;
+}
+
+/* ==========================================
+   10. 代码块
+   ========================================== */
+.md-typeset pre {
+    border-radius: var(--tele-radius);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.md-typeset pre > code {
+    border-radius: var(--tele-radius);
+}
+
+/* 代码块语言标签 */
+.md-typeset .highlight .filename {
+    border-radius: var(--tele-radius) var(--tele-radius) 0 0;
+}
+
+/* ==========================================
+   11. Admonition 提示框
+   ========================================== */
+.md-typeset .admonition {
+    border-radius: var(--tele-radius);
+    border: none;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.06);
+    transition: box-shadow var(--tele-transition);
+}
+
+.md-typeset .admonition:hover {
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.1);
+}
+
+.md-typeset .admonition .admonition-title {
+    border-radius: var(--tele-radius) var(--tele-radius) 0 0;
+    font-weight: 600;
+}
+
+/* ==========================================
+   12. 图片
+   ========================================== */
+.md-typeset img {
+    border-radius: var(--tele-radius);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    transition: box-shadow var(--tele-transition), transform var(--tele-transition);
+}
+
+.md-typeset img:hover {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.14);
+}
+
+/* 标记小图标不处理 */
+.md-typeset img.twemoji {
+    box-shadow: none !important;
+    border-radius: 0 !important;
+}
+
+/* ==========================================
+   13. 导航栏活跃状态
+   ========================================== */
+.md-nav__item .md-nav__link--active {
+    font-weight: 700;
+    color: var(--md-primary-fg-color);
+}
+
+.md-nav__link:hover {
+    color: var(--md-accent-fg-color);
+}
+
+/* ==========================================
+   14. 返回顶部按钮增强
+   ========================================== */
+.md-top {
+    border-radius: 50%;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    transition: transform var(--tele-transition), box-shadow var(--tele-transition);
+}
+
+.md-top:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+}
+
+/* ==========================================
+   15. 页脚
+   ========================================== */
+.md-footer {
+    border-top: 2px solid var(--md-primary-fg-color);
+}
+
+/* ==========================================
+   16. Tab 导航微调
+   ========================================== */
+.md-tabs__link {
+    transition: opacity var(--tele-transition);
+    opacity: 0.8;
+}
+
+.md-tabs__link:hover,
+.md-tabs__link--active {
+    opacity: 1;
+}
+
+/* ==========================================
+   17. 搜索结果高亮
+   ========================================== */
+.md-search-result__article mark {
+    border-radius: 3px;
+    padding: 0 2px;
+}
+
+/* ==========================================
+   18. 目录 (TOC) 活跃项
+   ========================================== */
+.md-nav--secondary .md-nav__link {
+    transition: color var(--tele-transition);
+}
+
+/* ==========================================
+   19. 无序列表样式
+   ========================================== */
+article ul {
+    list-style-type: disc !important;
+}
+
+article ul ul,
+article ul ul ul,
+article ul ul ul ul {
+    list-style-type: circle !important;
+}
+
+/* ==========================================
+   20. 图片居中
+   ========================================== */
+img {
+    display: block;
+    margin: 0 auto;
+}
+
+/* ==========================================
+   21. 移动端适配
    ========================================== */
 @media (max-width: 600px) {
     .md-typeset h1 {
-        font-size: 1.5rem; /* 移动端更小 */
-        margin: 24px 0 16px;
-        padding-bottom: 8px;
+        font-size: 1.55rem;
+        margin: 32px 0 20px 0;
     }
-    
+
+    .md-typeset h1::after {
+        width: 40px;
+        height: 2px;
+        margin-top: 8px;
+    }
+
     .md-typeset h2 {
-        font-size: 1.25rem; /* 移动端更小 */
-        margin-top: 24px;
+        font-size: 1.2rem;
+        margin-top: 28px;
+        padding-left: 10px;
+    }
+
+    .md-typeset h3 {
+        font-size: 1.05rem;
+    }
+
+    .md-typeset {
+        font-size: 0.9rem;
     }
 }

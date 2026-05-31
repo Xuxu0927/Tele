@@ -3,7 +3,7 @@ name: Publish to GitHub Pages
 on:
   push:
     branches:
-      - main  # 或者 master，根据你的主分支名
+      - main
 
 # 1. 自动取消旧构建
 concurrency:
@@ -19,16 +19,24 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0 # 为了 git-revision-date-localized 需要全量历史，如果太慢可改为 0 以外的数字
+          fetch-depth: 365  # 足够 git-revision-date-localized 显示 timeago
 
-      # 2. 启用 Python 缓存
+      # 2. 启用 Python + pip 缓存
       - uses: actions/setup-python@v5
         with:
-          python-version: 3.x
-          cache: 'pip' 
-      
-      # 3. 安装依赖 (如果 requirements.txt 没变，这步会飞快)
+          python-version: '3.12'
+          cache: 'pip'
+
+      # 3. 缓存 MkDocs 构建产物 (site/)，避免重复构建未变更页面
+      - uses: actions/cache@v4
+        with:
+          path: .cache
+          key: mkdocs-cache-${{ runner.os }}-${{ hashFiles('docs/**') }}
+          restore-keys: |
+            mkdocs-cache-${{ runner.os }}-
+
+      # 4. 安装依赖
       - run: pip install -r requirements.txt
 
-      # 4. 构建并部署
+      # 5. 构建并部署
       - run: mkdocs gh-deploy --force

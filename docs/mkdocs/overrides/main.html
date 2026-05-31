@@ -1,7 +1,13 @@
 {% extends "base.html" %}
 
+<!-- 阅读进度条由 extra.js 动态创建，无需在此添加 -->
+
 <!-- 中间主要内容 -->
 {% block content %}
   {{ super() }}
+{% endblock %}
 
+<!-- 页脚增强：添加个性化签名 -->
+{% block footer %}
+  {{ super() }}
 {% endblock %}
