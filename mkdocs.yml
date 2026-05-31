@@ -192,17 +192,14 @@ nav:
         - 数学物理方法: 物理/数学物理方法/数学物理方法.md
     - 计算机:
         - 首页: 计算机/index.md
-        - c语言: 计算机/c语言/c语言.md
+        - c语言: 计算机/c语言/index.md
         - git: 计算机/git/git.md
         - python: 计算机/python/课程推荐.md
-        - 操作系统:
-            - linux: 计算机/操作系统/linux.md
-            - 首页: 计算机/操作系统/index.md
+        - 操作系统: 计算机/操作系统/index.md
         - 数据结构: 计算机/数据结构/index.md
         - 计算机组成: 计算机/计算机组成/index.md
-        - AI体系:
-            - prompt模板: 计算机/AI体系/prompt模板.md
-            - 机器学习: 计算机/AI体系/机器学习.md
+        - AI: 计算机/AI/index.md
+        - 算法: 计算机/算法/index.md
     - 英语: 英语/index.md
     - 运动:
         - 首页: 运动/index.md
