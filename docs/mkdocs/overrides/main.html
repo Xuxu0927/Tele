@@ -1,13 +1,15 @@
 {% extends "base.html" %}
 
-<!-- 阅读进度条由 extra.js 动态创建，无需在此添加 -->
-
 <!-- 中间主要内容 -->
 {% block content %}
-  {{ super() }}
-{% endblock %}
-
-<!-- 页脚增强：添加个性化签名 -->
-{% block footer %}
+  {% if page.ancestors %}
+  <nav class="tele-breadcrumb" aria-label="面包屑导航">
+    {% for ancestor in page.ancestors %}
+      <a href="{{ ancestor.url | url }}">{{ ancestor.title }}</a>
+      <span class="tele-breadcrumb__sep">&#x203A;</span>
+    {% endfor %}
+    <span class="tele-breadcrumb__current">{{ page.title }}</span>
+  </nav>
+  {% endif %}
   {{ super() }}
 {% endblock %}

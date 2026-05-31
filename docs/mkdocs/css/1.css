@@ -64,7 +64,43 @@ html {
 }
 
 /* ==========================================
-   3. 一级标题 (H1) — 大气居中
+   3. 面包屑导航 — H1 上方
+   ========================================== */
+.tele-breadcrumb {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 8px;
+    font-size: 0.82rem;
+    color: var(--md-default-fg-color--light);
+    user-select: none;
+}
+
+.tele-breadcrumb a {
+    color: var(--md-default-fg-color--light);
+    text-decoration: none;
+    background-image: none !important;
+    transition: color var(--tele-transition);
+}
+
+.tele-breadcrumb a:hover {
+    color: var(--md-primary-fg-color);
+}
+
+.tele-breadcrumb__sep {
+    color: var(--md-default-fg-color--lighter);
+    font-size: 1.1rem;
+    line-height: 1;
+}
+
+.tele-breadcrumb__current {
+    color: var(--md-primary-fg-color);
+    font-weight: 600;
+}
+
+/* ==========================================
+   4. 一级标题 (H1) — 大气居中
    ========================================== */
 .md-typeset h1 {
     position: relative;
