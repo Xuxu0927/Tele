@@ -10,6 +10,7 @@ build/
 
 # MkDocs build output
 site/
+mkdocs_fast.yml
 
 # Binary / compiled
 gui_nav.exe

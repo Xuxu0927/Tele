@@ -1,15 +1,5 @@
 {% extends "base.html" %}
 
-<!-- 中间主要内容 -->
 {% block content %}
-  {% if page.ancestors %}
-  <nav class="tele-breadcrumb" aria-label="面包屑导航">
-    {% for ancestor in page.ancestors %}
-      <a href="{{ ancestor.url | url }}">{{ ancestor.title }}</a>
-      <span class="tele-breadcrumb__sep">&#x203A;</span>
-    {% endfor %}
-    <span class="tele-breadcrumb__current">{{ page.title }}</span>
-  </nav>
-  {% endif %}
   {{ super() }}
 {% endblock %}

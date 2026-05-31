@@ -72,7 +72,8 @@ plugins:
       type: timeago
       enable_creation_date: true # 创建时间
       timezone: Asia/Shanghai
-      enable_parallel_processing: false
+      enable_parallel_processing: true  # 并行加速
+      enable_git_follow: false  # 关闭 git follow（大幅提速）
   - git-authors: # 显示作者
   - glightbox: # 图像缩放
   - meta-manager: # 元数据管理

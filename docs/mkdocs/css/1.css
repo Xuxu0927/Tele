@@ -64,43 +64,7 @@ html {
 }
 
 /* ==========================================
-   3. 面包屑导航 — H1 上方
-   ========================================== */
-.tele-breadcrumb {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 6px;
-    margin-bottom: 8px;
-    font-size: 0.82rem;
-    color: var(--md-default-fg-color--light);
-    user-select: none;
-}
-
-.tele-breadcrumb a {
-    color: var(--md-default-fg-color--light);
-    text-decoration: none;
-    background-image: none !important;
-    transition: color var(--tele-transition);
-}
-
-.tele-breadcrumb a:hover {
-    color: var(--md-primary-fg-color);
-}
-
-.tele-breadcrumb__sep {
-    color: var(--md-default-fg-color--lighter);
-    font-size: 1.1rem;
-    line-height: 1;
-}
-
-.tele-breadcrumb__current {
-    color: var(--md-primary-fg-color);
-    font-weight: 600;
-}
-
-/* ==========================================
-   4. 一级标题 (H1) — 大气居中
+   3. 一级标题 (H1) — 大气居中
    ========================================== */
 .md-typeset h1 {
     position: relative;
@@ -116,66 +80,26 @@ html {
     box-shadow: none;
 }
 
-.md-typeset h1::after {
-    content: "";
-    display: block;
-    width: 60px;
-    height: 3px;
-    margin: 12px auto 0;
-    background: linear-gradient(90deg, var(--md-primary-fg-color), var(--md-accent-fg-color));
-    border-radius: 2px;
-}
-
 /* ==========================================
-   4. 二级标题 (H2) — 左侧色条 + 悬浮下划线
+   4. 二级标题 (H2) — 底部渐变线
    ========================================== */
 .md-typeset h2 {
     position: relative;
     margin: 36px 0 16px;
-    padding: 0 0 8px 14px;
+    padding: 0 0 8px 0;
     font-size: 1.35rem;
     font-weight: 700;
     color: var(--md-default-fg-color);
     letter-spacing: -0.01em;
     background: transparent;
     border: none;
-    border-left: 4px solid var(--md-primary-fg-color);
+    border-bottom: 1.5px solid var(--md-default-fg-color--lightest);
     transition: color var(--tele-transition), border-color var(--tele-transition);
-}
-
-.md-typeset h2::before {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 1px;
-    background: var(--md-default-fg-color--lightest);
-    transition: all var(--tele-transition);
-    z-index: 1;
-}
-
-.md-typeset h2::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%) scaleX(0);
-    width: 100%;
-    height: 2px;
-    background: linear-gradient(90deg, var(--md-primary-fg-color), var(--md-accent-fg-color));
-    border-radius: 3px;
-    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-    z-index: 2;
-    transform-origin: center;
 }
 
 .md-typeset h2:hover {
     color: var(--md-primary-fg-color);
-}
-
-.md-typeset h2:hover::after {
-    transform: translateX(-50%) scaleX(1);
+    border-bottom-color: var(--md-primary-fg-color);
 }
 
 /* ==========================================
@@ -415,7 +339,87 @@ img {
 }
 
 /* ==========================================
-   21. 移动端适配
+   21. 首页树状目录
+   ========================================== */
+.tele-tree {
+    font-size: 0.95rem;
+    line-height: 2;
+}
+
+/* 重置默认列表样式 */
+.tele-tree ul {
+    list-style: none !important;
+    padding-left: 1.6em;
+    margin: 0;
+    position: relative;
+}
+
+.tele-tree li {
+    position: relative;
+    padding-left: 0.4em;
+}
+
+/* 树状竖线 */
+.tele-tree ul {
+    border-left: 1px solid var(--md-default-fg-color--lightest);
+    margin-left: 0.6em;
+}
+
+/* 横线连接 */
+.tele-tree li::before {
+    content: "";
+    position: absolute;
+    left: -1.6em;
+    top: 0.9em;
+    width: 1.2em;
+    height: 1px;
+    background: var(--md-default-fg-color--lightest);
+}
+
+/* 根级去掉竖线 */
+.tele-tree > ul {
+    border-left: none;
+    margin-left: 0;
+    padding-left: 0;
+}
+
+.tele-tree > ul > li::before {
+    display: none;
+}
+
+/* 文件夹节点（加粗 + 颜色） */
+.tele-tree li > strong {
+    color: var(--md-primary-fg-color);
+    font-weight: 700;
+    font-size: 1rem;
+}
+
+/* 链接样式 */
+.tele-tree a {
+    color: var(--md-default-fg-color);
+    text-decoration: none;
+    background-image: none !important;
+    transition: color var(--tele-transition);
+    border-bottom: 1px solid transparent;
+}
+
+.tele-tree a:hover {
+    color: var(--md-primary-fg-color);
+    border-bottom-color: var(--md-primary-fg-color);
+}
+
+/* 根级大类 */
+.tele-tree > ul > li {
+    margin-top: 1em;
+    font-size: 1.05rem;
+}
+
+.tele-tree > ul > li:first-child {
+    margin-top: 0;
+}
+
+/* ==========================================
+   22. 移动端适配
    ========================================== */
 @media (max-width: 600px) {
     .md-typeset h1 {
