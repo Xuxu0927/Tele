@@ -6,24 +6,20 @@
 
 ## 常用网站
 
-#### [菜鸟教程](https://www.runoob.com/)  
+[菜鸟教程](https://www.runoob.com/)  
 
-#### [arm官网](https://www.arm.com/)  
+[arm官网](https://www.arm.com/)  
 
-#### [立创开源广场](https://oshwhub.com/)  
+[立创开源广场](https://oshwhub.com/)  
 
-#### [ST官网](https://www.st.com.cn/content/st_com/zh.html)  
+[ST官网](https://www.st.com.cn/content/st_com/zh.html)  
 
-#### [ST中文论坛](https://shequ.stmicroelectronics.cn/)  
+[ST中文论坛](https://shequ.stmicroelectronics.cn/)  
 
-#### [正点原子资料下载](http://www.openedv.com/docs/index.html)  
+[正点原子资料下载](http://www.openedv.com/docs/index.html)  
 
-#### [野火资料下载中心](http://doc.embedfire.com/products/link/zh/latest/index.html)  
+[野火资料下载中心](http://doc.embedfire.com/products/link/zh/latest/index.html)  
 
-#### [亚博智能产品中心](https://www.yahboom.com/store)  
+[亚博智能产品中心](https://www.yahboom.com/store)  
 
-#### [清华大学开源软件镜像站](https://mirrors.tuna.tsinghua.edu.cn/)  
-
-#### [z-library](https://zh.z-library.sk)  
-
-#### [Internet Archive](https://archive.org/)
+[清华大学开源软件镜像站](https://mirrors.tuna.tsinghua.edu.cn/)  
