@@ -13,8 +13,7 @@ site/
 mkdocs_fast.yml
 
 # Binary / compiled
-gui_nav.exe
-*.exe
+
 
 # Backup files
 *.bak
