@@ -106,6 +106,7 @@ extra_javascript:
   # 阅读进度条 + 返回顶部增强
   - mkdocs/js/extra.js
 extra_css:
+  - https://cdn.jsdelivr.net/gh/sviptzk/StaticFile_HEXO@latest/butterfly/css/macWhite.css
   - mkdocs/css/1.css
 
 
@@ -154,15 +155,6 @@ nav:
             - 计算机通信与网络: 电子通信/附：苏大资料库/计算机通信与网络/计算机通信与网络.md
             - 通信原理: 电子通信/附：苏大资料库/通信原理/通信原理.md
             - 通信电子线路: 电子通信/附：苏大资料库/通信电子线路/通信电子线路.md
-    - 数学:
-        - 首页: 数学/index.md
-        - 工具软件: 数学/工具软件/Mathtools.md
-        - 数学分析: 数学/数学分析/数学分析.md
-        - 高等代数: 数学/高等代数/高等代数.md
-    - 物理:
-        - 首页: 物理/index.md
-        - 大学物理: 物理/大学物理/index.md
-        - 数学物理方法: 物理/数学物理方法/index.md
     - 计算机:
         - 首页: 计算机/index.md
         - 工具: 计算机/工具/书签.md
@@ -174,6 +166,15 @@ nav:
         - 计算机组成: 计算机/计算机组成/计算机组成.md
         - AI: 计算机/AI/AI.md
         - 算法: 计算机/算法/算法.md
+    - 数学:
+        - 首页: 数学/index.md
+        - 工具软件: 数学/工具软件/Mathtools.md
+        - 数学分析: 数学/数学分析/数学分析.md
+        - 高等代数: 数学/高等代数/高等代数.md
+    - 物理:
+        - 首页: 物理/index.md
+        - 大学物理: 物理/大学物理/index.md
+        - 数学物理方法: 物理/数学物理方法/index.md
     - 英语: 英语/index.md
     - 运动: 运动/index.md
     - 经济: 经济/index.md
