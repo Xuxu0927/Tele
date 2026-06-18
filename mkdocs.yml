@@ -157,7 +157,9 @@ nav:
             - 通信电子线路: 电子通信/附：苏大资料库/通信电子线路/通信电子线路.md
     - 计算机:
         - 首页: 计算机/index.md
-        - 工具: 计算机/工具/书签.md
+        - 工具:
+            - conda: 计算机/工具/conda.md
+            - 书签: 计算机/工具/书签.md
         - c语言: 计算机/c语言/c语言.md
         - git: 计算机/git/git.md
         - python: 计算机/python/python.md
