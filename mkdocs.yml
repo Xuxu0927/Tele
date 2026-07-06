@@ -160,12 +160,12 @@ nav:
         - 工具:
             - conda: 计算机/工具/conda.md
             - 书签: 计算机/工具/书签.md
-        - c语言: 计算机/c语言/c语言.md
-        - git: 计算机/git/git.md
-        - python: 计算机/python/python.md
+            - git: 计算机/工具/git.md
+        - 语言基础:
+            - c语言: 计算机/语言基础/c语言.md
+            - python: 计算机/语言基础/python.md
         - 操作系统: 计算机/操作系统/操作系统.md
         - 数据结构: 计算机/数据结构/数据结构.md
-        - 计算机组成: 计算机/计算机组成/计算机组成.md
         - AI: 计算机/AI/AI.md
         - 算法: 计算机/算法/算法.md
     - 数学:
@@ -179,6 +179,5 @@ nav:
         - 数学物理方法: 物理/数学物理方法/index.md
     - 英语: 英语/index.md
     - 运动: 运动/index.md
-    - 经济: 经济/index.md
-    - 历史: 历史/index.md
     - 娱乐: 娱乐/index.md
+    - 导航: 导航/index.md
