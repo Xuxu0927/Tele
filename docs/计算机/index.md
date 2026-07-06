@@ -1,11 +1,5 @@
 # 计算机
 
-## 寄语
-
-加油转码
-
-
-
 
 ## 常用网站
 
@@ -15,9 +9,7 @@
 
 [菜鸟教程](https://www.runoob.com/)
 
-[代码随想录-全网最全算法数据结构刷题学习路线](https://www.programmercarl.com/)
-
-[课程首页 | w3csc4hool](https://www.w3cschool.cn/courses)
+[代码随想录](https://www.programmercarl.com/)
 
 [CS自学指南](https://csdiy.wiki/)
 
@@ -27,14 +19,14 @@
 
 ## 常用工具
 
-[PDF24 Tools: 免费且易于使用的在线PDF工具](https://tools.pdf24.org/zh/)
+[DeepSeek API开放平台](https://platform.deepseek.com/usage)
 
-[easygif-首页](https://easygif.cn/)
+[Kimi AI 官网 - K2.6 上线](https://www.kimi.com/)
 
-[prompt模板](https://github.com/Leey21/awesome-ai-research-writing)
+[Google Gemini](https://gemini.google.com/app?hl=zh-cn)
 
-[经典编程书籍大全](https://github.com/imarvinle/awesome-cs-books)
+[ChatGPT](https://chatgpt.com/)
 
-[z-library](https://zh.z-library.sk)  
+## 课程
 
-[Internet Archive](https://archive.org/)
+[2015 CMU 15-213 CSAPP 深入理解计算机系统 课程视频_哔哩哔哩_bilibili](https://www.bilibili.com/video/BV1iW411d7hd?spm_id_from=333.788.videopod.episodes&vd_source=c7e3675d49afb96c142d2e0f81613b1e)
