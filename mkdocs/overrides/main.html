@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+  {{ super() }}
+
+  <!-- 密码保护遮罩层 -->
+  <div id="password-overlay" style="display:none;">
+    <div class="password-box">
+      <h2>🔒 请输入密码</h2>
+      <input type="password" id="password-input" placeholder="请输入访问密码" autocomplete="off" />
+      <button id="password-submit">验证</button>
+      <p id="password-error" style="color:#e74c3c;display:none;margin-top:8px;">密码错误，请重试</p>
+    </div>
+  </div>
+{% endblock %}
