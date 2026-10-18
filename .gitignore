@@ -24,3 +24,7 @@ mkdocs_fast.yml
 # OS
 .DS_Store
 Thumbs.db
+
+env/
+
+.environment-migration/
