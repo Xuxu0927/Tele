@@ -1,0 +1,34 @@
+append_unmatched: true
+flatten_single_child_sections: true
+preserve_directory_names: true
+sort:
+  type: natural
+  by: path
+  sections: mixed
+ignore:
+- .git/
+- .github/
+- __pycache__/
+- assets/
+- build/
+- dist/
+- images/
+- img/
+- media/
+- mkdocs/
+- node_modules/
+- site/
+- static/
+- venv/
+- '*.assets/'
+- '*.images/'
+- '*_files/'
+nav:
+- 首页: index.md
+- 电子通信: 电子通信
+- 计算机: 计算机
+- 数学: 数学
+- 物理: 物理
+- 英语: 英语
+- 运动: 运动
+- 娱乐: 娱乐

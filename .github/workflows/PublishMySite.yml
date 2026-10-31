@@ -24,7 +24,7 @@ jobs:
       # 2. 启用 Python + pip 缓存
       - uses: actions/setup-python@v5
         with:
-          python-version: '3.12'
+          python-version-file: '.python-version'
           cache: 'pip'
 
       # 3. 缓存 MkDocs 构建产物 (site/)，避免重复构建未变更页面
@@ -36,7 +36,12 @@ jobs:
             mkdocs-cache-${{ runner.os }}-
 
       # 4. 安装依赖
-      - run: pip install -r requirements.txt
+      - run: python -m pip install -r requirements.txt
+
+      - name: Check dependencies and regression tests
+        run: |
+          python -m pip check
+          python -m unittest discover -s tests -v
 
       # 5. 构建并部署
       - run: mkdocs gh-deploy --force
