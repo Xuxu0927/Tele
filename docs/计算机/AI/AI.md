@@ -17,3 +17,13 @@
 ## Agent
 
 [【吴恩达】2026年公认最好的【Agent智能体】教程](https://www.bilibili.com/video/BV1DfrdByE2H/?share_source=copy_web&vd_source=4aba4d467dfbbd6299622080f9ded3a3)
+
+
+
+
+
+## 强化学习
+
+
+
+[强化学习的数学原理](https://www.bilibili.com/video/BV1sd4y167NS/?share_source=copy_web&vd_source=4aba4d467dfbbd6299622080f9ded3a3)
