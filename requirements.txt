@@ -9,4 +9,3 @@ mkdocs-meta-manager==1.1.0
 customtkinter==5.2.2
 PyYAML==6.0.3
 pymdown-extensions==10.21.3
-mkdocs-awesome-nav==3.3.0

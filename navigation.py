@@ -1,251 +1,201 @@
-"""Shared navigation rules for MkDocs builds and the desktop editor."""
+"""Manual Markdown navigation saved to the project's mkdocs.yml."""
 
 import os
-import posixpath
 import re
 import shutil
-from pathlib import Path, PurePosixPath
+from pathlib import Path
 from urllib.parse import urlsplit
 
 import yaml
-from mkdocs.structure.files import File, Files, InclusionLevel
-from mkdocs.utils.meta import get_data
-from mkdocs_awesome_nav.nav.config import ConfigModel
-from mkdocs_awesome_nav.nav.context import MkdocsFilesContext
-from mkdocs_awesome_nav.nav.directory import RootNavDirectory
-from mkdocs_awesome_nav.nav.link import NavLink
-from mkdocs_awesome_nav.nav.page import NavPage
-
-
-NAV_FILENAME = '.nav.yml'
-
-
-def read_rules(contents, path):
-    try:
-        settings = yaml.safe_load(contents) or {}
-        ConfigModel.model_validate(settings)
-    except (yaml.YAMLError, ValueError) as error:
-        raise ValueError(f'导航配置有误：{path}\n{error}') from error
-    return settings
-
-
-def _local_reference(value):
-    return (
-        not urlsplit(value).scheme
-        and not value.startswith(('/', '#', '../'))
-        and not any(char in value for char in '*?[]{}!@')
-    )
-
-
-def prepare_nav_files(files, *, unflatten=False):
-    """Discard obsolete local entries in memory, without changing saved rules."""
-    existing = {file.src_uri for file in files if file.inclusion.is_included()}
-    for file in files.documentation_pages(inclusion=InclusionLevel.is_in_nav):
-        path = PurePosixPath(file.src_uri)
-        existing.add(path.as_posix())
-        existing.update(parent.as_posix() for parent in path.parents)
-
-    def prune(entries, directory):
-        result = []
-        for entry in entries:
-            if isinstance(entry, str):
-                target = posixpath.normpath(posixpath.join(directory, urlsplit(entry).path))
-                if not _local_reference(entry) or target in existing:
-                    result.append(entry)
-            elif 'glob' in entry:
-                result.append({**entry, 'flatten_single_child_sections': False} if unflatten else entry)
-            else:
-                label, value = next(iter(entry.items()))
-                if isinstance(value, list):
-                    children = prune(value, directory)
-                    if children:
-                        result.append({label: children})
-                else:
-                    target = posixpath.normpath(posixpath.join(directory, urlsplit(value).path))
-                    if not _local_reference(value) or target in existing:
-                        result.append(entry)
-        return result
-
-    for file in files:
-        if PurePosixPath(file.src_uri).name != NAV_FILENAME:
-            continue
-        settings = read_rules(file.content_string, file.src_uri)
-        if 'nav' in settings:
-            settings['nav'] = prune(settings['nav'], posixpath.dirname(file.src_uri))
-        if unflatten:
-            # The editor shows folders so a new sibling never changes its structure.
-            settings['flatten_single_child_sections'] = False
-        file.content_string = yaml.safe_dump(settings, allow_unicode=True, sort_keys=False)
-    return files
 
 
 class NavigationModel:
-    def __init__(self, docs_dir):
+    IGNORE_NAMES = {
+        'assets', 'img', 'images', 'media', 'static', '.git', '.github',
+        'site', 'env', 'venv', '__pycache__', 'node_modules', 'mkdocs', 'dist', 'build',
+    }
+    IGNORE_SUFFIXES = ('.assets', '.images', '_files')
+
+    def __init__(self, docs_dir, config_file):
         self.docs_dir = Path(docs_dir)
+        self.config_file = Path(config_file)
         self.meta_map = {}
         self.known_paths = set()
-        self._settings = {}
-        self._nodes = {}
+        self._loaded = False
+
+    @staticmethod
+    def _natural_sort(value):
+        return [int(part) if part.isdigit() else part.casefold() for part in re.split(r'(\d+)', value)]
+
+    def _read_config(self):
+        text = self.config_file.read_text(encoding='utf-8-sig')
+        try:
+            config = yaml.safe_load(text) or {}
+        except yaml.YAMLError as error:
+            raise ValueError(f'mkdocs.yml 配置有误：{error}') from error
+        if not isinstance(config, dict):
+            raise ValueError('mkdocs.yml 必须是配置映射。')
+        return text, config
+
+    def _history(self, entries):
+        if not isinstance(entries, list):
+            raise ValueError('mkdocs.yml 的 nav 必须是列表。')
+        result = []
+        for entry in entries:
+            if isinstance(entry, str):
+                name, value = Path(urlsplit(entry).path).stem, entry
+            elif isinstance(entry, dict) and len(entry) == 1:
+                name, value = next(iter(entry.items()))
+            else:
+                raise ValueError(f'无法识别导航项目：{entry}')
+            if isinstance(value, list):
+                result.append({'name': str(name), 'children': self._history(value)})
+            elif isinstance(value, str):
+                result.append({'name': str(name), 'path': value.replace(chr(92), '/'), 'children': []})
+            else:
+                raise ValueError(f'无法识别导航目标：{value}')
+        return result
+
+    def _references(self, item):
+        if 'path' in item:
+            value = item['path']
+            if not urlsplit(value).scheme and not value.startswith(('/', '#')):
+                yield urlsplit(value).path
+        for child in item['children']:
+            yield from self._references(child)
+
+    def _scan(self, directory):
+        result = {}
+        for path in sorted(directory.iterdir(), key=lambda p: self._natural_sort(p.name)):
+            if path.name.startswith('.') or path.is_symlink():
+                continue
+            relative = path.relative_to(self.docs_dir).as_posix()
+            if path.is_dir():
+                if path.name.casefold() in self.IGNORE_NAMES or path.name.endswith(self.IGNORE_SUFFIXES):
+                    continue
+                children = self._scan(path)
+                if children:
+                    result[relative] = {'type': 'dir', 'name': path.name, 'children': children}
+            elif path.suffix.lower() == '.md':
+                result[relative] = {'type': 'file', 'name': path.stem, 'children': {}}
+        return result
+
+    def _node(self, item_id, name, kind, *, path=None, children=None):
+        node = {'id': item_id, 'name': name, 'type': kind, 'path': path or item_id,
+                'is_new': kind in ('file', 'dir') and not any(
+                    known == item_id or known.startswith(item_id + '/') for known in self.known_paths),
+                'children': children or []}
+        self.meta_map[item_id] = node
+        return node
+
+    def _merge(self, history, disk, *, add_new=True):
+        result = []
+        for saved in history:
+            references = list(self._references(saved))
+            match = next((key for key in disk if references and all(
+                ref == key or ref.startswith(key + '/') for ref in references)), None)
+            if match is not None:
+                data = disk.pop(match)
+                node = self._node(match, saved['name'], data['type'], path=saved.get('path') if data['type'] == 'file' else None)
+                if data['type'] == 'dir':
+                    children = [saved] if 'path' in saved else saved['children']
+                    node['children'] = self._merge(children, data['children'])
+                result.append(node)
+            elif saved['children']:
+                children = self._merge(saved['children'], disk, add_new=False)
+                if children:
+                    result.append(self._node(f'group:{len(self.meta_map)}', saved['name'], 'group', children=children))
+            elif 'path' in saved:
+                target = saved['path']
+                if urlsplit(target).scheme or target.startswith(('/', '#')) or (
+                    Path(urlsplit(target).path).suffix.lower() != '.md' and (self.docs_dir / urlsplit(target).path).is_file()
+                ):
+                    result.append(self._node(f'link:{len(self.meta_map)}', saved['name'], 'link', path=target))
+        if add_new:
+            for item_id, data in list(disk.items()):
+                node = self._node(item_id, '首页' if Path(item_id).name == 'index.md' else data['name'], data['type'])
+                if data['type'] == 'dir':
+                    node['children'] = self._merge([], data['children'])
+                result.append(node)
+            disk.clear()
+        return result
 
     def get_merged_tree_data(self):
         if not self.docs_dir.is_dir():
             raise FileNotFoundError(f'找不到目录：{self.docs_dir}')
+        _, config = self._read_config()
+        history = self._history(config.get('nav') or [])
+        disk = self._scan(self.docs_dir)
+        known_paths = {path for item in history for path in self._references(item)}
         self.meta_map.clear()
-        self.known_paths.clear()
-        self._settings.clear()
-        self._nodes.clear()
-        files = []
-        for path in self.docs_dir.rglob('*'):
-            relative = path.relative_to(self.docs_dir)
-            if not path.is_file() or any(part.startswith('.') for part in relative.parts[:-1]):
-                continue
-            if path.name == NAV_FILENAME:
-                settings = read_rules(path.read_text(encoding='utf-8-sig'), path)
-                directory = relative.parent.as_posix()
-                self._settings[directory] = settings
-                self._collect_explicit_paths(settings.get('nav', []), directory)
-            elif path.name.startswith('.'):
-                continue
-            files.append(File(relative.as_posix(), str(self.docs_dir), str(self.docs_dir), True))
-
-        if '.' not in self._settings:
-            self._settings['.'] = {'append_unmatched': True}
-            virtual = File(NAV_FILENAME, str(self.docs_dir), str(self.docs_dir), True)
-            virtual.content_string = yaml.safe_dump(self._settings['.'])
-            files.append(virtual)
-        collection = prepare_nav_files(Files(files), unflatten=True)
-        context = MkdocsFilesContext(collection, NAV_FILENAME)
-        resolved = RootNavDirectory(context.root).resolve(context)
-        return self._convert_nodes(resolved.children, '.')
-
-    def _collect_explicit_paths(self, entries, directory):
-        for entry in entries:
-            if isinstance(entry, str):
-                value = entry
-            elif 'glob' in entry:
-                continue
-            else:
-                value = next(iter(entry.values()))
-                if isinstance(value, list):
-                    self._collect_explicit_paths(value, directory)
-                    continue
-            if _local_reference(value):
-                self.known_paths.add(posixpath.normpath(posixpath.join(directory, value)))
-
-    def _convert_nodes(self, items, directory, parent_id='root'):
-        result = []
-        for index, item in enumerate(items):
-            if isinstance(item, NavPage):
-                path = item.page.path.as_posix()
-                markdown, meta = get_data(item.page.file.content_string)
-                heading = re.search(r'^#\s+(.+?)\s*#*\s*$', markdown, re.MULTILINE)
-                name = item.title or meta.get('title') or (heading.group(1) if heading else Path(path).stem)
-                node = self._node(path, str(name), 'file', path)
-            elif isinstance(item, NavLink):
-                node = self._node(f'link:{parent_id}:{index}', item.title, 'link', item.url)
-            else:
-                path = item.path.as_posix()
-                virtual = path == directory
-                item_id = f'group:{parent_id}:{index}' if virtual else path
-                node = self._node(item_id, item.title, 'group' if virtual else 'dir', path)
-                node['children'] = self._convert_nodes(item.children, path, item_id)
-            result.append(node)
+        self.known_paths = known_paths
+        result = self._merge(history, disk)
+        self._loaded = True
         return result
-
-    def _node(self, item_id, name, kind, path):
-        if item_id in self.meta_map:
-            raise ValueError(f'导航重复引用了 {path}，请先在 .nav.yml 中调整重复项。')
-        meta = {'name': name, 'type': kind, 'path': path}
-        self.meta_map[item_id] = meta
-        node = {'id': item_id, **meta, 'is_new': kind in ('file', 'dir') and path not in self.known_paths, 'children': []}
-        self._nodes[item_id] = node
-        return node
-
-    def _flatten_enabled(self, directory):
-        path = PurePosixPath(directory)
-        for candidate in (path, *path.parents):
-            value = self._settings.get(candidate.as_posix(), {}).get('flatten_single_child_sections')
-            if value is not None:
-                return value
-        return False
 
     def rename_item(self, item_id, name):
         name = name.strip()
         if not name:
             raise ValueError('显示名称不能为空。')
-        changed = []
-        while True:
-            self.meta_map[item_id]['name'] = name
-            self._nodes[item_id]['name'] = name
-            changed.append(item_id)
-            node = self._nodes[item_id]
-            if node['type'] != 'dir' or len(node['children']) != 1 or not self._flatten_enabled(node['path']):
-                return changed
-            item_id = node['children'][0]['id']
+        node = self.meta_map[item_id]
+        changed = [item_id]
+        # A folder containing one page is displayed as that page on the site.
+        if node['type'] == 'dir' and len(node['children']) == 1 and node['children'][0]['type'] == 'file':
+            changed.append(node['children'][0]['id'])
+        elif node['type'] == 'file':
+            for parent in self.meta_map.values():
+                if parent['type'] == 'dir' and len(parent['children']) == 1 and parent['children'][0]['id'] == item_id:
+                    changed.append(parent['id'])
+                    break
+        for changed_id in changed:
+            self.meta_map[changed_id]['name'] = name
+        return changed
 
     def save_to_yaml(self, tree):
-        pending = []
+        if not self._loaded:
+            raise ValueError('请先成功读取目录，再保存导航。')
 
-        def check_editable(entries, directory, *, nested=False):
-            for entry in entries:
-                if isinstance(entry, str):
-                    pattern = any(char in entry for char in '*?[]{}!@')
-                    supported = entry == '*' and not nested
-                    literal = (self.docs_dir / directory / entry).exists()
-                    unsupported = pattern and not supported and not literal
-                elif 'glob' in entry:
-                    unsupported = (nested or entry['glob'] != '*'
-                                   or bool(set(entry) - {'glob', 'ignore_no_matches'}))
-                else:
-                    value = next(iter(entry.values()))
-                    if isinstance(value, list):
-                        check_editable(value, directory, nested=True)
-                    unsupported = False
-                if unsupported:
-                    raise ValueError(
-                        f'{directory}/{NAV_FILENAME} 使用了自定义通配规则。'
-                        '请直接编辑该配置文件；原配置未更改。'
-                    )
-
-        def entries(ids, directory):
+        def entries(ids):
             result = []
             for item_id in ids:
                 meta = self.meta_map[item_id]
-                if meta['type'] == 'group':
-                    value = entries(tree.get_children(item_id), directory)
-                elif meta['type'] == 'link':
+                if meta['type'] in ('file', 'link'):
                     value = meta['path']
                 else:
-                    value = posixpath.relpath(meta['path'], directory)
-                    if meta['type'] == 'dir':
-                        save_directory(meta['path'], tree.get_children(item_id))
+                    children = tree.get_children(item_id)
+                    if meta['type'] == 'dir' and len(children) == 1 and self.meta_map[children[0]]['type'] == 'file':
+                        value = self.meta_map[children[0]]['path']
+                    else:
+                        value = entries(children)
                 result.append({meta['name']: value})
             return result
 
-        def save_directory(directory, ids):
-            settings = dict(self._settings.get(directory, {}))
-            original_entries = settings.get('nav', [])
-            check_editable(original_entries, directory)
-            settings['nav'] = entries(ids, directory)
-            # Keep simple catch-all patterns and inherited append settings intact.
-            settings['nav'].extend(entry for entry in original_entries
-                                   if entry == '*' or isinstance(entry, dict) and 'glob' in entry)
-            if 'nav' not in self._settings.get(directory, {}):
-                settings['nav'].append({'glob': '*', 'ignore_no_matches': True})
-            pending.append((self.docs_dir / directory / NAV_FILENAME, settings))
-
-        save_directory('.', tree.get_roots())
-        # Validate and serialize everything before changing any configuration file.
-        outputs = [(path, yaml.safe_dump(settings, allow_unicode=True, sort_keys=False)) for path, settings in pending]
-        for path, contents in outputs:
-            read_rules(contents, path)
-        for path, contents in outputs:
-            temporary = path.with_name(path.name + '.tmp')
-            try:
-                temporary.write_text(contents, encoding='utf-8')
-                if path.exists():
-                    shutil.copy2(path, str(path) + '.bak')
-                os.replace(temporary, path)
-            finally:
-                temporary.unlink(missing_ok=True)
+        nav = entries(tree.get_roots())
+        original, config = self._read_config()
+        document = yaml.compose(original)
+        nav_yaml = yaml.safe_dump({'nav': nav}, allow_unicode=True, sort_keys=False)
+        lines = original.splitlines(keepends=True)
+        nav_key = None
+        next_key = len(lines)
+        if isinstance(document, yaml.MappingNode):
+            for index, (key, _) in enumerate(document.value):
+                if key.value == 'nav':
+                    nav_key = key.start_mark.line
+                    if index + 1 < len(document.value):
+                        next_key = document.value[index + 1][0].start_mark.line
+                    break
+        if nav_key is None:
+            contents = original.rstrip() + '\n\n' + nav_yaml
+        else:
+            contents = ''.join(lines[:nav_key]) + nav_yaml + ''.join(lines[next_key:])
+        expected = {**config, 'nav': nav}
+        if yaml.safe_load(contents) != expected:
+            raise ValueError('保存验证失败，原配置未更改。')
+        temporary = self.config_file.with_name(self.config_file.name + '.tmp')
+        try:
+            temporary.write_text(contents, encoding='utf-8')
+            shutil.copy2(self.config_file, str(self.config_file) + '.bak')
+            os.replace(temporary, self.config_file)
+        finally:
+            temporary.unlink(missing_ok=True)
         return True

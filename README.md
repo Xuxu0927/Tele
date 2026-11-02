@@ -43,25 +43,22 @@
 
 ## 文章与网站目录
 
-网站使用 Awesome Nav 自动生成目录。日常在 docs 中新增、删除或移动 Markdown 后，直接预览或构建即可，无需先运行 exe 同步。文章内部的相对链接需要随文件位置调整。
+网站目录由根目录 mkdocs.yml 的 nav 列表管理。新增、删除或移动 Markdown 后，打开 gui_nav.exe 扫描目录并点击“保存更新”，再预览或构建网站。文章内部的相对链接需要随文件位置调整。
 
-需要调整顺序或显示名称时，双击 gui_nav.exe：
+- 拖拽调整同级项目的先后顺序，拖动时会提示放置位置。
+- 双击项目或按 F2 修改网站显示名称，不改动文件名和文章内容。
+- 绿色项目是尚未保存到网站导航的新增文章；点击“保存更新”或按 Ctrl+S 后加入目录。
+- 可展开、收起全部目录，按 F5 重新扫描。保存后窗口保持打开，并显示保存结果。
 
-- 拖拽调整同级项目的先后顺序。
-- 双击项目或点击“修改名称”，修改网站显示的名称，不改动文件名和文章内容。
-- 点击“保存更新”后，下次预览或构建生效。绿色项目已经会自动出现在网站上，保存只是固定当前顺序和名称。
+编辑器使用浅色界面，并提供窗口淡入、拖拽提示和保存反馈。修改尚未保存时，关闭窗口或重新扫描前会提示。保存会生成 mkdocs.yml.bak 备份，并保留主题、插件等其他配置。
 
-各目录的 .nav.yml 保存本层顺序和名称；docs/.nav.yml 设置全站自动收录、自然排序及单篇目录展平。新增文章自动排在该层已固定项目后。也可以直接编辑这些配置文件，保存时会生成 .bak 备份。
-
-编辑器支持常规顺序、名称以及目录级隐藏和排序设置。如果手写了带筛选条件的复杂通配规则，请直接编辑对应的 .nav.yml；exe 会在保存前提示并保留原文件，避免隐藏内容被意外收录。
-
-mkdocs.yml 只管理主题和插件，不再存放逐篇文章列表。hooks/auto_navigation.py 在构建时略过已经删除或移动的旧入口，不会改写 Markdown 或保存的排序规则。
+每个文件夹不再需要 .nav.yml，构建过程不使用自动导航插件或导航钩子。单篇文章文件夹会在网站导航中合并为一个入口。
 
 ## 重新打包导航编辑器
 
-修改 gui_nav.py 后，需要重新打包才能让双击运行的 gui_nav.exe 使用新逻辑。先关闭正在运行的导航编辑器，再执行以下命令；打包工具仅用于生成 exe，不是网站运行依赖。
+修改 gui_nav.py 或 navigation.py 后，需要重新打包才能让双击运行的 gui_nav.exe 使用新逻辑。先关闭正在运行的导航编辑器，再执行以下命令；打包工具仅用于生成 exe，不是网站运行依赖。
 
 ~~~powershell
 .\env\Scripts\python.exe -m pip install pyinstaller==6.22.3
-.\env\Scripts\python.exe -m PyInstaller --noconfirm --onefile --windowed --collect-all customtkinter --collect-all mkdocs_awesome_nav --distpath . --workpath build/pyinstaller --specpath build --name gui_nav gui_nav.py
+.\env\Scripts\python.exe -m PyInstaller --noconfirm --onefile --windowed --collect-all customtkinter --distpath . --workpath build/pyinstaller --specpath build --name gui_nav gui_nav.py
 ~~~
